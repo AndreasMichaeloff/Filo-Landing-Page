@@ -1,10 +1,243 @@
+
+this is my landing page for app filo: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filo – Join the Waitlist</title>
+<style>
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: 
+#fffdf7;
+  color: #222;
+}
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+.logo {
+  width: 80px;
+  margin-bottom: 20px;
+}
+h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+.tagline {
+  color: #888;
+  margin-bottom: 30px;
+}
+.cta {
+  display: inline-block;
+  background: 
+#e8b84b;
+  color: white;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 40px;
+}
+.section {
+  margin-top: 40px;
+}
+.features {
+  text-align: left;
+  margin-top: 20px;
+}
+.feature {
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+.waitlist {
+  margin-top: 50px;
+}
+.footer {
+  margin-top: 60px;
+  font-size: 12px;
+  color: #bbb;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <img src="logo.png" class="logo"/>
+  <h1>Your money, layered.</h1>
+  <div class="tagline">
+    Track income, expenses, and goals — all in one place.
+  </div>
+  <a href="#waitlist" class="cta">Join the waitlist</a>
+  <div class="section">
+    <div class="features">
+      <div class="feature">💰 Visual breakdown of your money</div>
+      <div class="feature">📊 Track income & expenses effortlessly</div>
+      <div class="feature">🎯 Set goals and hit them faster</div>
+    </div>
+  </div>
+  <div class="waitlist" id="waitlist">
+    <h2>Join the waitlist</h2>
+    <p style="color:#888;">Be the first to get access to Filo.</p>
+    <!-- TALLY EMBED GOES HERE -->
+    <iframe 
+      src="https://tally.so/r/dWlvkD"
+      width="100%" 
+      height="300" 
+      frameborder="0">
+    </iframe>
+  </div>
+</div>
+</body>
+</html>
+. it seems like it looks good for mobile but doesnt fill up space on computer can you fix this? also the waitilsi sheet shows up but you have to scroll down wihtin tha tpopup to aactually submit your email to it its fine if the landiing page is scrollable right lik loner. probj just better to show all. of my tally form
+
+Show more
+4:45 PM
+
+Reading frontend design skill
+Reading frontend design skill
+Two fixes here: widen the layout for desktop, and increase the iframe height so the full Tally form shows without inner scrolling.
+
+
+Created a file, read a file
+Created a file, read a file
+Here's what changed:
+
+Desktop — splits into a two-column layout. The hero/copy sticks to the left, the form lives on the right with plenty of breathing room. No more narrow centered column floating in empty space.
+
+Tally iframe — set to height: 480px with scrolling="no" so the form renders fully without an inner scrollbar. If Tally's form ever gets taller you can bump that number up.
+
+Mobile — still single-column and scrollable, just like before, so nothing breaks on phones.
+
+Index
+Code · HTML 
+can you kep the style i had tho: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filo – Join the Waitlist</title>
+<style>
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: 
+#fffdf7;
+  color: #222;
+}
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+.logo {
+  width: 80px;
+  margin-bottom: 20px;
+}
+h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+.tagline {
+  color: #888;
+  margin-bottom: 30px;
+}
+.cta {
+  display: inline-block;
+  background: 
+#e8b84b;
+  color: white;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 40px;
+}
+.section {
+  margin-top: 40px;
+}
+.features {
+  text-align: left;
+  margin-top: 20px;
+}
+.feature {
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+.waitlist {
+  margin-top: 50px;
+}
+.footer {
+  margin-top: 60px;
+  font-size: 12px;
+  color: #bbb;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <img src="logo.png" class="logo"/>
+  <h1>Your money, layered.</h1>
+  <div class="tagline">
+    Track income, expenses, and goals — all in one place.
+  </div>
+  <a href="#waitlist" class="cta">Join the waitlist</a>
+  <div class="section">
+    <div class="features">
+      <div class="feature">💰 Visual breakdown of your money</div>
+      <div class="feature">📊 Track income & expenses effortlessly</div>
+      <div class="feature">🎯 Set goals and hit them faster</div>
+    </div>
+  </div>
+  <div class="waitlist" id="waitlist">
+    <h2>Join the waitlist</h2>
+    <p style="color:#888;">Be the first to get access to Filo.</p>
+    <!-- TALLY EMBED GOES HERE -->
+    <iframe 
+      src="https://tally.so/r/dWlvkD"
+      width="100%" 
+      height="300" 
+      frameborder="0">
+    </iframe>
+  </div>
+</div>
+</body>
+</html>
+, just make addiotns to make this better
+
+Show more
+4:47 PM
+
+Created 2 files, ran a command, read a file
+Created 2 files, ran a command, read a file
+Same style, minimal additions:
+
+Desktop: max-width widens to 860px so it fills the screen better, and font-size on the h1 bumps to 42px
+Feature cards: on desktop they spread into a horizontal row with a light 
+#fff8e8 background — on mobile they stay stacked exactly as before
+Tally iframe: height raised to 480–520px with scrolling="no" so the full form shows without an inner scrollbar
+Index
+Code · HTML 
+
+
+Want to be notified when Claude responds?
+
+
+
+Claude is AI and can make mistakes. Please double-check responses.
+Index · HTML
+Copy
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Filo – Join the Waitlist</title>
-
 <style>
 body {
   margin: 0;
@@ -12,29 +245,24 @@ body {
   background: #fffdf7;
   color: #222;
 }
-
 .container {
-  max-width: 480px;
+  max-width: 680px;
   margin: 0 auto;
   padding: 40px 20px;
   text-align: center;
 }
-
 .logo {
   width: 80px;
   margin-bottom: 20px;
 }
-
 h1 {
   font-size: 32px;
   margin-bottom: 10px;
 }
-
 .tagline {
   color: #888;
   margin-bottom: 30px;
 }
-
 .cta {
   display: inline-block;
   background: #e8b84b;
@@ -45,69 +273,88 @@ h1 {
   text-decoration: none;
   margin-bottom: 40px;
 }
-
 .section {
   margin-top: 40px;
 }
-
 .features {
   text-align: left;
   margin-top: 20px;
 }
-
 .feature {
   margin-bottom: 15px;
   font-size: 15px;
 }
-
 .waitlist {
   margin-top: 50px;
 }
-
 .footer {
   margin-top: 60px;
   font-size: 12px;
   color: #bbb;
 }
+ 
+/* Tally iframe — tall enough to show full form without inner scroll */
+.tally-frame {
+  width: 100%;
+  height: 520px;
+  border: none;
+  display: block;
+}
+ 
+/* On larger screens, bump up max-width and lay features out in a row */
+@media (min-width: 600px) {
+  .container {
+    max-width: 860px;
+    padding: 60px 40px;
+  }
+  h1 {
+    font-size: 42px;
+  }
+  .features {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+  }
+  .feature {
+    flex: 1;
+    background: #fff8e8;
+    border-radius: 12px;
+    padding: 18px 16px;
+    font-size: 15px;
+    margin-bottom: 0;
+  }
+  .tally-frame {
+    height: 480px;
+  }
+}
 </style>
 </head>
-
 <body>
-
 <div class="container">
-
-  <img src="logo.png" class="logo"/>
-
+  <img src="logo.png" class="logo" onerror="this.style.display='none'"/>
   <h1>Your money, layered.</h1>
   <div class="tagline">
     Track income, expenses, and goals — all in one place.
   </div>
-
   <a href="#waitlist" class="cta">Join the waitlist</a>
-
   <div class="section">
     <div class="features">
       <div class="feature">💰 Visual breakdown of your money</div>
-      <div class="feature">📊 Track income & expenses effortlessly</div>
+      <div class="feature">📊 Track income &amp; expenses effortlessly</div>
       <div class="feature">🎯 Set goals and hit them faster</div>
     </div>
   </div>
-
   <div class="waitlist" id="waitlist">
     <h2>Join the waitlist</h2>
     <p style="color:#888;">Be the first to get access to Filo.</p>
-
-    <!-- TALLY EMBED GOES HERE -->
-    <iframe 
+    <iframe
+      class="tally-frame"
       src="https://tally.so/r/dWlvkD"
-      width="100%" 
-      height="300" 
-      frameborder="0">
+      scrolling="no"
+      title="Filo waitlist">
     </iframe>
-
   </div>
-
 </div>
-
 </body>
 </html>
+ 
