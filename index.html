@@ -46,10 +46,48 @@ h1 {
   text-align: left;
   margin-top: 20px;
 }
+
+/* ── Feature cards ── */
 .feature {
   margin-bottom: 15px;
   font-size: 15px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
 }
+.feature-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #fff8e8;
+  border: 1.5px solid #f0d98a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.feature-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: #c49a3a;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.feature-text strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 2px;
+}
+.feature-text span {
+  font-size: 13px;
+  color: #999;
+  line-height: 1.4;
+}
+
 .waitlist {
   margin-top: 50px;
 }
@@ -125,16 +163,19 @@ h1 {
   }
   .features {
     display: flex;
-    gap: 24px;
+    gap: 20px;
     justify-content: center;
   }
   .feature {
     flex: 1;
-    background: #fff8e8;
-    border-radius: 12px;
-    padding: 18px 16px;
+    background: #fff;
+    border: 1.5px solid #f0e8d0;
+    border-radius: 16px;
+    padding: 20px 18px;
     font-size: 15px;
     margin-bottom: 0;
+    flex-direction: column;
+    gap: 14px;
   }
   .tally-frame {
     height: 480px;
@@ -150,10 +191,6 @@ h1 {
     Track income, expenses, and goals — all in one place.
   </div>
 
-  <!-- ── Waitlist counter ──
-       TO UPDATE: change the number in <strong> below.
-       e.g. when you hit 50 signups, change "23" to "50"
-  ── -->
   <div class="counter-bar">
     <div class="avatars">
       <div class="avatar">A</div>
@@ -169,9 +206,51 @@ h1 {
 
   <div class="section">
     <div class="features">
-      <div class="feature">* Visual breakdown of your money</div>
-      <div class="feature">* Track income &amp; expenses effortlessly</div>
-      <div class="feature">* Set goals and hit them faster</div>
+
+      <!-- Feature 1: Visual breakdown -->
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 12 L12 3 A9 9 0 0 1 21 12 Z"/>
+            <path d="M12 12 L3.5 7 A9 9 0 0 0 12 21 Z"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <strong>Visual breakdown</strong>
+          <span>See exactly where your money goes with clear, interactive charts.</span>
+        </div>
+      </div>
+
+      <!-- Feature 2: Track income & expenses -->
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24">
+            <polyline points="2 17 7 11 11 14 16 7 22 10"/>
+            <line x1="2" y1="21" x2="22" y2="21"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <strong>Track income &amp; expenses</strong>
+          <span>Log transactions in seconds and watch your finances update in real time.</span>
+        </div>
+      </div>
+
+      <!-- Feature 3: Goals -->
+      <div class="feature">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"/>
+            <circle cx="12" cy="12" r="5"/>
+            <circle cx="12" cy="12" r="1" fill="#c49a3a" stroke="none"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <strong>Set &amp; hit goals</strong>
+          <span>Set income targets and track your progress month by month.</span>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -186,9 +265,7 @@ h1 {
     </iframe>
   </div>
 
-  <div class="footer">
-    © 2026 Filo · No spam, ever.
-  </div>
+  <div class="footer">© 2026 Filo</div>
 </div>
 </body>
 </html>
