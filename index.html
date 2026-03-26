@@ -59,7 +59,54 @@ h1 {
   color: #bbb;
 }
 
-/* Tally iframe — tall enough to show full form without inner scroll */
+/* ── Waitlist counter ── */
+.counter-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff8e8;
+  border: 1.5px solid #f0d98a;
+  border-radius: 999px;
+  padding: 8px 20px;
+  margin-bottom: 32px;
+  font-size: 14px;
+  color: #a07010;
+  font-weight: 500;
+}
+.counter-bar .avatars {
+  display: flex;
+}
+.counter-bar .avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e8b84b;
+  border: 2px solid #fffdf7;
+  margin-left: -6px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+}
+.counter-bar .avatar:first-child { margin-left: 0; }
+.counter-bar .avatar:nth-child(2) { background: #d4a843; }
+.counter-bar .avatar:nth-child(3) { background: #c49a3a; }
+.counter-dot {
+  width: 7px;
+  height: 7px;
+  background: #e8b84b;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* Tally iframe */
 .tally-frame {
   width: 100%;
   height: 520px;
@@ -67,7 +114,7 @@ h1 {
   display: block;
 }
 
-/* On larger screens, bump up max-width and lay features out in a row */
+/* Desktop */
 @media (min-width: 600px) {
   .container {
     max-width: 860px;
@@ -102,14 +149,32 @@ h1 {
   <div class="tagline">
     Track income, expenses, and goals — all in one place.
   </div>
+
+  <!-- ── Waitlist counter ──
+       TO UPDATE: change the number in <strong> below.
+       e.g. when you hit 50 signups, change "23" to "50"
+  ── -->
+  <div class="counter-bar">
+    <div class="avatars">
+      <div class="avatar">A</div>
+      <div class="avatar">J</div>
+      <div class="avatar">+</div>
+    </div>
+    <div class="counter-dot"></div>
+    <span><strong id="waitlist-count">23</strong> people already on the waitlist</span>
+  </div>
+
+  <br>
   <a href="#waitlist" class="cta">Join the waitlist</a>
+
   <div class="section">
     <div class="features">
-      <div class="feature">💰 Visual breakdown of your money</div>
-      <div class="feature">📊 Track income &amp; expenses effortlessly</div>
-      <div class="feature">🎯 Set goals and hit them faster</div>
+      <div class="feature">* Visual breakdown of your money</div>
+      <div class="feature">* Track income &amp; expenses effortlessly</div>
+      <div class="feature">* Set goals and hit them faster</div>
     </div>
   </div>
+
   <div class="waitlist" id="waitlist">
     <h2>Join the waitlist</h2>
     <p style="color:#888;">Be the first to get access to Filo.</p>
@@ -119,6 +184,10 @@ h1 {
       scrolling="no"
       title="Filo waitlist">
     </iframe>
+  </div>
+
+  <div class="footer">
+    © 2026 Filo · No spam, ever.
   </div>
 </div>
 </body>
