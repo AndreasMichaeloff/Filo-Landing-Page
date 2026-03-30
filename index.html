@@ -9,14 +9,25 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #fffdf7;
-  color: #222;
+  color: white;
+  background: linear-gradient(135deg, #3b0a57, #6a0f5f, #2d004d);
 }
 
+/* NAVBAR */
+.navbar {
+  width: 100%;
+  padding: 20px 40px;
+}
+
+.navbar img {
+  width: 40px;
+}
+
+/* CONTAINER */
 .container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 60px 20px;
+  padding: 40px 20px 80px;
 }
 
 /* HERO */
@@ -24,39 +35,40 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
-  margin-bottom: 60px;
+  gap: 50px;
 }
 
+/* LEFT SIDE */
 .hero-left {
-  max-width: 480px;
+  max-width: 600px;
   text-align: center;
 }
 
-.logo {
-  width: 80px;
+h1 {
+  font-size: 42px;
+  line-height: 1.1;
   margin-bottom: 20px;
+  font-weight: 700;
 }
 
-h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
+h1 span {
+  color: #e8b84b;
 }
 
 .tagline {
-  color: #888;
+  color: #ddd;
+  font-size: 18px;
   margin-bottom: 30px;
 }
 
 .cta {
   display: inline-block;
-  background: #e8b84b;
+  background: #ff7a5c;
   color: white;
-  padding: 14px 24px;
-  border-radius: 12px;
+  padding: 16px 28px;
+  border-radius: 999px;
   font-weight: 600;
   text-decoration: none;
-  margin-top: 10px;
 }
 
 /* PHONE */
@@ -67,19 +79,11 @@ h1 {
 
 .phone {
   position: relative;
-  width: 260px;
+  width: 270px;
   border-radius: 40px;
   padding: 10px;
   background: #111;
-  box-shadow: 
-    0 25px 60px rgba(0,0,0,0.25),
-    inset 0 0 0 2px #333;
-  transform: rotate(-2deg);
-  transition: 0.3s ease;
-}
-
-.phone:hover {
-  transform: rotate(0deg) scale(1.03);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
 }
 
 .phone img {
@@ -99,105 +103,11 @@ h1 {
   height: 25px;
   background: #000;
   border-radius: 20px;
-  z-index: 2;
-}
-
-/* Glow */
-.phone::after {
-  content: "";
-  position: absolute;
-  inset: -20px;
-  border-radius: 50px;
-  background: radial-gradient(circle, rgba(232,184,75,0.25), transparent 70%);
-  z-index: -1;
-}
-
-/* Counter */
-.counter-bar {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: #fff8e8;
-  border: 1.5px solid #f0d98a;
-  border-radius: 999px;
-  padding: 8px 20px;
-  margin-bottom: 20px;
-  font-size: 14px;
-}
-
-.counter-bar .avatars {
-  display: flex;
-}
-
-.avatar {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #e8b84b;
-  border: 2px solid #fffdf7;
-  margin-left: -6px;
-  font-size: 11px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-}
-
-.avatar:first-child { margin-left: 0; }
-
-.counter-dot {
-  width: 7px;
-  height: 7px;
-  background: #e8b84b;
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  50% { opacity: 0.5; transform: scale(0.8); }
-}
-
-/* FEATURES */
-.section {
-  margin-top: 40px;
-}
-
-.features {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.feature {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
-
-.feature-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: #fff8e8;
-  border: 1.5px solid #f0d98a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.feature-text strong {
-  display: block;
-  font-size: 14px;
-}
-
-.feature-text span {
-  font-size: 13px;
-  color: #999;
 }
 
 /* WAITLIST */
 .waitlist {
-  margin-top: 60px;
+  margin-top: 80px;
   text-align: center;
 }
 
@@ -219,33 +129,20 @@ h1 {
 @media (min-width: 900px) {
   .hero {
     flex-direction: row;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
   }
 
   .hero-left {
     text-align: left;
   }
 
-  .hero-right {
-    justify-content: flex-end;
+  h1 {
+    font-size: 64px;
   }
 
   .phone {
     width: 320px;
-  }
-
-  .features {
-    flex-direction: row;
-  }
-
-  .feature {
-    flex: 1;
-    background: #fff;
-    border: 1.5px solid #f0e8d0;
-    border-radius: 16px;
-    padding: 20px;
-    flex-direction: column;
   }
 }
 </style>
@@ -253,28 +150,21 @@ h1 {
 
 <body>
 
+<!-- NAVBAR -->
+<div class="navbar">
+  <img src="filo.png" alt="Filo Logo">
+</div>
+
 <div class="container">
 
   <!-- HERO -->
   <div class="hero">
 
     <div class="hero-left">
-      <img src="logo.png" class="logo">
-
-      <h1>Your money, layered.</h1>
+      <h1>Your money, <span>layered.</span></h1>
 
       <div class="tagline">
         Track income, expenses, and goals — all in one place.
-      </div>
-
-      <div class="counter-bar">
-        <div class="avatars">
-          <div class="avatar">A</div>
-          <div class="avatar">J</div>
-          <div class="avatar">+</div>
-        </div>
-        <div class="counter-dot"></div>
-        <span><strong>3</strong> people already on the waitlist</span>
       </div>
 
       <a href="#waitlist" class="cta">Join the waitlist</a>
@@ -288,41 +178,10 @@ h1 {
 
   </div>
 
-  <!-- FEATURES -->
-  <div class="section">
-    <div class="features">
-
-      <div class="feature">
-        <div class="feature-icon">📊</div>
-        <div class="feature-text">
-          <strong>Visual breakdown</strong>
-          <span>See exactly where your money goes.</span>
-        </div>
-      </div>
-
-      <div class="feature">
-        <div class="feature-icon">📈</div>
-        <div class="feature-text">
-          <strong>Track income</strong>
-          <span>Log transactions in seconds.</span>
-        </div>
-      </div>
-
-      <div class="feature">
-        <div class="feature-icon">🎯</div>
-        <div class="feature-text">
-          <strong>Set goals</strong>
-          <span>Track progress monthly.</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
   <!-- WAITLIST -->
   <div class="waitlist" id="waitlist">
     <h2>Join the waitlist</h2>
-    <p style="color:#888;">Be the first to get access to Filo.</p>
+    <p style="color:#ccc;">Be the first to get access to Filo.</p>
 
     <iframe
       class="tally-frame"
