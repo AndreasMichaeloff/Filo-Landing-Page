@@ -59,14 +59,14 @@
     text-decoration: none;
     border: none;
     cursor: pointer;
-    transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
+    transition: background 0.18s, transform 0.12s, box-shadow 0.18s, color 0.18s;
     background: var(--gold);
     color: #fff;
     box-shadow: 0 2px 12px rgba(232,184,75,0.35);
   }
   .pill-btn:hover {
     background: var(--gold-dk);
-    transform: translateY(-1px);
+    color: #1a1410;
     box-shadow: 0 6px 20px rgba(232,184,75,0.45);
   }
   .pill-btn:active { transform: scale(0.97); }
@@ -83,7 +83,7 @@
   }
   .nav .pill-btn:hover {
     background: var(--cream);
-    transform: translateY(-1px);
+    color: #1a1410;
     box-shadow: 0 5px 18px rgba(0,0,0,0.16);
   }
 
@@ -95,6 +95,7 @@
   }
   .pill-btn.learn:hover {
     background: var(--gold-dk);
+    color: #1a1410;
     box-shadow: 0 6px 22px rgba(232,184,75,0.5);
   }
 
@@ -336,22 +337,46 @@
     line-height: 1.72;
   }
 
+  /* ── WHY GRID — 2×2, formation animation ─────────────────────────────── */
   .why-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
 
+  /* Each card animates in from its corner direction */
   .why-card {
     background: #fff;
     border: 1.5px solid var(--border);
     border-radius: 24px;
-    padding: 32px 28px;
+    padding: 36px 30px;
     transition: transform 0.22s, box-shadow 0.22s;
+    /* Formation start state */
+    opacity: 0;
+    transform: scale(0.88) translateY(30px);
+    transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.22s;
   }
+  /* Stagger each card's direction slightly for formation feel */
+  .why-card:nth-child(1) { transform: scale(0.88) translate(-20px, 20px); }
+  .why-card:nth-child(2) { transform: scale(0.88) translate( 20px, 20px); }
+  .why-card:nth-child(3) { transform: scale(0.88) translate(-20px,-20px); }
+  .why-card:nth-child(4) { transform: scale(0.88) translate( 20px,-20px); }
+
+  .why-card.card-visible {
+    opacity: 1;
+    transform: scale(1) translate(0, 0) !important;
+  }
+  .why-card:nth-child(2) { transition-delay: 0.08s; }
+  .why-card:nth-child(3) { transition-delay: 0.16s; }
+  .why-card:nth-child(4) { transition-delay: 0.24s; }
+
   .why-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-4px) !important;
     box-shadow: 0 16px 48px rgba(232,184,75,0.13);
+  }
+
+  @media (max-width: 640px) {
+    .why-grid { grid-template-columns: 1fr; }
   }
 
   /* SVG icon container */
@@ -460,11 +485,11 @@
 
 <!-- NAV -->
 <nav class="nav">
-  <div class="nav-logo">
+  <a href="#" class="nav-logo" style="text-decoration:none;">
     <img src="filo-alt logo.png" alt="Filo"
          onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
     <span class="nav-logo-fallback" style="display:none;">filo</span>
-  </div>
+  </a>
   <a href="#waitlist" class="pill-btn">Unlock Filo</a>
 </nav>
 
@@ -510,7 +535,7 @@
   <div class="why-grid">
 
     <!-- Multiple streams -->
-    <div class="why-card fade-up">
+    <div class="why-card">
       <div class="why-icon">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M9.5 17.5 12 11l2.5 6.5"/></svg>
       </div>
@@ -519,7 +544,7 @@
     </div>
 
     <!-- Goal-first -->
-    <div class="why-card fade-up" style="transition-delay:0.08s">
+    <div class="why-card">
       <div class="why-icon">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
       </div>
@@ -527,26 +552,8 @@
       <p>Set an income goal and watch your rings fill up. Every dollar is progress toward something that matters — not just a number on a spreadsheet.</p>
     </div>
 
-    <!-- Trends -->
-    <div class="why-card fade-up" style="transition-delay:0.16s">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24"><polyline points="3 17 8 10 13 13 18 6"/><path d="M21 6h-3v3"/></svg>
-      </div>
-      <h3>90-day trends</h3>
-      <p>Beautiful wavy charts show your income and expenses flowing over time — see patterns, celebrate wins, and catch problems early.</p>
-    </div>
-
-    <!-- Instant clarity -->
-    <div class="why-card fade-up" style="transition-delay:0.24s">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      </div>
-      <h3>Instant clarity</h3>
-      <p>No syncing required. Add a transaction in seconds. Your home screen always shows exactly where this month stands — income, expenses, and net.</p>
-    </div>
-
     <!-- Private -->
-    <div class="why-card fade-up" style="transition-delay:0.32s">
+    <div class="why-card">
       <div class="why-icon">
         <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
       </div>
@@ -555,7 +562,7 @@
     </div>
 
     <!-- Beautiful -->
-    <div class="why-card fade-up" style="transition-delay:0.40s">
+    <div class="why-card">
       <div class="why-icon">
         <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 4-3 7-7 11C8 16 5 13 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
       </div>
@@ -586,11 +593,28 @@
 </footer>
 
 <script>
-  const observer = new IntersectionObserver(
+  // Fade-up for general elements
+  const fadeObserver = new IntersectionObserver(
     entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
     { threshold: 0.12 }
   );
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+  // Formation animation for the 2×2 why-cards
+  // Fires once when the grid scrolls into view, then staggers each card
+  const grid = document.querySelector('.why-grid');
+  const cards = document.querySelectorAll('.why-card');
+  const cardObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        cards.forEach((card, i) => {
+          setTimeout(() => card.classList.add('card-visible'), i * 110);
+        });
+        cardObserver.disconnect(); // only trigger once
+      }
+    });
+  }, { threshold: 0.15 });
+  if (grid) cardObserver.observe(grid);
 </script>
 </body>
 </html>
