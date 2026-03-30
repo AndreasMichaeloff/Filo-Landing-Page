@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Filo – Join the Waitlist</title>
+
 <style>
 body {
   margin: 0;
@@ -11,24 +12,42 @@ body {
   background: #fffdf7;
   color: #222;
 }
+
 .container {
-  max-width: 680px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 60px 20px;
+}
+
+/* HERO */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.hero-left {
+  max-width: 480px;
   text-align: center;
 }
+
 .logo {
   width: 80px;
   margin-bottom: 20px;
 }
+
 h1 {
-  font-size: 32px;
+  font-size: 36px;
   margin-bottom: 10px;
 }
+
 .tagline {
   color: #888;
   margin-bottom: 30px;
 }
+
 .cta {
   display: inline-block;
   background: #e8b84b;
@@ -37,67 +56,63 @@ h1 {
   border-radius: 12px;
   font-weight: 600;
   text-decoration: none;
-  margin-bottom: 40px;
-}
-.section {
-  margin-top: 40px;
-}
-.features {
-  text-align: left;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
-/* ── Feature cards ── */
-.feature {
-  margin-bottom: 15px;
-  font-size: 15px;
+/* PHONE */
+.hero-right {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-.feature-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: #fff8e8;
-  border: 1.5px solid #f0d98a;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
-.feature-icon svg {
-  width: 20px;
-  height: 20px;
-  stroke: #c49a3a;
-  fill: none;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+
+.phone {
+  position: relative;
+  width: 260px;
+  border-radius: 40px;
+  padding: 10px;
+  background: #111;
+  box-shadow: 
+    0 25px 60px rgba(0,0,0,0.25),
+    inset 0 0 0 2px #333;
+  transform: rotate(-2deg);
+  transition: 0.3s ease;
 }
-.feature-text strong {
+
+.phone:hover {
+  transform: rotate(0deg) scale(1.03);
+}
+
+.phone img {
+  width: 100%;
+  border-radius: 30px;
   display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: #222;
-  margin-bottom: 2px;
-}
-.feature-text span {
-  font-size: 13px;
-  color: #999;
-  line-height: 1.4;
 }
 
-.waitlist {
-  margin-top: 50px;
-}
-.footer {
-  margin-top: 60px;
-  font-size: 12px;
-  color: #bbb;
+/* Notch */
+.phone::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 25px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 2;
 }
 
-/* ── Waitlist counter ── */
+/* Glow */
+.phone::after {
+  content: "";
+  position: absolute;
+  inset: -20px;
+  border-radius: 50px;
+  background: radial-gradient(circle, rgba(232,184,75,0.25), transparent 70%);
+  z-index: -1;
+}
+
+/* Counter */
 .counter-bar {
   display: inline-flex;
   align-items: center;
@@ -106,15 +121,15 @@ h1 {
   border: 1.5px solid #f0d98a;
   border-radius: 999px;
   padding: 8px 20px;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
   font-size: 14px;
-  color: #a07010;
-  font-weight: 500;
 }
+
 .counter-bar .avatars {
   display: flex;
 }
-.counter-bar .avatar {
+
+.avatar {
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -126,146 +141,199 @@ h1 {
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-weight: 700;
 }
-.counter-bar .avatar:first-child { margin-left: 0; }
-.counter-bar .avatar:nth-child(2) { background: #d4a843; }
-.counter-bar .avatar:nth-child(3) { background: #c49a3a; }
+
+.avatar:first-child { margin-left: 0; }
+
 .counter-dot {
   width: 7px;
   height: 7px;
   background: #e8b84b;
   border-radius: 50%;
   animation: pulse 2s infinite;
-  flex-shrink: 0;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.5; transform: scale(0.8); }
 }
 
-/* Tally iframe */
+@keyframes pulse {
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* FEATURES */
+.section {
+  margin-top: 40px;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.feature {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #fff8e8;
+  border: 1.5px solid #f0d98a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-text strong {
+  display: block;
+  font-size: 14px;
+}
+
+.feature-text span {
+  font-size: 13px;
+  color: #999;
+}
+
+/* WAITLIST */
+.waitlist {
+  margin-top: 60px;
+  text-align: center;
+}
+
 .tally-frame {
   width: 100%;
   height: 700px;
   border: none;
-  display: block;
 }
 
-/* Desktop */
-@media (min-width: 600px) {
-  .container {
-    max-width: 860px;
-    padding: 60px 40px;
+/* FOOTER */
+.footer {
+  margin-top: 60px;
+  font-size: 12px;
+  color: #bbb;
+  text-align: center;
+}
+
+/* DESKTOP */
+@media (min-width: 900px) {
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
-  h1 {
-    font-size: 42px;
+
+  .hero-left {
+    text-align: left;
   }
+
+  .hero-right {
+    justify-content: flex-end;
+  }
+
+  .phone {
+    width: 320px;
+  }
+
   .features {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
+    flex-direction: row;
   }
+
   .feature {
     flex: 1;
     background: #fff;
     border: 1.5px solid #f0e8d0;
     border-radius: 16px;
-    padding: 20px 18px;
-    font-size: 15px;
-    margin-bottom: 0;
+    padding: 20px;
     flex-direction: column;
-    gap: 14px;
-  }
-  .tally-frame {
-    height: 700px;
   }
 }
 </style>
 </head>
+
 <body>
+
 <div class="container">
-  <img src="logo.png" class="logo" onerror="this.style.display='none'"/>
-  <h1>Your money, layered.</h1>
-  <div class="tagline">
-    Track income, expenses, and goals — all in one place.
-  </div>
 
-  <div class="counter-bar">
-    <div class="avatars">
-      <div class="avatar">A</div>
-      <div class="avatar">J</div>
-      <div class="avatar">+</div>
+  <!-- HERO -->
+  <div class="hero">
+
+    <div class="hero-left">
+      <img src="logo.png" class="logo">
+
+      <h1>Your money, layered.</h1>
+
+      <div class="tagline">
+        Track income, expenses, and goals — all in one place.
+      </div>
+
+      <div class="counter-bar">
+        <div class="avatars">
+          <div class="avatar">A</div>
+          <div class="avatar">J</div>
+          <div class="avatar">+</div>
+        </div>
+        <div class="counter-dot"></div>
+        <span><strong>3</strong> people already on the waitlist</span>
+      </div>
+
+      <a href="#waitlist" class="cta">Join the waitlist</a>
     </div>
-    <div class="counter-dot"></div>
-    <span><strong id="waitlist-count">3</strong> people already on the waitlist</span>
+
+    <div class="hero-right">
+      <div class="phone">
+        <img src="your-app-screenshot.png" alt="Filo App">
+      </div>
+    </div>
+
   </div>
 
-  <br>
-  <a href="#waitlist" class="cta">Join the waitlist</a>
-
+  <!-- FEATURES -->
   <div class="section">
     <div class="features">
 
-      <!-- Feature 1: Visual breakdown -->
       <div class="feature">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M12 12 L12 3 A9 9 0 0 1 21 12 Z"/>
-            <path d="M12 12 L3.5 7 A9 9 0 0 0 12 21 Z"/>
-          </svg>
-        </div>
+        <div class="feature-icon">📊</div>
         <div class="feature-text">
           <strong>Visual breakdown</strong>
-          <span>See exactly where your money goes with clear, interactive charts.</span>
+          <span>See exactly where your money goes.</span>
         </div>
       </div>
 
-      <!-- Feature 2: Track income & expenses -->
       <div class="feature">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24">
-            <polyline points="2 17 7 11 11 14 16 7 22 10"/>
-            <line x1="2" y1="21" x2="22" y2="21"/>
-          </svg>
-        </div>
+        <div class="feature-icon">📈</div>
         <div class="feature-text">
-          <strong>Track income &amp; expenses</strong>
-          <span>Log transactions in seconds and watch your finances update in real time.</span>
+          <strong>Track income</strong>
+          <span>Log transactions in seconds.</span>
         </div>
       </div>
 
-      <!-- Feature 3: Goals -->
       <div class="feature">
-        <div class="feature-icon">
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="9"/>
-            <circle cx="12" cy="12" r="5"/>
-            <circle cx="12" cy="12" r="1" fill="#c49a3a" stroke="none"/>
-          </svg>
-        </div>
+        <div class="feature-icon">🎯</div>
         <div class="feature-text">
-          <strong>Set &amp; hit goals</strong>
-          <span>Set income targets and track your progress month by month.</span>
+          <strong>Set goals</strong>
+          <span>Track progress monthly.</span>
         </div>
       </div>
 
     </div>
   </div>
 
+  <!-- WAITLIST -->
   <div class="waitlist" id="waitlist">
     <h2>Join the waitlist</h2>
     <p style="color:#888;">Be the first to get access to Filo.</p>
+
     <iframe
       class="tally-frame"
       src="https://tally.so/r/dWlvkD"
-      scrolling="no"
-      title="Filo waitlist">
+      scrolling="no">
     </iframe>
   </div>
 
   <div class="footer">© 2026 Filo</div>
+
 </div>
+
 </body>
 </html>
