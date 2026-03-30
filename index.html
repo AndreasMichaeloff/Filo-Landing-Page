@@ -6,9 +6,6 @@
 <title>Filo – Your money, layered.</title>
 <link rel="icon" type="image/png" href="filo.png">
 <link rel="apple-touch-icon" href="filo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
   :root {
@@ -22,17 +19,16 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-family: serif;
     background: var(--cream);
     color: var(--text);
     overflow-x: hidden;
   }
 
-  /* ── NAV ─────────────────────────────────────────────────────────────── */
+  /* ── NAV ──────────────────────────────────────────────────────────────── */
   .nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -40,51 +36,33 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 32px;
+    padding: 8px 32px;
     background: #e8b84b;
-    border-bottom: none;
   }
 
-  .nav-logo img {
-    height: 46px;
-    display: block;
-  }
+  .nav-logo img { height: 48px; display: block; }
   .nav-logo-fallback {
-    font-family: 'DM Serif Display', serif;
-    font-size: 26px;
+    font-style: italic;
+    font-size: 28px;
     color: #fff;
-    letter-spacing: -1px;
   }
 
-  /* "Unlock Filo" button sits on gold bg — use white filled pill */
-  .nav .pill-btn {
-    background: #fff;
-    color: #b8861e;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
-  }
-  .nav .pill-btn:hover {
-    background: #fffdf7;
-    transform: translateY(-1px);
-    box-shadow: 0 5px 18px rgba(0,0,0,0.16);
-  }
-
+  /* ── Pill buttons ─────────────────────────────────────────────────────── */
   .pill-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: var(--gold);
-    color: #fff;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 11px 24px;
+    font-family: serif;
+    font-size: 15px;
+    padding: 13px 30px;
     border-radius: 999px;
     text-decoration: none;
     border: none;
     cursor: pointer;
     transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
+    background: var(--gold);
+    color: #fff;
     box-shadow: 0 2px 12px rgba(232,184,75,0.35);
-    letter-spacing: 0.01em;
   }
   .pill-btn:hover {
     background: var(--gold-dk);
@@ -93,68 +71,62 @@
   }
   .pill-btn:active { transform: scale(0.97); }
 
-  .pill-btn.outline {
-    background: transparent;
-    color: var(--gold-dk);
-    border: 2px solid var(--gold);
-    box-shadow: none;
+  /* nav button — white on gold bg */
+  .nav .pill-btn {
+    background: #fff;
+    color: #b8861e;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 14px;
+    padding: 11px 24px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
   }
-  .pill-btn.outline:hover {
-    background: rgba(232,184,75,0.08);
-    box-shadow: none;
+  .nav .pill-btn:hover {
+    background: var(--cream);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 18px rgba(0,0,0,0.16);
   }
 
-  /* ── HERO ────────────────────────────────────────────────────────────── */
+  /* hero Learn More — gold fill, white text */
+  .pill-btn.learn {
+    background: var(--gold);
+    color: #fff;
+    box-shadow: 0 2px 14px rgba(232,184,75,0.4);
+  }
+  .pill-btn.learn:hover {
+    background: var(--gold-dk);
+    box-shadow: 0 6px 22px rgba(232,184,75,0.5);
+  }
+
+  /* ── HERO ─────────────────────────────────────────────────────────────── */
   .hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding: 110px 32px 80px;
-    max-width: 1140px;
+    padding: 110px 60px 80px;
+    max-width: 1160px;
     margin: 0 auto;
-    gap: 60px;
+    gap: 70px;
   }
 
-  .hero-text {
-    flex: 1;
-    max-width: 500px;
-  }
-
-  .eyebrow {
-    display: inline-block;
-    background: rgba(232,184,75,0.15);
-    color: var(--gold-dk);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    border-radius: 999px;
-    border: 1px solid rgba(232,184,75,0.3);
-    margin-bottom: 22px;
-  }
+  .hero-text { flex: 1; max-width: 480px; }
 
   h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(42px, 5.5vw, 68px);
-    line-height: 1.05;
-    letter-spacing: -1.5px;
-    margin-bottom: 20px;
+    font-size: clamp(44px, 5.5vw, 70px);
+    line-height: 1.04;
+    letter-spacing: -1px;
+    margin-bottom: 22px;
     color: var(--text);
+    font-weight: bold;
   }
-
-  h1 em {
-    color: var(--gold);
-    font-style: italic;
-  }
+  h1 em { color: var(--gold); font-style: italic; }
 
   .hero-sub {
     font-size: 17px;
-    line-height: 1.65;
+    line-height: 1.72;
     color: var(--muted);
-    margin-bottom: 36px;
-    font-weight: 400;
-    max-width: 420px;
+    margin-bottom: 38px;
+    max-width: 400px;
   }
 
   .hero-ctas {
@@ -163,186 +135,197 @@
     flex-wrap: wrap;
     align-items: center;
   }
+  .hero-ctas .pill-btn { font-size: 16px; padding: 15px 34px; }
 
-  .hero-ctas .pill-btn { font-size: 15px; padding: 14px 30px; }
-
-  .social-proof {
-    margin-top: 40px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 13px;
-    color: var(--muted);
-  }
-  .avatars {
-    display: flex;
-  }
-  .avatars span {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 2px solid var(--cream);
-    background: var(--warm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    margin-left: -8px;
-    overflow: hidden;
-  }
-  .avatars span:first-child { margin-left: 0; }
-
-  /* ── IPHONE 14/15 PRO ────────────────────────────────────────────────── */
+  /* ══════════════════════════════════════════════════════════════════════
+     iPhone 15 Pro — "straight from the store" look
+     The key to avoiding the "case" look:
+       • Frame padding is only 5-6px — just enough to show the metal band
+       • Screen border-radius is only 2-3px less than the frame radius
+       • NO doubled outer outline shadows (those make it look like a bumper)
+       • Frame uses a subtle gradient but stays close to the screen edge
+       • Buttons are thin (3px) and flush, not chunky
+  ══════════════════════════════════════════════════════════════════════ */
   .hero-phone {
     flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
   }
 
-  /* Outer phone shell */
+  /* Gold glow sits behind the phone */
+  .iphone-glow {
+    position: absolute;
+    inset: -60px;
+    background: radial-gradient(ellipse at 50% 58%,
+      rgba(232,184,75,0.20) 0%,
+      rgba(232,184,75,0.07) 40%,
+      transparent 68%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
   .iphone {
     position: relative;
-    width: 300px;
+    width: 285px;
+    z-index: 1;
 
-    /* Titanium-ish frame */
-    background: linear-gradient(160deg, #3a3a3c 0%, #1c1c1e 40%, #2c2c2e 70%, #1c1c1e 100%);
-    border-radius: 54px;
+    /* Titanium band — very tight, just 6px of visible frame around screen */
+    background: linear-gradient(155deg,
+      #5a5a5c 0%,
+      #3a3a3c 15%,
+      #2a2a2c 40%,
+      #404042 60%,
+      #2c2c2e 80%,
+      #1e1e20 100%
+    );
+    border-radius: 48px;
+    padding: 6px;          /* ← thin frame only, not a case */
 
-    /* Thick bezel with subtle shine */
-    padding: 14px;
+    /* Single clean shadow — no doubled outlines */
     box-shadow:
-      0 0 0 1px rgba(255,255,255,0.08),
-      0 0 0 1.5px rgba(0,0,0,0.6),
-      inset 0 1px 0 rgba(255,255,255,0.12),
-      0 40px 100px rgba(0,0,0,0.38),
-      0 10px 30px rgba(0,0,0,0.22),
-      0 0 60px rgba(232,184,75,0.12);
-
-    /* Subtle side highlights */
-    outline: none;
+      0 28px 70px rgba(0,0,0,0.42),
+      0 6px 18px rgba(0,0,0,0.22),
+      inset 0 1px 0 rgba(255,255,255,0.13),
+      inset 0 -1px 0 rgba(0,0,0,0.3);
   }
 
-  /* Inner screen area */
+  /* Screen — radius just 3px less than frame so metal shows as thin band */
   .iphone-screen {
     position: relative;
-    border-radius: 44px;
+    border-radius: 43px;
     overflow: hidden;
-    background: #000;
-    /* Screen edge glow */
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+    background: #050505;
   }
 
   .iphone-screen img {
     width: 100%;
     display: block;
-    border-radius: 44px;
+    border-radius: 43px;
   }
 
-  /* Dynamic Island */
+  /* ── Dynamic Island ─────────────────────────────────────────────────── */
+  /* Actual iPhone 15 Pro dimensions: ~126×37pt → scale to ~90×26px here */
   .dynamic-island {
     position: absolute;
-    top: 12px;
+    top: 9px;
     left: 50%;
     transform: translateX(-50%);
-    width: 120px;
-    height: 34px;
+    width: 88px;
+    height: 26px;
     background: #000;
-    border-radius: 20px;
+    border-radius: 13px;
     z-index: 10;
-    /* Subtle inner glow */
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.04), inset 0 1px 2px rgba(0,0,0,0.8);
+    /* Tiny camera dot on right */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
   }
-
-  /* Volume buttons (left) */
-  .iphone::before {
+  .dynamic-island::after {
     content: "";
-    position: absolute;
-    left: -3.5px;
-    top: 100px;
-    width: 3.5px;
-    height: 34px;
-    background: linear-gradient(180deg, #3a3a3c, #2a2a2c);
-    border-radius: 2px 0 0 2px;
-    box-shadow: 0 40px 0 #2e2e30, 0 80px 0 #2e2e30, 0 80px 0 0 #2e2e30;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    /* Dark blue-grey tint like real front camera */
+    background: radial-gradient(circle at 38% 32%, #1c1c30, #080808);
+    box-shadow:
+      0 0 0 1.5px rgba(255,255,255,0.05),
+      inset 1px 1px 2px rgba(60,60,100,0.35);
   }
 
-  /* Volume buttons individual using pseudo on inner */
-  .iphone-vol-1, .iphone-vol-2, .iphone-vol-3 {
-    position: absolute;
-    left: -3.5px;
-    width: 3.5px;
-    border-radius: 2px 0 0 2px;
-    background: linear-gradient(180deg, #3a3a3c, #2a2a2c);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
-  }
-  .iphone-vol-1 { top: 88px;  height: 30px; }
-  .iphone-vol-2 { top: 132px; height: 56px; }
-  .iphone-vol-3 { top: 200px; height: 56px; }
+  /* ── Left buttons ───────────────────────────────────────────────────── */
+  /* All 3px wide, flush with frame edge, rounded caps */
 
-  /* Power button (right) */
-  .iphone-power {
+  /* Mute/ringer — short, sits high */
+  .btn-mute {
     position: absolute;
-    right: -3.5px;
-    top: 148px;
-    width: 3.5px;
-    height: 76px;
-    border-radius: 0 2px 2px 0;
-    background: linear-gradient(180deg, #3a3a3c, #2a2a2c);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    left: -3px;
+    top: 58px;
+    width: 3px;
+    height: 20px;
+    border-radius: 1.5px 0 0 1.5px;
+    background: linear-gradient(90deg, #252527, #3c3c3e);
+    box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08);
   }
 
-  /* Glow halo */
-  .iphone-glow {
+  /* Volume up */
+  .btn-vol-up {
     position: absolute;
-    inset: -40px;
-    background: radial-gradient(ellipse at 50% 60%, rgba(232,184,75,0.18) 0%, transparent 65%);
-    border-radius: 100px;
-    pointer-events: none;
-    z-index: -1;
+    left: -3px;
+    top: 96px;
+    width: 3px;
+    height: 48px;
+    border-radius: 1.5px 0 0 1.5px;
+    background: linear-gradient(90deg, #252527, #3c3c3e);
+    box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08);
   }
 
-  /* Subtle floating animation */
-  .hero-phone .iphone {
-    animation: phoneFloat 5s ease-in-out infinite;
+  /* Volume down */
+  .btn-vol-down {
+    position: absolute;
+    left: -3px;
+    top: 156px;
+    width: 3px;
+    height: 48px;
+    border-radius: 1.5px 0 0 1.5px;
+    background: linear-gradient(90deg, #252527, #3c3c3e);
+    box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08);
+  }
+
+  /* ── Right power button ─────────────────────────────────────────────── */
+  .btn-power {
+    position: absolute;
+    right: -3px;
+    top: 112px;
+    width: 3px;
+    height: 68px;
+    border-radius: 0 1.5px 1.5px 0;
+    background: linear-gradient(90deg, #3c3c3e, #252527);
+    box-shadow: 1px 0 1px rgba(0,0,0,0.5), inset -0.5px 0 0 rgba(255,255,255,0.08);
+  }
+
+  /* Float animation */
+  .iphone {
+    animation: phoneFloat 5.5s ease-in-out infinite;
   }
   @keyframes phoneFloat {
-    0%, 100% { transform: translateY(0px) rotate(0.5deg); }
-    50%       { transform: translateY(-12px) rotate(-0.5deg); }
+    0%, 100% { transform: translateY(0)    rotate(0.3deg);  }
+    50%       { transform: translateY(-9px) rotate(-0.3deg); }
   }
 
-  /* ── WHY FILO SECTION ────────────────────────────────────────────────── */
+  /* ── WHY FILO ─────────────────────────────────────────────────────────── */
   .why-section {
-    padding: 100px 32px;
-    max-width: 1140px;
+    padding: 100px 60px;
+    max-width: 1160px;
     margin: 0 auto;
-    scroll-margin-top: 80px;
+    scroll-margin-top: 72px;
   }
 
   .section-label {
     text-align: center;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 11px;
+    font-style: italic;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--gold-dk);
-    margin-bottom: 16px;
-    opacity: 0.8;
+    margin-bottom: 14px;
+    opacity: 0.85;
   }
 
-  .why-section h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(34px, 4vw, 52px);
+  .why-section h2,
+  .waitlist-section h2 {
+    font-size: clamp(32px, 4vw, 50px);
     text-align: center;
-    letter-spacing: -1px;
+    letter-spacing: -0.5px;
     margin-bottom: 16px;
     line-height: 1.1;
+    font-weight: bold;
   }
-
-  .why-section h2 em {
-    color: var(--gold);
-    font-style: italic;
-  }
+  .why-section h2 em,
+  .waitlist-section h2 em { color: var(--gold); font-style: italic; }
 
   .why-sub {
     text-align: center;
@@ -350,7 +333,7 @@
     font-size: 16px;
     max-width: 500px;
     margin: 0 auto 64px;
-    line-height: 1.65;
+    line-height: 1.72;
   }
 
   .why-grid {
@@ -364,40 +347,44 @@
     border: 1.5px solid var(--border);
     border-radius: 24px;
     padding: 32px 28px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.22s, box-shadow 0.22s;
   }
   .why-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 16px 48px rgba(232,184,75,0.12);
+    box-shadow: 0 16px 48px rgba(232,184,75,0.13);
   }
 
+  /* SVG icon container */
   .why-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 16px;
+    width: 50px; height: 50px;
+    border-radius: 14px;
     background: linear-gradient(135deg, #fff8e6, #fdefc8);
-    border: 1.5px solid rgba(232,184,75,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
+    border: 1.5px solid rgba(232,184,75,0.28);
+    display: flex; align-items: center; justify-content: center;
     margin-bottom: 20px;
+  }
+  .why-icon svg {
+    width: 22px; height: 22px;
+    stroke: var(--gold-dk);
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .why-card h3 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px;
+    font-size: 19px;
     margin-bottom: 10px;
-    letter-spacing: -0.3px;
+    font-weight: bold;
   }
 
   .why-card p {
     color: var(--muted);
     font-size: 14px;
-    line-height: 1.7;
+    line-height: 1.78;
   }
 
-  /* ── DIVIDER ─────────────────────────────────────────────────────────── */
+  /* ── DIVIDER ──────────────────────────────────────────────────────────── */
   .section-divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--border), transparent);
@@ -405,28 +392,20 @@
     margin: 0 auto;
   }
 
-  /* ── WAITLIST SECTION ────────────────────────────────────────────────── */
+  /* ── WAITLIST ─────────────────────────────────────────────────────────── */
   .waitlist-section {
     padding: 100px 32px 80px;
     max-width: 700px;
     margin: 0 auto;
     text-align: center;
-    scroll-margin-top: 80px;
-  }
-
-  .waitlist-section h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(32px, 4vw, 48px);
-    letter-spacing: -1px;
-    margin-bottom: 14px;
-    line-height: 1.1;
+    scroll-margin-top: 72px;
   }
 
   .waitlist-section p {
     color: var(--muted);
     font-size: 16px;
     margin-bottom: 48px;
-    line-height: 1.65;
+    line-height: 1.72;
   }
 
   .tally-frame {
@@ -436,49 +415,44 @@
     border-radius: 20px;
   }
 
-  /* ── FOOTER ──────────────────────────────────────────────────────────── */
+  /* ── FOOTER ───────────────────────────────────────────────────────────── */
   .footer {
     padding: 32px;
     text-align: center;
+    font-style: italic;
     font-size: 13px;
     color: #bbb;
     border-top: 1px solid var(--border);
   }
 
-  /* ── SCROLL ANIMATION ────────────────────────────────────────────────── */
+  /* ── SCROLL FADE ──────────────────────────────────────────────────────── */
   .fade-up {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(22px);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
-  .fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .fade-up.visible { opacity: 1; transform: none; }
 
-  /* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+  /* ── RESPONSIVE ───────────────────────────────────────────────────────── */
   @media (max-width: 860px) {
     .hero {
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding-top: 100px;
-      padding-bottom: 60px;
+      padding: 100px 24px 60px;
       gap: 50px;
     }
-    .hero-text { max-width: 100%; }
-    .hero-sub { max-width: 100%; }
-    .hero-ctas { justify-content: center; }
-    .social-proof { justify-content: center; }
-    .iphone { width: 260px; }
-    .nav { padding: 12px 20px; }
-    .pill-btn { font-size: 13px; padding: 10px 20px; }
-    .why-section, .waitlist-section { padding: 70px 20px; }
+    .hero-text  { max-width: 100%; }
+    .hero-sub   { max-width: 100%; }
+    .hero-ctas  { justify-content: center; }
+    .iphone     { width: 248px; }
+    .nav        { padding: 10px 20px; }
+    .why-section { padding: 70px 24px; }
+    .waitlist-section { padding: 70px 24px; }
   }
-
   @media (max-width: 480px) {
-    h1 { font-size: 36px; letter-spacing: -0.8px; }
-    .iphone { width: 230px; }
+    h1 { font-size: 36px; }
+    .iphone { width: 216px; }
   }
 </style>
 </head>
@@ -489,7 +463,6 @@
   <div class="nav-logo">
     <img src="filo-alt logo.png" alt="Filo"
          onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
-
     <span class="nav-logo-fallback" style="display:none;">filo</span>
   </div>
   <a href="#waitlist" class="pill-btn">Unlock Filo</a>
@@ -498,41 +471,33 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-text">
-    <div class="eyebrow">Now in early access</div>
     <h1>Your money,<br><em>layered.</em></h1>
     <p class="hero-sub">
       Track income streams, expenses, and goals — all in one beautifully simple app built for creators and freelancers.
     </p>
     <div class="hero-ctas">
-      <a href="#waitlist" class="pill-btn">Join the waitlist</a>
-      <a href="#why" class="pill-btn outline">Learn More</a>
-    </div>
-    <div class="social-proof">
-      <div class="avatars">
-        <span>🧑</span><span>👩</span><span>👨</span><span>👩</span>
-      </div>
-      <span>Join hundreds already on the list</span>
+      <a href="#why" class="pill-btn learn">Learn More</a>
     </div>
   </div>
 
-  <!-- iPhone 14/15 Pro mockup -->
+  <!-- iPhone 15 Pro mockup -->
   <div class="hero-phone">
+    <div class="iphone-glow"></div>
     <div class="iphone">
-      <div class="iphone-glow"></div>
-      <div class="iphone-vol-1"></div>
-      <div class="iphone-vol-2"></div>
-      <div class="iphone-vol-3"></div>
-      <div class="iphone-power"></div>
+      <div class="btn-mute"></div>
+      <div class="btn-vol-up"></div>
+      <div class="btn-vol-down"></div>
+      <div class="btn-power"></div>
       <div class="iphone-screen">
         <div class="dynamic-island"></div>
-        <img src="Filo_App.png" alt="Filo App Screenshot"
-             onerror="this.src='';this.parentElement.style.background='linear-gradient(160deg,#fffdf7,#f5ead0)';this.parentElement.style.minHeight='580px'"/>
+        <img src="Filo_App.png" alt="Filo App"
+             onerror="this.src='';this.parentElement.style.background='linear-gradient(160deg,#fffdf7,#f5ead0)';this.parentElement.style.minHeight='540px'"/>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHY FILO SECTION -->
+<!-- WHY FILO -->
 <div class="section-divider"></div>
 
 <section class="why-section" id="why">
@@ -541,37 +506,63 @@
   <p class="why-sub fade-up">
     Most money apps are built for one salary. Filo is built for the way modern earners actually work — multiple income streams, irregular pay, big goals.
   </p>
+
   <div class="why-grid">
+
+    <!-- Multiple streams -->
     <div class="why-card fade-up">
-      <div class="why-icon">🔁</div>
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M9.5 17.5 12 11l2.5 6.5"/></svg>
+      </div>
       <h3>Multiple streams</h3>
-      <p>Track YouTube, Stripe, Venmo, Patreon — every source clearly visualized in one concentric ring chart that shows you exactly where your money comes from.</p>
+      <p>Track YouTube, Stripe, Venmo, Patreon — every source visualized in one concentric ring chart that shows you exactly where your money comes from.</p>
     </div>
-    <div class="why-card fade-up" style="transition-delay:0.1s">
-      <div class="why-icon">🎯</div>
+
+    <!-- Goal-first -->
+    <div class="why-card fade-up" style="transition-delay:0.08s">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+      </div>
       <h3>Goal-first design</h3>
-      <p>Set an income goal and watch your rings fill up. Every dollar you earn is progress toward something that matters — not just a number on a spreadsheet.</p>
+      <p>Set an income goal and watch your rings fill up. Every dollar is progress toward something that matters — not just a number on a spreadsheet.</p>
     </div>
-    <div class="why-card fade-up" style="transition-delay:0.2s">
-      <div class="why-icon">📈</div>
+
+    <!-- Trends -->
+    <div class="why-card fade-up" style="transition-delay:0.16s">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><polyline points="3 17 8 10 13 13 18 6"/><path d="M21 6h-3v3"/></svg>
+      </div>
       <h3>90-day trends</h3>
-      <p>Beautiful wavy charts show your income and expenses flowing over time — so you can see patterns, celebrate wins, and catch problems early.</p>
+      <p>Beautiful wavy charts show your income and expenses flowing over time — see patterns, celebrate wins, and catch problems early.</p>
     </div>
-    <div class="why-card fade-up" style="transition-delay:0.3s">
-      <div class="why-icon">⚡</div>
+
+    <!-- Instant clarity -->
+    <div class="why-card fade-up" style="transition-delay:0.24s">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
       <h3>Instant clarity</h3>
       <p>No syncing required. Add a transaction in seconds. Your home screen always shows exactly where this month stands — income, expenses, and net.</p>
     </div>
-    <div class="why-card fade-up" style="transition-delay:0.4s">
-      <div class="why-icon">🔒</div>
+
+    <!-- Private -->
+    <div class="why-card fade-up" style="transition-delay:0.32s">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      </div>
       <h3>Totally private</h3>
       <p>Everything lives on your device. No bank connections, no account linking, no data sharing. Your numbers stay yours — always.</p>
     </div>
-    <div class="why-card fade-up" style="transition-delay:0.5s">
-      <div class="why-icon">✨</div>
+
+    <!-- Beautiful -->
+    <div class="why-card fade-up" style="transition-delay:0.40s">
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 4-3 7-7 11C8 16 5 13 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      </div>
       <h3>Actually beautiful</h3>
       <p>Filo was designed to be the money app you actually want to open. Warm, calm, and satisfying — not stressful or cluttered like everything else.</p>
     </div>
+
   </div>
 </section>
 
@@ -595,7 +586,6 @@
 </footer>
 
 <script>
-  // Scroll-triggered fade-up animations
   const observer = new IntersectionObserver(
     entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
     { threshold: 0.12 }
