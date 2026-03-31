@@ -6,9 +6,6 @@
 <title>Filo – Your money, layered.</title>
 <link rel="icon" type="image/png" href="filo.png">
 <link rel="apple-touch-icon" href="filo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
 <style>
   :root {
@@ -25,12 +22,13 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Inter Tight', sans-serif;
+    font-family: serif;
     background: var(--cream);
     color: var(--text);
     overflow-x: hidden;
   }
 
+  /* NAV */
   .nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -43,62 +41,29 @@
   }
 
   .nav-logo img { height: 48px; display: block; }
-  .nav-logo-fallback {
-    font-family: 'Inter Tight', sans-serif;
-    font-style: italic;
-    font-size: 28px;
-    color: #fff;
-  }
 
   .pill-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Inter Tight', sans-serif;
+    font-family: serif;
     font-size: 15px;
     padding: 13px 30px;
     border-radius: 999px;
     text-decoration: none;
     border: none;
     cursor: pointer;
-    transition: background 0.18s, transform 0.12s, box-shadow 0.18s, color 0.18s;
     background: var(--gold);
     color: #fff;
-    box-shadow: 0 2px 12px rgba(232,184,75,0.35);
   }
-  .pill-btn:hover {
-    background: var(--gold-dk);
-    color: #1a1410;
-    box-shadow: 0 6px 20px rgba(232,184,75,0.45);
-  }
-  .pill-btn:active { transform: scale(0.97); }
 
   .nav .pill-btn {
     background: #fff;
     color: #b8861e;
     font-weight: bold;
-    font-style: normal;
-    font-size: 14px;
-    padding: 11px 24px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
-  }
-  .nav .pill-btn:hover {
-    background: var(--cream);
-    color: #1a1410;
-    box-shadow: 0 5px 18px rgba(0,0,0,0.16);
   }
 
-  .pill-btn.learn {
-    background: var(--gold);
-    color: #fff;
-    box-shadow: 0 2px 14px rgba(232,184,75,0.4);
-  }
-  .pill-btn.learn:hover {
-    background: var(--gold-dk);
-    color: #1a1410;
-    box-shadow: 0 6px 22px rgba(232,184,75,0.5);
-  }
-
+  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -112,438 +77,137 @@
   .hero-text { flex: 1; max-width: 480px; }
 
   h1 {
-    font-family: 'Inter Tight', sans-serif;
     font-size: clamp(44px, 5.5vw, 70px);
-    line-height: 1.04;
-    letter-spacing: -1px;
     margin-bottom: 22px;
-    color: var(--text);
-    font-weight: bold;
   }
-  h1 em { color: var(--gold); font-style: italic; }
 
   .hero-sub {
-    font-family: 'Inter Tight', sans-serif;
     font-size: 17px;
-    line-height: 1.72;
     color: var(--muted);
     margin-bottom: 38px;
-    max-width: 400px;
   }
 
-  .hero-ctas {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    align-items: center;
+  .hero-phone img {
+    width: 260px;
   }
-  .hero-ctas .pill-btn { font-size: 16px; padding: 15px 34px; }
 
-  .hero-phone {
-    flex-shrink: 0;
+  /* ── NEW 3D SHOWCASE ───────────────── */
+  .showcase-3d {
+    padding: 120px 20px;
+    background: #f9f4e7;
     display: flex;
     justify-content: center;
-    align-items: center;
-    position: relative;
   }
 
-  .iphone-glow {
-    position: absolute;
-    inset: -60px;
-    background: radial-gradient(ellipse at 50% 58%,
-      rgba(232,184,75,0.20) 0%,
-      rgba(232,184,75,0.07) 40%,
-      transparent 68%
-    );
-    pointer-events: none;
-    z-index: 0;
+  .showcase-inner {
+    position: relative;
+    perspective: 1200px;
   }
 
-  .iphone {
-    position: relative;
-    width: 285px;
-    z-index: 1;
-    background: linear-gradient(155deg,
-      #5a5a5c 0%,
-      #3a3a3c 15%,
-      #2a2a2c 40%,
-      #404042 60%,
-      #2c2c2e 80%,
-      #1e1e20 100%
-    );
-    border-radius: 48px;
-    padding: 6px;
-    box-shadow:
-      0 28px 70px rgba(0,0,0,0.42),
-      0 6px 18px rgba(0,0,0,0.22),
-      inset 0 1px 0 rgba(255,255,255,0.13),
-      inset 0 -1px 0 rgba(0,0,0,0.3);
-  }
-
-  .iphone-screen {
-    position: relative;
-    border-radius: 43px;
+  .phone-3d {
+    width: 260px;
+    border-radius: 40px;
     overflow: hidden;
-    background: #050505;
+    transform: rotateY(-18deg) rotateX(10deg);
+    box-shadow:
+      0 40px 80px rgba(0,0,0,0.35),
+      0 10px 30px rgba(0,0,0,0.2);
+    transition: transform 0.6s ease;
   }
 
-  .iphone-screen img {
+  .phone-3d img {
     width: 100%;
     display: block;
-    border-radius: 43px;
   }
 
-  .dynamic-island {
-    position: absolute;
-    top: 9px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 88px;
-    height: 26px;
-    background: #000;
-    border-radius: 13px;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 8px;
+  .phone-3d:hover {
+    transform: rotateY(-10deg) rotateX(6deg) scale(1.03);
   }
-  .dynamic-island::after {
-    content: "";
-    width: 9px;
-    height: 9px;
+
+  .floating-shape {
+    position: absolute;
     border-radius: 50%;
-    background: radial-gradient(circle at 38% 32%, #1c1c30, #080808);
-    box-shadow:
-      0 0 0 1.5px rgba(255,255,255,0.05),
-      inset 1px 1px 2px rgba(60,60,100,0.35);
+    filter: blur(40px);
+    opacity: 0.5;
   }
 
-  .btn-mute {
-    position: absolute;
-    left: -3px; top: 58px;
-    width: 3px; height: 20px;
-    border-radius: 1.5px 0 0 1.5px;
-    background: linear-gradient(90deg, #252527, #3c3c3e);
-    box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08);
-  }
-  .btn-vol-up {
-    position: absolute;
-    left: -3px; top: 96px;
-    width: 3px; height: 48px;
-    border-radius: 1.5px 0 0 1.5px;
-    background: linear-gradient(90deg, #252527, #3c3c3e);
-    box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08);
-  }
-  .btn-vol-down {
-    position: absolute;
-    left: -3px; top: 156px;
-    width: 3px; height: 48px;
-    border-radius: 1.5px 0 0 1.5px;
-    background: linear-gradient(90deg, #252527, #3c3c3e);
-    box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08);
-  }
-  .btn-power {
-    position: absolute;
-    right: -3px; top: 112px;
-    width: 3px; height: 68px;
-    border-radius: 0 1.5px 1.5px 0;
-    background: linear-gradient(90deg, #3c3c3e, #252527);
-    box-shadow: 1px 0 1px rgba(0,0,0,0.5), inset -0.5px 0 0 rgba(255,255,255,0.08);
+  .shape-1 {
+    width: 200px;
+    height: 200px;
+    background: #e8b84b;
+    top: -60px;
+    left: -100px;
   }
 
-  .why-section {
-    padding: 100px 60px;
-    max-width: 1160px;
-    margin: 0 auto;
-    scroll-margin-top: 72px;
+  .shape-2 {
+    width: 260px;
+    height: 260px;
+    background: #c49a3a;
+    bottom: -80px;
+    right: -120px;
   }
 
-  .section-label {
-    text-align: center;
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 11px;
-    font-style: italic;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gold-dk);
-    margin-bottom: 14px;
-    opacity: 0.85;
-  }
-
-  .why-section h2,
-  .waitlist-section h2 {
-    font-family: 'Inter Tight', sans-serif;
-    font-size: clamp(32px, 4vw, 50px);
-    text-align: center;
-    letter-spacing: -0.5px;
-    margin-bottom: 16px;
-    line-height: 1.1;
-    font-weight: bold;
-  }
-  .why-section h2 em,
-  .waitlist-section h2 em { color: var(--gold); font-style: italic; }
-
-  .why-sub {
-    font-family: 'Inter Tight', sans-serif;
-    text-align: center;
-    color: var(--muted);
-    font-size: 16px;
-    max-width: 500px;
-    margin: 0 auto 64px;
-    line-height: 1.72;
-  }
-
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-
-  .why-card {
-    background: #fff;
-    border: 1.5px solid var(--border);
-    border-radius: 24px;
-    padding: 36px 30px;
-    opacity: 0;
-    transform: scale(0.88) translateY(30px);
-    transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.22s;
-  }
-  .why-card:nth-child(1) { transform: scale(0.88) translate(-20px, 20px); }
-  .why-card:nth-child(2) { transform: scale(0.88) translate( 20px, 20px); }
-  .why-card:nth-child(3) { transform: scale(0.88) translate(-20px,-20px); }
-  .why-card:nth-child(4) { transform: scale(0.88) translate( 20px,-20px); }
-
-  .why-card.card-visible {
-    opacity: 1;
-    transform: scale(1) translate(0, 0) !important;
-  }
-  .why-card:nth-child(2) { transition-delay: 0.08s; }
-  .why-card:nth-child(3) { transition-delay: 0.16s; }
-  .why-card:nth-child(4) { transition-delay: 0.24s; }
-
-  .why-card:hover {
-    transform: translateY(-4px) !important;
-    box-shadow: 0 16px 48px rgba(232,184,75,0.13);
-  }
-
-  @media (max-width: 640px) {
-    .why-grid { grid-template-columns: 1fr; }
-  }
-
-  .why-icon {
-    width: 50px; height: 50px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #fff8e6, #fdefc8);
-    border: 1.5px solid rgba(232,184,75,0.28);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 20px;
-  }
-  .why-icon svg {
-    width: 22px; height: 22px;
-    stroke: var(--gold-dk);
-    fill: none;
-    stroke-width: 1.75;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .why-card h3 {
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 19px;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-
-  .why-card p {
-    font-family: 'Inter Tight', sans-serif;
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.78;
-  }
-
-  .section-divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
+  /* WAITLIST */
   .waitlist-section {
-    padding: 100px 32px 80px;
+    padding: 100px 32px;
     max-width: 700px;
     margin: 0 auto;
     text-align: center;
-    scroll-margin-top: 72px;
-  }
-
-  .waitlist-section p {
-    font-family: 'Inter Tight', sans-serif;
-    color: var(--muted);
-    font-size: 16px;
-    margin-bottom: 48px;
-    line-height: 1.72;
   }
 
   .tally-frame {
     width: 100%;
-    height: 560px;
+    height: 700px;
     border: none;
     border-radius: 20px;
   }
 
-  .footer {
-    padding: 32px;
-    text-align: center;
-    font-family: 'Inter Tight', sans-serif;
-    font-style: italic;
-    font-size: 13px;
-    color: #bbb;
-    border-top: 1px solid var(--border);
-  }
-
-  .fade-up {
-    opacity: 0;
-    transform: translateY(22px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .fade-up.visible { opacity: 1; transform: none; }
-
-  @media (max-width: 860px) {
-    .hero { flex-direction: column; align-items: center; text-align: center; padding: 100px 24px 60px; gap: 50px; }
-    .hero-text  { max-width: 100%; }
-    .hero-sub   { max-width: 100%; }
-    .hero-ctas  { justify-content: center; }
-    .iphone     { width: 248px; }
-    .nav        { padding: 10px 20px; }
-    .why-section { padding: 70px 24px; }
-    .waitlist-section { padding: 70px 24px; }
-  }
-  @media (max-width: 480px) {
-    h1 { font-size: 36px; }
-    .iphone { width: 216px; }
-  }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav class="nav">
-  <a href="#" class="nav-logo" style="text-decoration:none;">
-    <img src="filo-alt logo.png" alt="Filo"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
-    <span class="nav-logo-fallback" style="display:none;">filo</span>
-  </a>
+  <img src="filo-alt logo.png">
   <a href="#waitlist" class="pill-btn">Unlock Filo</a>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-text">
-    <h1>Your money,<br><em>layered.</em></h1>
+    <h1>Your money, layered.</h1>
     <p class="hero-sub">
-      Track income streams, expenses, and goals — all in one beautifully simple app built for creators and freelancers.
+      Track income streams, expenses, and goals — all in one beautifully simple app.
     </p>
-    <div class="hero-ctas">
-      <a href="#why" class="pill-btn learn">Learn More</a>
-    </div>
   </div>
 
   <div class="hero-phone">
-    <div class="iphone-glow"></div>
-    <div class="iphone">
-      <div class="btn-mute"></div>
-      <div class="btn-vol-up"></div>
-      <div class="btn-vol-down"></div>
-      <div class="btn-power"></div>
-      <div class="iphone-screen">
-        <div class="dynamic-island"></div>
-        <img src="Filo_App.png" alt="Filo App"
-             onerror="this.src='';this.parentElement.style.background='linear-gradient(160deg,#fffdf7,#f5ead0)';this.parentElement.style.minHeight='540px'"/>
-      </div>
-    </div>
+    <img src="Filo_App.png">
   </div>
 </section>
 
-<div class="section-divider"></div>
+<!-- 🔥 NEW SECTION -->
+<section class="showcase-3d">
+  <div class="showcase-inner">
 
-<section class="why-section" id="why">
-  <div class="section-label fade-up">Why Filo?</div>
-  <h2 class="fade-up">Finance tools built for<br><em>how you actually earn.</em></h2>
-  <p class="why-sub fade-up">
-    Most money apps are built for one salary. Filo is built for the way modern earners actually work — multiple income streams, irregular pay, big goals.
-  </p>
-
-  <div class="why-grid">
-    <div class="why-card">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M9.5 17.5 12 11l2.5 6.5"/></svg>
-      </div>
-      <h3>Multiple streams</h3>
-      <p>Track YouTube, Stripe, Venmo, Patreon — every source visualized in one concentric ring chart that shows you exactly where your money comes from.</p>
+    <div class="phone-3d">
+      <img src="Filo_Trends.png">
     </div>
 
-    <div class="why-card">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
-      </div>
-      <h3>Goal-first design</h3>
-      <p>Set an income goal and watch your rings fill up. Every dollar is progress toward something that matters — not just a number on a spreadsheet.</p>
-    </div>
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
 
-    <div class="why-card">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-      </div>
-      <h3>Totally private</h3>
-      <p>Everything lives on your device. No bank connections, no account linking, no data sharing. Your numbers stay yours — always.</p>
-    </div>
-
-    <div class="why-card">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 4-3 7-7 11C8 16 5 13 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-      </div>
-      <h3>Actually beautiful</h3>
-      <p>Filo was designed to be the money app you actually want to open. Warm, calm, and satisfying — not stressful or cluttered like everything else.</p>
-    </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
-
+<!-- WAITLIST -->
 <section class="waitlist-section" id="waitlist">
-  <div class="section-label fade-up">Early access</div>
-  <h2 class="fade-up">Get early access<br>to <em>Filo</em></h2>
-  <p class="fade-up">Be the first to know when Filo launches. No spam, no nonsense — just a heads-up when it's ready.</p>
+  <h2>Get early access</h2>
   <iframe
-    class="tally-frame fade-up"
-    src="https://tally.so/r/dWlvkD"
-    scrolling="no">
+    class="tally-frame"
+    src="https://tally.so/r/dWlvkD">
   </iframe>
 </section>
 
-<footer class="footer">
-  © 2026 Filo · Your money, layered.
-</footer>
-
-<script>
-  const fadeObserver = new IntersectionObserver(
-    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-    { threshold: 0.12 }
-  );
-  document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
-
-  const grid = document.querySelector('.why-grid');
-  const cards = document.querySelectorAll('.why-card');
-  const cardObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        cards.forEach((card, i) => {
-          setTimeout(() => card.classList.add('card-visible'), i * 110);
-        });
-        cardObserver.disconnect();
-      }
-    });
-  }, { threshold: 0.15 });
-  if (grid) cardObserver.observe(grid);
-</script>
 </body>
 </html>
