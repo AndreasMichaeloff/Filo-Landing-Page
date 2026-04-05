@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=devic
-  e-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Filo – Your money, layered.</title>
 <link rel="icon" type="image/png" href="filo.png">
 <link rel="apple-touch-icon" href="filo.png">
@@ -38,7 +37,7 @@
     z-index: 100;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 8px 32px;
     background: #e8b84b;
   }
@@ -220,203 +219,58 @@
       inset 1px 1px 2px rgba(60,60,100,0.35);
   }
 
-  .btn-mute {
-    position: absolute;
-    left: -3px; top: 58px;
-    width: 3px; height: 20px;
-    border-radius: 1.5px 0 0 1.5px;
-    background: linear-gradient(90deg, #252527, #3c3c3e);
-    box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08);
-  }
-  .btn-vol-up {
-    position: absolute;
-    left: -3px; top: 96px;
-    width: 3px; height: 48px;
-    border-radius: 1.5px 0 0 1.5px;
-    background: linear-gradient(90deg, #252527, #3c3c3e);
-    box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08);
-  }
-  .btn-vol-down {
-    position: absolute;
-    left: -3px; top: 156px;
-    width: 3px; height: 48px;
-    border-radius: 1.5px 0 0 1.5px;
-    background: linear-gradient(90deg, #252527, #3c3c3e);
-    box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08);
-  }
-  .btn-power {
-    position: absolute;
-    right: -3px; top: 112px;
-    width: 3px; height: 68px;
-    border-radius: 0 1.5px 1.5px 0;
-    background: linear-gradient(90deg, #3c3c3e, #252527);
-    box-shadow: 1px 0 1px rgba(0,0,0,0.5), inset -0.5px 0 0 rgba(255,255,255,0.08);
-  }
+  .btn-mute { position: absolute; left: -3px; top: 58px; width: 3px; height: 20px; border-radius: 1.5px 0 0 1.5px; background: linear-gradient(90deg, #252527, #3c3c3e); box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08); }
+  .btn-vol-up { position: absolute; left: -3px; top: 96px; width: 3px; height: 48px; border-radius: 1.5px 0 0 1.5px; background: linear-gradient(90deg, #252527, #3c3c3e); box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08); }
+  .btn-vol-down { position: absolute; left: -3px; top: 156px; width: 3px; height: 48px; border-radius: 1.5px 0 0 1.5px; background: linear-gradient(90deg, #252527, #3c3c3e); box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08); }
+  .btn-power { position: absolute; right: -3px; top: 112px; width: 3px; height: 68px; border-radius: 0 1.5px 1.5px 0; background: linear-gradient(90deg, #3c3c3e, #252527); box-shadow: 1px 0 1px rgba(0,0,0,0.5), inset -0.5px 0 0 rgba(255,255,255,0.08); }
 
-  .why-section {
-    padding: 100px 60px;
-    max-width: 1160px;
-    margin: 0 auto;
-    scroll-margin-top: 72px;
-  }
+  .why-section { padding: 100px 60px; max-width: 1160px; margin: 0 auto; scroll-margin-top: 72px; }
 
-  .section-label {
-    text-align: center;
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 11px;
-    font-style: italic;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gold-dk);
-    margin-bottom: 14px;
-    opacity: 0.85;
-  }
+  .section-label { text-align: center; font-family: 'Inter Tight', sans-serif; font-size: 11px; font-style: italic; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-dk); margin-bottom: 14px; opacity: 0.85; }
 
-  .why-section h2,
-  .waitlist-section h2 {
-    font-family: 'Inter Tight', sans-serif;
-    font-size: clamp(32px, 4vw, 50px);
-    text-align: center;
-    letter-spacing: -0.5px;
-    margin-bottom: 16px;
-    line-height: 1.1;
-    font-weight: bold;
-  }
-  .why-section h2 em,
-  .waitlist-section h2 em { color: var(--gold); font-style: italic; }
+  .why-section h2, .waitlist-section h2 { font-family: 'Inter Tight', sans-serif; font-size: clamp(32px, 4vw, 50px); text-align: center; letter-spacing: -0.5px; margin-bottom: 16px; line-height: 1.1; font-weight: bold; }
+  .why-section h2 em, .waitlist-section h2 em { color: var(--gold); font-style: italic; }
 
-  .why-sub {
-    font-family: 'Inter Tight', sans-serif;
-    text-align: center;
-    color: var(--muted);
-    font-size: 16px;
-    max-width: 500px;
-    margin: 0 auto 64px;
-    line-height: 1.72;
-  }
+  .why-sub { font-family: 'Inter Tight', sans-serif; text-align: center; color: var(--muted); font-size: 16px; max-width: 500px; margin: 0 auto 64px; line-height: 1.72; }
 
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
+  .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
 
-  .why-card {
-    background: #fff;
-    border: 1.5px solid var(--border);
-    border-radius: 24px;
-    padding: 36px 30px;
-    opacity: 0;
-    transform: scale(0.88) translateY(30px);
-    transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.22s;
-  }
+  .why-card { background: #fff; border: 1.5px solid var(--border); border-radius: 24px; padding: 36px 30px; opacity: 0; transform: scale(0.88) translateY(30px); transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.22s; }
   .why-card:nth-child(1) { transform: scale(0.88) translate(-20px, 20px); }
   .why-card:nth-child(2) { transform: scale(0.88) translate( 20px, 20px); }
   .why-card:nth-child(3) { transform: scale(0.88) translate(-20px,-20px); }
   .why-card:nth-child(4) { transform: scale(0.88) translate( 20px,-20px); }
-
-  .why-card.card-visible {
-    opacity: 1;
-    transform: scale(1) translate(0, 0) !important;
-  }
+  .why-card.card-visible { opacity: 1; transform: scale(1) translate(0, 0) !important; }
   .why-card:nth-child(2) { transition-delay: 0.08s; }
   .why-card:nth-child(3) { transition-delay: 0.16s; }
   .why-card:nth-child(4) { transition-delay: 0.24s; }
+  .why-card:hover { transform: translateY(-4px) !important; box-shadow: 0 16px 48px rgba(232,184,75,0.13); }
 
-  .why-card:hover {
-    transform: translateY(-4px) !important;
-    box-shadow: 0 16px 48px rgba(232,184,75,0.13);
-  }
+  @media (max-width: 640px) { .why-grid { grid-template-columns: 1fr; } }
 
-  @media (max-width: 640px) {
-    .why-grid { grid-template-columns: 1fr; }
-  }
+  .why-icon { width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, #fff8e6, #fdefc8); border: 1.5px solid rgba(232,184,75,0.28); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+  .why-icon svg { width: 22px; height: 22px; stroke: var(--gold-dk); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+  .why-card h3 { font-family: 'Inter Tight', sans-serif; font-size: 19px; margin-bottom: 10px; font-weight: bold; }
+  .why-card p { font-family: 'Inter Tight', sans-serif; color: var(--muted); font-size: 14px; line-height: 1.78; }
 
-  .why-icon {
-    width: 50px; height: 50px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #fff8e6, #fdefc8);
-    border: 1.5px solid rgba(232,184,75,0.28);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 20px;
-  }
-  .why-icon svg {
-    width: 22px; height: 22px;
-    stroke: var(--gold-dk);
-    fill: none;
-    stroke-width: 1.75;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); max-width: 800px; margin: 0 auto; }
 
-  .why-card h3 {
-    font-family: 'Inter Tight', sans-serif;
-    font-size: 19px;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
+  .waitlist-section { padding: 100px 32px 80px; max-width: 700px; margin: 0 auto; text-align: center; scroll-margin-top: 72px; }
+  .waitlist-section p { font-family: 'Inter Tight', sans-serif; color: var(--muted); font-size: 16px; margin-bottom: 48px; line-height: 1.72; }
+  .tally-frame { width: 100%; height: 560px; border: none; border-radius: 20px; }
 
-  .why-card p {
-    font-family: 'Inter Tight', sans-serif;
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.78;
-  }
+  .footer { padding: 32px; text-align: center; font-family: 'Inter Tight', sans-serif; font-style: italic; font-size: 13px; color: #bbb; border-top: 1px solid var(--border); }
 
-  .section-divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .waitlist-section {
-    padding: 100px 32px 80px;
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
-    scroll-margin-top: 72px;
-  }
-
-  .waitlist-section p {
-    font-family: 'Inter Tight', sans-serif;
-    color: var(--muted);
-    font-size: 16px;
-    margin-bottom: 48px;
-    line-height: 1.72;
-  }
-
-  .tally-frame {
-    width: 100%;
-    height: 560px;
-    border: none;
-    border-radius: 20px;
-  }
-
-  .footer {
-    padding: 32px;
-    text-align: center;
-    font-family: 'Inter Tight', sans-serif;
-    font-style: italic;
-    font-size: 13px;
-    color: #bbb;
-    border-top: 1px solid var(--border);
-  }
-
-  .fade-up {
-    opacity: 0;
-    transform: translateY(22px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
+  .fade-up { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .fade-up.visible { opacity: 1; transform: none; }
 
   @media (max-width: 860px) {
     .hero { flex-direction: column; align-items: center; text-align: center; padding: 100px 24px 60px; gap: 50px; }
-    .hero-text  { max-width: 100%; }
-    .hero-sub   { max-width: 100%; }
-    .hero-ctas  { justify-content: center; }
-    .iphone     { width: 248px; }
-    .nav        { padding: 10px 20px; }
+    .hero-text { max-width: 100%; }
+    .hero-sub { max-width: 100%; }
+    .hero-ctas { justify-content: center; }
+    .iphone { width: 248px; }
+    .nav { padding: 10px 20px; }
     .why-section { padding: 70px 24px; }
     .waitlist-section { padding: 70px 24px; }
   }
@@ -429,11 +283,6 @@
 <body>
 
 <nav class="nav">
-  <a href="#" class="nav-logo" style="text-decoration:none;">
-    <img src="filo-alt logo.png" alt="Filo"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
-    <span class="nav-logo-fallback" style="display:none;">filo</span>
-  </a>
   <a href="#waitlist" class="pill-btn">Join the waitlist</a>
 </nav>
 
@@ -494,7 +343,7 @@
       <div class="why-icon">
         <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
       </div>
-      <h3>You’re in control</h3>
+      <h3>You're in control</h3>
       <p>Connect accounts securely, or track manually. Regardless, your data stays yours.</p>
     </div>
 
