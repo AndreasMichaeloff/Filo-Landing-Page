@@ -21,7 +21,12 @@
     --border:  #ecdfc4;
   }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
   html { scroll-behavior: smooth; }
 
   body {
@@ -33,16 +38,20 @@
 
   .nav {
     position: fixed;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 8px 32px;
     background: #e8b84b;
+    backdrop-filter: blur(8px);
   }
 
   .nav-logo img { height: 48px; display: block; }
+
   .nav-logo-fallback {
     font-family: 'Inter Tight', sans-serif;
     font-style: italic;
@@ -66,11 +75,13 @@
     color: #fff;
     box-shadow: 0 2px 12px rgba(232,184,75,0.35);
   }
+
   .pill-btn:hover {
     background: var(--gold-dk);
     color: #1a1410;
     box-shadow: 0 6px 20px rgba(232,184,75,0.45);
   }
+
   .pill-btn:active { transform: scale(0.97); }
 
   .nav .pill-btn {
@@ -82,6 +93,7 @@
     padding: 11px 24px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.12);
   }
+
   .nav .pill-btn:hover {
     background: var(--cream);
     color: #1a1410;
@@ -93,23 +105,73 @@
     color: #fff;
     box-shadow: 0 2px 14px rgba(232,184,75,0.4);
   }
+
   .pill-btn.learn:hover {
     background: var(--gold-dk);
     color: #1a1410;
     box-shadow: 0 6px 22px rgba(232,184,75,0.5);
   }
 
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 110px 60px 80px;
-    max-width: 1160px;
-    margin: 0 auto;
-    gap: 70px;
+  .hero-wrap {
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(
+        180deg,
+        #f9f4e7 0%,
+        #fffdf7 100%
+      );
   }
 
-  .hero-text { flex: 1; max-width: 480px; }
+  .hero-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("hero-bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right center;
+    opacity: 0.95;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* soft readability wash */
+  .hero-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        90deg,
+        rgba(255,253,247,0.97) 0%,
+        rgba(255,253,247,0.92) 18%,
+        rgba(255,253,247,0.72) 34%,
+        rgba(255,253,247,0.28) 52%,
+        rgba(255,253,247,0.05) 68%,
+        rgba(255,253,247,0.00) 100%
+      );
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .hero {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: minmax(300px, 420px) minmax(280px, 360px);
+    justify-content: start;
+    align-items: center;
+    column-gap: clamp(44px, 7vw, 120px);
+    padding: 120px 60px 80px;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .hero-text {
+    max-width: 480px;
+  }
 
   h1 {
     font-family: 'Inter Tight', sans-serif;
@@ -119,14 +181,19 @@
     margin-bottom: 22px;
     color: var(--text);
     font-weight: bold;
+    text-wrap: balance;
   }
-  h1 em { color: var(--gold); font-style: italic; }
+
+  h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
 
   .hero-sub {
     font-family: 'Inter Tight', sans-serif;
     font-size: 17px;
     line-height: 1.72;
-    color: var(--muted);
+    color: rgba(26,20,16,0.72);
     margin-bottom: 38px;
     max-width: 400px;
   }
@@ -137,23 +204,28 @@
     flex-wrap: wrap;
     align-items: center;
   }
-  .hero-ctas .pill-btn { font-size: 16px; padding: 15px 34px; }
+
+  .hero-ctas .pill-btn {
+    font-size: 16px;
+    padding: 15px 34px;
+  }
 
   .hero-phone {
-    flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    min-width: 280px;
   }
 
   .iphone-glow {
     position: absolute;
-    inset: -60px;
-    background: radial-gradient(ellipse at 50% 58%,
-      rgba(232,184,75,0.20) 0%,
-      rgba(232,184,75,0.07) 40%,
-      transparent 68%
+    inset: -70px;
+    background: radial-gradient(
+      ellipse at 50% 58%,
+      rgba(232,184,75,0.18) 0%,
+      rgba(232,184,75,0.06) 42%,
+      transparent 70%
     );
     pointer-events: none;
     z-index: 0;
@@ -163,7 +235,8 @@
     position: relative;
     width: 285px;
     z-index: 1;
-    background: linear-gradient(155deg,
+    background: linear-gradient(
+      155deg,
       #5a5a5c 0%,
       #3a3a3c 15%,
       #2a2a2c 40%,
@@ -208,6 +281,7 @@
     justify-content: flex-end;
     padding-right: 8px;
   }
+
   .dynamic-island::after {
     content: "";
     width: 9px;
@@ -219,64 +293,280 @@
       inset 1px 1px 2px rgba(60,60,100,0.35);
   }
 
-  .btn-mute { position: absolute; left: -3px; top: 58px; width: 3px; height: 20px; border-radius: 1.5px 0 0 1.5px; background: linear-gradient(90deg, #252527, #3c3c3e); box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08); }
-  .btn-vol-up { position: absolute; left: -3px; top: 96px; width: 3px; height: 48px; border-radius: 1.5px 0 0 1.5px; background: linear-gradient(90deg, #252527, #3c3c3e); box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08); }
-  .btn-vol-down { position: absolute; left: -3px; top: 156px; width: 3px; height: 48px; border-radius: 1.5px 0 0 1.5px; background: linear-gradient(90deg, #252527, #3c3c3e); box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08); }
-  .btn-power { position: absolute; right: -3px; top: 112px; width: 3px; height: 68px; border-radius: 0 1.5px 1.5px 0; background: linear-gradient(90deg, #3c3c3e, #252527); box-shadow: 1px 0 1px rgba(0,0,0,0.5), inset -0.5px 0 0 rgba(255,255,255,0.08); }
+  .btn-mute {
+    position: absolute;
+    left: -3px;
+    top: 58px;
+    width: 3px;
+    height: 20px;
+    border-radius: 1.5px 0 0 1.5px;
+    background: linear-gradient(90deg, #252527, #3c3c3e);
+    box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08);
+  }
 
-  .why-section { padding: 100px 60px; max-width: 1160px; margin: 0 auto; scroll-margin-top: 72px; }
+  .btn-vol-up {
+    position: absolute;
+    left: -3px;
+    top: 96px;
+    width: 3px;
+    height: 48px;
+    border-radius: 1.5px 0 0 1.5px;
+    background: linear-gradient(90deg, #252527, #3c3c3e);
+    box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08);
+  }
 
-  .section-label { text-align: center; font-family: 'Inter Tight', sans-serif; font-size: 11px; font-style: italic; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-dk); margin-bottom: 14px; opacity: 0.85; }
+  .btn-vol-down {
+    position: absolute;
+    left: -3px;
+    top: 156px;
+    width: 3px;
+    height: 48px;
+    border-radius: 1.5px 0 0 1.5px;
+    background: linear-gradient(90deg, #252527, #3c3c3e);
+    box-shadow: -1px 0 1px rgba(0,0,0,0.5), inset 0.5px 0 0 rgba(255,255,255,0.08);
+  }
 
-  .why-section h2, .waitlist-section h2 { font-family: 'Inter Tight', sans-serif; font-size: clamp(32px, 4vw, 50px); text-align: center; letter-spacing: -0.5px; margin-bottom: 16px; line-height: 1.1; font-weight: bold; }
-  .why-section h2 em, .waitlist-section h2 em { color: var(--gold); font-style: italic; }
+  .btn-power {
+    position: absolute;
+    right: -3px;
+    top: 112px;
+    width: 3px;
+    height: 68px;
+    border-radius: 0 1.5px 1.5px 0;
+    background: linear-gradient(90deg, #3c3c3e, #252527);
+    box-shadow: 1px 0 1px rgba(0,0,0,0.5), inset -0.5px 0 0 rgba(255,255,255,0.08);
+  }
 
-  .why-sub { font-family: 'Inter Tight', sans-serif; text-align: center; color: var(--muted); font-size: 16px; max-width: 500px; margin: 0 auto 64px; line-height: 1.72; }
+  .why-section {
+    padding: 100px 60px;
+    max-width: 1160px;
+    margin: 0 auto;
+    scroll-margin-top: 72px;
+  }
 
-  .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .section-label {
+    text-align: center;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 11px;
+    font-style: italic;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-dk);
+    margin-bottom: 14px;
+    opacity: 0.85;
+  }
 
-  .why-card { background: #fff; border: 1.5px solid var(--border); border-radius: 24px; padding: 36px 30px; opacity: 0; transform: scale(0.88) translateY(30px); transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.22s; }
+  .why-section h2,
+  .waitlist-section h2 {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: clamp(32px, 4vw, 50px);
+    text-align: center;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+    line-height: 1.1;
+    font-weight: bold;
+  }
+
+  .why-section h2 em,
+  .waitlist-section h2 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .why-sub {
+    font-family: 'Inter Tight', sans-serif;
+    text-align: center;
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 500px;
+    margin: 0 auto 64px;
+    line-height: 1.72;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .why-card {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 24px;
+    padding: 36px 30px;
+    opacity: 0;
+    transform: scale(0.88) translateY(30px);
+    transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.22s;
+  }
+
   .why-card:nth-child(1) { transform: scale(0.88) translate(-20px, 20px); }
   .why-card:nth-child(2) { transform: scale(0.88) translate( 20px, 20px); }
   .why-card:nth-child(3) { transform: scale(0.88) translate(-20px,-20px); }
   .why-card:nth-child(4) { transform: scale(0.88) translate( 20px,-20px); }
-  .why-card.card-visible { opacity: 1; transform: scale(1) translate(0, 0) !important; }
+
+  .why-card.card-visible {
+    opacity: 1;
+    transform: scale(1) translate(0, 0) !important;
+  }
+
   .why-card:nth-child(2) { transition-delay: 0.08s; }
   .why-card:nth-child(3) { transition-delay: 0.16s; }
   .why-card:nth-child(4) { transition-delay: 0.24s; }
-  .why-card:hover { transform: translateY(-4px) !important; box-shadow: 0 16px 48px rgba(232,184,75,0.13); }
 
-  @media (max-width: 640px) { .why-grid { grid-template-columns: 1fr; } }
-
-  .why-icon { width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, #fff8e6, #fdefc8); border: 1.5px solid rgba(232,184,75,0.28); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
-  .why-icon svg { width: 22px; height: 22px; stroke: var(--gold-dk); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
-  .why-card h3 { font-family: 'Inter Tight', sans-serif; font-size: 19px; margin-bottom: 10px; font-weight: bold; }
-  .why-card p { font-family: 'Inter Tight', sans-serif; color: var(--muted); font-size: 14px; line-height: 1.78; }
-
-  .section-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); max-width: 800px; margin: 0 auto; }
-
-  .waitlist-section { padding: 100px 32px 80px; max-width: 700px; margin: 0 auto; text-align: center; scroll-margin-top: 72px; }
-  .waitlist-section p { font-family: 'Inter Tight', sans-serif; color: var(--muted); font-size: 16px; margin-bottom: 48px; line-height: 1.72; }
-  .tally-frame { width: 100%; height: 560px; border: none; border-radius: 20px; }
-
-  .footer { padding: 32px; text-align: center; font-family: 'Inter Tight', sans-serif; font-style: italic; font-size: 13px; color: #bbb; border-top: 1px solid var(--border); }
-
-  .fade-up { opacity: 0; transform: translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .fade-up.visible { opacity: 1; transform: none; }
-
-  @media (max-width: 860px) {
-    .hero { flex-direction: column; align-items: center; text-align: center; padding: 100px 24px 60px; gap: 50px; }
-    .hero-text { max-width: 100%; }
-    .hero-sub { max-width: 100%; }
-    .hero-ctas { justify-content: center; }
-    .iphone { width: 248px; }
-    .nav { padding: 10px 20px; }
-    .why-section { padding: 70px 24px; }
-    .waitlist-section { padding: 70px 24px; }
+  .why-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 16px 48px rgba(232,184,75,0.13);
   }
+
+  .why-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #fff8e6, #fdefc8);
+    border: 1.5px solid rgba(232,184,75,0.28);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .why-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--gold-dk);
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .why-card h3 {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 19px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .why-card p {
+    font-family: 'Inter Tight', sans-serif;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.78;
+  }
+
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .waitlist-section {
+    padding: 100px 32px 80px;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    scroll-margin-top: 72px;
+  }
+
+  .waitlist-section p {
+    font-family: 'Inter Tight', sans-serif;
+    color: var(--muted);
+    font-size: 16px;
+    margin-bottom: 48px;
+    line-height: 1.72;
+  }
+
+  .tally-frame {
+    width: 100%;
+    height: 560px;
+    border: none;
+    border-radius: 20px;
+  }
+
+  .footer {
+    padding: 32px;
+    text-align: center;
+    font-family: 'Inter Tight', sans-serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #bbb;
+    border-top: 1px solid var(--border);
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 980px) {
+    .hero-wrap::before {
+      background-position: 72% center;
+      opacity: 0.82;
+    }
+
+    .hero-wrap::after {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255,253,247,0.75) 0%,
+          rgba(255,253,247,0.82) 100%
+        );
+    }
+
+    .hero {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: center;
+      padding: 100px 24px 60px;
+      gap: 44px;
+    }
+
+    .hero-text {
+      max-width: 100%;
+    }
+
+    .hero-sub {
+      max-width: 100%;
+      color: rgba(26,20,16,0.76);
+    }
+
+    .hero-ctas {
+      justify-content: center;
+    }
+
+    .iphone {
+      width: 248px;
+    }
+
+    .why-section {
+      padding: 70px 24px;
+    }
+
+    .waitlist-section {
+      padding: 70px 24px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .why-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   @media (max-width: 480px) {
     h1 { font-size: 36px; }
     .iphone { width: 216px; }
+
+    .nav {
+      padding: 10px 20px;
+    }
   }
 </style>
 </head>
@@ -286,31 +576,36 @@
   <a href="#waitlist" class="pill-btn">Join the waitlist</a>
 </nav>
 
-<section class="hero">
-  <div class="hero-text">
-    <h1>Your money,<br><em>layered.</em></h1>
-    <p class="hero-sub">
-      Track monthly income streams, expenses, and goals in one simple app built for creators and freelancers.
-    </p>
-    <div class="hero-ctas">
-      <a href="#why" class="pill-btn learn">Learn More</a>
-    </div>
-  </div>
-
-  <div class="hero-phone">
-    <div class="iphone-glow"></div>
-    <div class="iphone">
-      <div class="btn-mute"></div>
-      <div class="btn-vol-up"></div>
-      <div class="btn-vol-down"></div>
-      <div class="btn-power"></div>
-      <div class="iphone-screen">
-        <div class="dynamic-island"></div>
-        <img src="Filo_App.png" alt="Filo App"
-             onerror="this.src='';this.parentElement.style.background='linear-gradient(160deg,#fffdf7,#f5ead0)';this.parentElement.style.minHeight='540px'"/>
+<section class="hero-wrap">
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Your money,<br><em>layered.</em></h1>
+      <p class="hero-sub">
+        Track monthly income streams, expenses, and goals in one simple app built for creators and freelancers.
+      </p>
+      <div class="hero-ctas">
+        <a href="#why" class="pill-btn learn">Learn More</a>
       </div>
     </div>
-  </div>
+
+    <div class="hero-phone">
+      <div class="iphone-glow"></div>
+      <div class="iphone">
+        <div class="btn-mute"></div>
+        <div class="btn-vol-up"></div>
+        <div class="btn-vol-down"></div>
+        <div class="btn-power"></div>
+        <div class="iphone-screen">
+          <div class="dynamic-island"></div>
+          <img
+            src="Filo_App.png"
+            alt="Filo App"
+            onerror="this.src='';this.parentElement.style.background='linear-gradient(160deg,#fffdf7,#f5ead0)';this.parentElement.style.minHeight='540px'"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
 </section>
 
 <div class="section-divider"></div>
@@ -325,7 +620,12 @@
   <div class="why-grid">
     <div class="why-card">
       <div class="why-icon">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M9.5 17.5 12 11l2.5 6.5"/></svg>
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="5" r="2"/>
+          <circle cx="5" cy="19" r="2"/>
+          <circle cx="19" cy="19" r="2"/>
+          <path d="M12 7v4M9.5 17.5 12 11l2.5 6.5"/>
+        </svg>
       </div>
       <h3>Multiple income streams</h3>
       <p>Track every source of your income right on your homepage that shows you exactly where your money comes from.</p>
@@ -333,7 +633,12 @@
 
     <div class="why-card">
       <div class="why-icon">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"/>
+          <circle cx="12" cy="12" r="5"/>
+          <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+          <path d="M12 2v2M12 20v2M2 12h2M20 12h2"/>
+        </svg>
       </div>
       <h3>A new way to see money</h3>
       <p>Turn your income into progress. See every dollar pushing you forward.</p>
@@ -341,7 +646,10 @@
 
     <div class="why-card">
       <div class="why-icon">
-        <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        <svg viewBox="0 0 24 24">
+          <rect x="5" y="11" width="14" height="10" rx="2"/>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+        </svg>
       </div>
       <h3>You're in control</h3>
       <p>Connect accounts securely, or track manually. Regardless, your data stays yours.</p>
@@ -349,7 +657,10 @@
 
     <div class="why-card">
       <div class="why-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 4-3 7-7 11C8 16 5 13 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2a7 7 0 0 1 7 7c0 4-3 7-7 11C8 16 5 13 5 9a7 7 0 0 1 7-7z"/>
+          <circle cx="12" cy="9" r="2.5"/>
+        </svg>
       </div>
       <h3>A breath of fresh air</h3>
       <p>Filo was designed to be the money app you actually want to open. Warm, calm, and satisfying.</p>
@@ -376,13 +687,17 @@
 
 <script>
   const fadeObserver = new IntersectionObserver(
-    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    entries => entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    }),
     { threshold: 0.12 }
   );
+
   document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
 
   const grid = document.querySelector('.why-grid');
   const cards = document.querySelectorAll('.why-card');
+
   const cardObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -393,7 +708,9 @@
       }
     });
   }, { threshold: 0.15 });
+
   if (grid) cardObserver.observe(grid);
 </script>
+
 </body>
 </html>
