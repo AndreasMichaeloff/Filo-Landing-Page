@@ -3,585 +3,416 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Filo – Your money, layered.</title>
+<title>Filo – Finance made simple.</title>
 <link rel="icon" type="image/png" href="filo.png" />
 <link rel="apple-touch-icon" href="filo.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700&display=swap" rel="stylesheet" />
 
 <style>
-  :root {
-    --gold: #e8b84b;
-    --gold-dk: #c49a30;
-    --cream: #fffdf7;
-    --warm: #f5ead0;
-    --text: #1a1410;
-    --muted: #8a7d6a;
-    --border: #ecdfc4;
-    --glass-bg: rgba(255, 253, 247, 0.16);
-    --glass-bg-strong: rgba(255, 253, 247, 0.22);
-    --glass-border: rgba(255, 255, 255, 0.34);
-    --glass-shadow: 0 10px 30px rgba(44, 32, 10, 0.10);
-  }
+:root{
+  --gold:#e8b84b;
+  --gold-dk:#c49a30;
+  --cream:#fffdf7;
+  --text:#1a1410;
+  --muted:#8a7d6a;
+  --border:#ecdfc4;
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+  /* darker gold glass */
+  --glass-bg:rgba(166,120,28,.28);
+  --glass-bg-strong:rgba(148,104,20,.38);
+  --glass-border:rgba(255,236,190,.28);
+  --glass-shadow:0 12px 34px rgba(54,35,4,.24);
+}
 
-  html {
-    scroll-behavior: smooth;
-  }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-  body {
-    font-family: 'Inter Tight', sans-serif;
-    background: var(--cream);
-    color: var(--text);
-    overflow-x: hidden;
-  }
+html{
+  scroll-behavior:smooth;
+}
 
-  a {
-    text-decoration: none;
-  }
+body{
+  font-family:'Inter Tight',sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  overflow-x:hidden;
+}
 
-  .glass-btn,
-  .glass-pill {
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
-  }
+a{
+  text-decoration:none;
+}
 
-  .glass-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 15px 28px;
-    border-radius: 999px;
-    background: var(--glass-bg-strong);
-    color: #fff;
-    font-size: 15px;
-    transition: 0.22s ease;
-  }
+/* ---------------- HERO ---------------- */
 
-  .glass-btn:hover {
-    background: rgba(255, 253, 247, 0.30);
-    color: #1a1410;
-    transform: translateY(-1px);
-  }
+.hero{
+  position:relative;
+  min-height:100vh;
+  min-height:100svh;
+  overflow:hidden;
+  background:#e8ece8;
+}
 
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    min-height: 100svh;
-    overflow: hidden;
-    background: #edf0ea;
-  }
+.hero-bg{
+  position:absolute;
+  inset:0;
+  background:url("hero-bg.png") center center / cover no-repeat;
+  transform:scale(1.01);
+}
 
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background-image: url("hero-bg.png");
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    transform: scale(1.01);
-  }
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,253,247,.06) 0%,
+      rgba(255,253,247,.01) 45%,
+      rgba(255,253,247,.04) 100%
+    );
+}
 
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(
-        180deg,
-        rgba(255,253,247,0.08) 0%,
-        rgba(255,253,247,0.02) 38%,
-        rgba(255,253,247,0.06) 100%
-      );
-    pointer-events: none;
-  }
+/* ---------------- FIXED NAV ---------------- */
 
-  .site-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 22px 28px;
-    pointer-events: none;
-  }
+.site-nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:100;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:22px 28px;
+  pointer-events:none;
+}
 
-  .site-nav > * {
-    pointer-events: auto;
-  }
+.site-nav > *{
+  pointer-events:auto;
+}
 
-  .nav-logo {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 58px;
-    min-width: 118px;
-    padding: 10px 18px;
-    border-radius: 999px;
-    background: rgba(255, 253, 247, 0.18);
-  }
+.glass-pill,
+.glass-btn{
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);
+}
 
-  .nav-logo img {
-    height: 30px;
-    display: block;
-  }
+.nav-logo{
+  min-height:58px;
+  min-width:118px;
+  padding:10px 18px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(150,108,22,.42) 0%,
+      rgba(110,76,14,.34) 100%
+    );
+}
 
-  .nav-logo-fallback {
-    display: none;
-    color: #fff;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.04em;
-  }
+.nav-logo img{
+  height:30px;
+  display:block;
+}
 
-  .nav-waitlist {
-    min-height: 62px;
-    min-width: 192px;
-    padding: 16px 28px;
-    font-size: 15px;
-    background: rgba(255, 253, 247, 0.20);
-  }
+.nav-logo-fallback{
+  display:none;
+  color:#fff;
+  font-size:28px;
+  font-weight:700;
+}
 
-  .hero-inner {
-    position: relative;
-    z-index: 5;
-    min-height: 100vh;
-    min-height: 100svh;
-    display: grid;
-    grid-template-rows: 1fr auto;
-    padding: 88px 32px 18px;
-  }
+.glass-btn{
+  min-height:62px;
+  min-width:194px;
+  padding:16px 28px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(176,126,28,.54) 0%,
+      rgba(132,92,18,.48) 100%
+    );
+  color:#fff8e8;
+  font-weight:700;
+  font-size:15px;
+  transition:.22s ease;
+}
 
-  .hero-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none;
-  }
+.glass-btn:hover{
+  transform:translateY(-1px);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(194,142,35,.64) 0%,
+      rgba(148,104,20,.58) 100%
+    );
+  color:#fff;
+}
 
-  .hero-phone-wrap {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+/* ---------------- HERO CONTENT ---------------- */
 
-  .iphone-glow {
-    position: absolute;
-    inset: -100px;
-    background: radial-gradient(
+.hero-inner{
+  position:relative;
+  z-index:5;
+  min-height:100vh;
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:80px 20px 20px;
+}
+
+.hero-phone-wrap{
+  position:relative;
+}
+
+.iphone-glow{
+  position:absolute;
+  inset:-110px;
+  background:
+    radial-gradient(
       ellipse at center,
-      rgba(255, 245, 214, 0.22) 0%,
-      rgba(255, 245, 214, 0.10) 34%,
-      rgba(255, 245, 214, 0.03) 56%,
+      rgba(255,245,214,.20) 0%,
+      rgba(255,245,214,.08) 35%,
+      rgba(255,245,214,.02) 56%,
       transparent 72%
     );
-    pointer-events: none;
+}
+
+.iphone{
+  position:relative;
+  width:300px;
+  z-index:2;
+  background:
+    linear-gradient(
+      155deg,
+      #5a5a5c 0%,
+      #3a3a3c 15%,
+      #2a2a2c 40%,
+      #404042 60%,
+      #2c2c2e 80%,
+      #1e1e20 100%
+    );
+  border-radius:48px;
+  padding:6px;
+  box-shadow:
+    0 28px 70px rgba(0,0,0,.38),
+    0 6px 18px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.13),
+    inset 0 -1px 0 rgba(0,0,0,.3);
+}
+
+.iphone-screen{
+  position:relative;
+  border-radius:43px;
+  overflow:hidden;
+  background:#050505;
+}
+
+.iphone-screen img{
+  width:100%;
+  display:block;
+  border-radius:43px;
+}
+
+.dynamic-island{
+  position:absolute;
+  top:9px;
+  left:50%;
+  transform:translateX(-50%);
+  width:88px;
+  height:26px;
+  background:#000;
+  border-radius:13px;
+  z-index:10;
+}
+
+.btn-mute,
+.btn-vol-up,
+.btn-vol-down,
+.btn-power{
+  position:absolute;
+}
+
+.btn-mute{
+  left:-3px;
+  top:58px;
+  width:3px;
+  height:20px;
+  background:#333;
+}
+
+.btn-vol-up{
+  left:-3px;
+  top:96px;
+  width:3px;
+  height:48px;
+  background:#333;
+}
+
+.btn-vol-down{
+  left:-3px;
+  top:156px;
+  width:3px;
+  height:48px;
+  background:#333;
+}
+
+.btn-power{
+  right:-3px;
+  top:112px;
+  width:3px;
+  height:68px;
+  background:#333;
+}
+
+/* ---------------- CONTENT BELOW ---------------- */
+
+.section-divider{
+  height:1px;
+  max-width:800px;
+  margin:0 auto;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+}
+
+.why-section,
+.waitlist-section{
+  max-width:1100px;
+  margin:0 auto;
+  padding:90px 24px;
+}
+
+.section-label{
+  text-align:center;
+  font-size:11px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--gold-dk);
+  margin-bottom:14px;
+}
+
+h2{
+  text-align:center;
+  font-size:clamp(32px,4vw,50px);
+  margin-bottom:14px;
+  line-height:1.1;
+}
+
+h2 em{
+  color:var(--gold);
+  font-style:italic;
+}
+
+.why-sub,
+.waitlist-section p{
+  text-align:center;
+  max-width:560px;
+  margin:0 auto 56px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.why-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:24px;
+}
+
+.why-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:32px;
+}
+
+.why-card h3{
+  margin-bottom:10px;
+  font-size:19px;
+}
+
+.why-card p{
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.tally-frame{
+  width:100%;
+  height:560px;
+  border:none;
+  border-radius:20px;
+}
+
+.footer{
+  padding:32px;
+  text-align:center;
+  font-size:13px;
+  color:#bbb;
+  border-top:1px solid var(--border);
+}
+
+/* ---------------- MOBILE ---------------- */
+
+@media (max-width:980px){
+
+  .glass-btn{
+    min-width:auto;
+    padding:14px 20px;
   }
 
-  .iphone {
-    position: relative;
-    width: 300px;
-    z-index: 2;
-    background: linear-gradient(155deg, #5a5a5c 0%, #3a3a3c 15%, #2a2a2c 40%, #404042 60%, #2c2c2e 80%, #1e1e20 100%);
-    border-radius: 48px;
-    padding: 6px;
-    box-shadow:
-      0 28px 70px rgba(0,0,0,0.38),
-      0 6px 18px rgba(0,0,0,0.22),
-      inset 0 1px 0 rgba(255,255,255,0.13),
-      inset 0 -1px 0 rgba(0,0,0,0.3);
+  .hero-bg{
+    background-position:60% center;
   }
 
-  .iphone-screen {
-    position: relative;
-    border-radius: 43px;
-    overflow: hidden;
-    background: #050505;
+  .iphone{
+    width:255px;
   }
 
-  .iphone-screen img {
-    width: 100%;
-    display: block;
-    border-radius: 43px;
+  .why-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width:520px){
+
+  .site-nav{
+    padding:14px;
   }
 
-  .dynamic-island {
-    position: absolute;
-    top: 9px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 88px;
-    height: 26px;
-    background: #000;
-    border-radius: 13px;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 8px;
+  .nav-logo{
+    min-width:90px;
+    min-height:50px;
   }
 
-  .dynamic-island::after {
-    content: "";
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 38% 32%, #1c1c30, #080808);
-    box-shadow:
-      0 0 0 1.5px rgba(255,255,255,0.05),
-      inset 1px 1px 2px rgba(60,60,100,0.35);
+  .nav-logo img{
+    height:24px;
   }
 
-  .btn-mute,
-  .btn-vol-up,
-  .btn-vol-down,
-  .btn-power {
-    position: absolute;
+  .glass-btn{
+    font-size:14px;
+    min-height:52px;
+    padding:12px 16px;
   }
 
-  .btn-mute {
-    left: -3px;
-    top: 58px;
-    width: 3px;
-    height: 20px;
-    border-radius: 1.5px 0 0 1.5px;
-    background: linear-gradient(90deg, #252527, #3c3c3e);
+  .iphone{
+    width:220px;
   }
-
-  .btn-vol-up {
-    left: -3px;
-    top: 96px;
-    width: 3px;
-    height: 48px;
-    border-radius: 1.5px 0 0 1.5px;
-    background: linear-gradient(90deg, #252527, #3c3c3e);
-  }
-
-  .btn-vol-down {
-    left: -3px;
-    top: 156px;
-    width: 3px;
-    height: 48px;
-    border-radius: 1.5px 0 0 1.5px;
-    background: linear-gradient(90deg, #252527, #3c3c3e);
-  }
-
-  .btn-power {
-    right: -3px;
-    top: 112px;
-    width: 3px;
-    height: 68px;
-    border-radius: 0 1.5px 1.5px 0;
-    background: linear-gradient(90deg, #3c3c3e, #252527);
-  }
-
-  .hero-copy {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 24px;
-    width: 100%;
-    max-width: 1280px;
-    margin: 0 auto;
-    margin-top: -56px;
-  }
-
-  .hero-copy-left {
-    max-width: 430px;
-    padding: 24px 24px 22px;
-    border-radius: 28px;
-    background: rgba(255, 253, 247, 0.12);
-  }
-
-  .hero-copy-left.glass-pill {
-    border-radius: 28px;
-  }
-
-  h1 {
-    font-size: clamp(42px, 5vw, 72px);
-    line-height: 0.98;
-    letter-spacing: -0.05em;
-    margin-bottom: 16px;
-    color: #1d150f;
-    font-weight: 700;
-  }
-
-  h1 em {
-    color: var(--gold);
-    font-style: italic;
-  }
-
-  .hero-sub {
-    font-size: 17px;
-    line-height: 1.65;
-    color: rgba(26, 20, 16, 0.72);
-    margin-bottom: 22px;
-    max-width: 360px;
-  }
-
-  .hero-cta {
-    background: rgba(255, 253, 247, 0.24);
-    color: #fff;
-  }
-
-  .hero-cta:hover {
-    background: rgba(255, 253, 247, 0.34);
-    color: #1a1410;
-  }
-
-  .hero-copy-right {
-    width: 160px;
-  }
-
-  .section-divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .why-section {
-    padding: 100px 60px;
-    max-width: 1160px;
-    margin: 0 auto;
-    scroll-margin-top: 96px;
-  }
-
-  .section-label {
-    text-align: center;
-    font-size: 11px;
-    font-style: italic;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gold-dk);
-    margin-bottom: 14px;
-    opacity: 0.85;
-  }
-
-  .why-section h2,
-  .waitlist-section h2 {
-    font-size: clamp(32px, 4vw, 50px);
-    text-align: center;
-    letter-spacing: -0.5px;
-    margin-bottom: 16px;
-    line-height: 1.1;
-    font-weight: 700;
-  }
-
-  .why-section h2 em,
-  .waitlist-section h2 em {
-    color: var(--gold);
-    font-style: italic;
-  }
-
-  .why-sub {
-    text-align: center;
-    color: var(--muted);
-    font-size: 16px;
-    max-width: 500px;
-    margin: 0 auto 64px;
-    line-height: 1.72;
-  }
-
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-
-  .why-card {
-    background: #fff;
-    border: 1.5px solid var(--border);
-    border-radius: 24px;
-    padding: 36px 30px;
-    opacity: 0;
-    transform: scale(0.88) translateY(30px);
-    transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.22s;
-  }
-
-  .why-card:nth-child(1) { transform: scale(0.88) translate(-20px, 20px); }
-  .why-card:nth-child(2) { transform: scale(0.88) translate(20px, 20px); }
-  .why-card:nth-child(3) { transform: scale(0.88) translate(-20px, -20px); }
-  .why-card:nth-child(4) { transform: scale(0.88) translate(20px, -20px); }
-
-  .why-card.card-visible {
-    opacity: 1;
-    transform: scale(1) translate(0, 0) !important;
-  }
-
-  .why-card:nth-child(2) { transition-delay: 0.08s; }
-  .why-card:nth-child(3) { transition-delay: 0.16s; }
-  .why-card:nth-child(4) { transition-delay: 0.24s; }
-
-  .why-card:hover {
-    transform: translateY(-4px) !important;
-    box-shadow: 0 16px 48px rgba(232,184,75,0.13);
-  }
-
-  .why-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #fff8e6, #fdefc8);
-    border: 1.5px solid rgba(232,184,75,0.28);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-
-  .why-icon svg {
-    width: 22px;
-    height: 22px;
-    stroke: var(--gold-dk);
-    fill: none;
-    stroke-width: 1.75;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .why-card h3 {
-    font-size: 19px;
-    margin-bottom: 10px;
-    font-weight: 700;
-  }
-
-  .why-card p {
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.78;
-  }
-
-  .waitlist-section {
-    padding: 100px 32px 80px;
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
-    scroll-margin-top: 96px;
-  }
-
-  .waitlist-section p {
-    color: var(--muted);
-    font-size: 16px;
-    margin-bottom: 48px;
-    line-height: 1.72;
-  }
-
-  .tally-frame {
-    width: 100%;
-    height: 560px;
-    border: none;
-    border-radius: 20px;
-  }
-
-  .footer {
-    padding: 32px;
-    text-align: center;
-    font-style: italic;
-    font-size: 13px;
-    color: #bbb;
-    border-top: 1px solid var(--border);
-  }
-
-  .fade-up {
-    opacity: 0;
-    transform: translateY(22px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  .fade-up.visible {
-    opacity: 1;
-    transform: none;
-  }
-
-  @media (max-width: 1180px) {
-    .hero-bg {
-      background-position: 58% center;
-    }
-  }
-
-  @media (max-width: 980px) {
-    .site-nav {
-      padding: 18px 20px;
-    }
-
-    .nav-logo {
-      min-height: 52px;
-      min-width: 100px;
-      padding: 10px 14px;
-    }
-
-    .nav-waitlist {
-      min-width: unset;
-      min-height: 54px;
-      padding: 14px 20px;
-    }
-
-    .hero-inner {
-      padding: 92px 20px 22px;
-    }
-
-    .iphone {
-      width: 260px;
-    }
-
-    .hero-copy {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 18px;
-      margin-top: -24px;
-    }
-
-    .hero-copy-left {
-      max-width: 100%;
-      background: rgba(255,253,247,0.20);
-    }
-
-    .hero-sub {
-      max-width: 100%;
-    }
-
-    .hero-copy-right {
-      display: none;
-    }
-
-    .why-section {
-      padding: 70px 24px;
-    }
-
-    .waitlist-section {
-      padding: 70px 24px;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .why-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 480px) {
-    h1 { font-size: 36px; }
-    .iphone { width: 220px; }
-    .nav-logo img { height: 24px; }
-    .nav-logo-fallback { font-size: 22px; }
-    .site-nav { padding: 16px 14px; }
-    .nav-waitlist { padding: 12px 16px; font-size: 14px; }
-  }
+}
 </style>
 </head>
+
 <body>
 
 <section class="hero" id="top">
@@ -589,51 +420,42 @@
   <div class="hero-overlay"></div>
 
   <nav class="site-nav">
-    <a href="#top" class="nav-logo glass-pill" aria-label="Back to top">
+
+    <a href="#top" class="nav-logo glass-pill" id="topLogo">
       <img
         src="filo.png"
-        alt="Filo logo"
-        onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block';"
+        alt="Filo Logo"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
       />
       <span class="nav-logo-fallback">filo</span>
     </a>
 
-    <a href="#waitlist" class="glass-btn nav-waitlist">Join the waitlist</a>
+    <a href="#waitlist" class="glass-btn">
+      Join the waitlist
+    </a>
+
   </nav>
 
   <div class="hero-inner">
-    <div class="hero-center">
-      <div class="hero-phone-wrap">
-        <div class="iphone-glow"></div>
+    <div class="hero-phone-wrap">
+      <div class="iphone-glow"></div>
 
-        <div class="iphone">
-          <div class="btn-mute"></div>
-          <div class="btn-vol-up"></div>
-          <div class="btn-vol-down"></div>
-          <div class="btn-power"></div>
+      <div class="iphone">
+        <div class="btn-mute"></div>
+        <div class="btn-vol-up"></div>
+        <div class="btn-vol-down"></div>
+        <div class="btn-power"></div>
 
-          <div class="iphone-screen">
-            <div class="dynamic-island"></div>
-            <img
-              src="Filo_App.png"
-              alt="Filo App"
-              onerror="this.src='';this.parentElement.style.background='linear-gradient(160deg,#fffdf7,#f5ead0)';this.parentElement.style.minHeight='540px';"
-            />
-          </div>
+        <div class="iphone-screen">
+          <div class="dynamic-island"></div>
+
+          <img
+            src="Filo_App.png"
+            alt="Filo App"
+            onerror="this.src='';this.parentElement.style.minHeight='540px';this.parentElement.style.background='linear-gradient(160deg,#fffdf7,#f5ead0)';"
+          />
         </div>
       </div>
-    </div>
-
-    <div class="hero-copy">
-      <div class="hero-copy-left glass-pill">
-        <h1>Your money,<br><em>layered.</em></h1>
-        <p class="hero-sub">
-          Track monthly income streams, expenses, and goals in one simple app built for creators and freelancers.
-        </p>
-        <a href="#why" class="glass-btn hero-cta">Learn more</a>
-      </div>
-
-      <div class="hero-copy-right"></div>
     </div>
   </div>
 </section>
@@ -641,118 +463,85 @@
 <div class="section-divider"></div>
 
 <section class="why-section" id="why">
-  <div class="section-label fade-up">Why Filo?</div>
-  <h2 class="fade-up">It's built for<br><em>how you actually earn.</em></h2>
-  <p class="why-sub fade-up">
-    Filo is made for people who earn money in different ways. Whether that's side gigs, freelance work, and big goals, this app is for you.
+  <div class="section-label">Why Filo?</div>
+
+  <h2>
+    Built for<br>
+    <em>how you actually earn.</em>
+  </h2>
+
+  <p class="why-sub">
+    Filo is made for people with side income, freelancing,
+    multiple streams, and bigger goals.
   </p>
 
   <div class="why-grid">
+
     <div class="why-card">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="5" r="2"/>
-          <circle cx="5" cy="19" r="2"/>
-          <circle cx="19" cy="19" r="2"/>
-          <path d="M12 7v4M9.5 17.5 12 11l2.5 6.5"/>
-        </svg>
-      </div>
       <h3>Multiple income streams</h3>
-      <p>Track every source of your income right on your homepage that shows you exactly where your money comes from.</p>
+      <p>Track every source of income in one clean place.</p>
     </div>
 
     <div class="why-card">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="9"/>
-          <circle cx="12" cy="12" r="5"/>
-          <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
-          <path d="M12 2v2M12 20v2M2 12h2M20 12h2"/>
-        </svg>
-      </div>
-      <h3>A new way to see money</h3>
-      <p>Turn your income into progress. See every dollar pushing you forward.</p>
+      <h3>A better money view</h3>
+      <p>See progress clearly and feel momentum every month.</p>
     </div>
 
     <div class="why-card">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24">
-          <rect x="5" y="11" width="14" height="10" rx="2"/>
-          <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
-        </svg>
-      </div>
-      <h3>You're in control</h3>
-      <p>Connect accounts securely, or track manually. Regardless, your data stays yours.</p>
+      <h3>You stay in control</h3>
+      <p>Connect accounts securely or track manually.</p>
     </div>
 
     <div class="why-card">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24">
-          <path d="M12 2a7 7 0 0 1 7 7c0 4-3 7-7 11C8 16 5 13 5 9a7 7 0 0 1 7-7z"/>
-          <circle cx="12" cy="9" r="2.5"/>
-        </svg>
-      </div>
-      <h3>A breath of fresh air</h3>
-      <p>Filo was designed to be the money app you actually want to open. Warm, calm, and satisfying.</p>
+      <h3>Actually enjoyable</h3>
+      <p>Warm, calm, and designed to be opened often.</p>
     </div>
+
   </div>
 </section>
 
 <div class="section-divider"></div>
 
 <section class="waitlist-section" id="waitlist">
-  <div class="section-label fade-up">Early access</div>
-  <h2 class="fade-up">Get early access<br>to <em>Filo</em></h2>
-  <p class="fade-up">Be the first to know when Filo launches.</p>
+  <div class="section-label">Early access</div>
+
+  <h2>
+    Get early access<br>
+    to <em>Filo</em>
+  </h2>
+
+  <p>
+    Be the first to know when Filo launches.
+  </p>
+
   <iframe
-    class="tally-frame fade-up"
+    class="tally-frame"
     src="https://tally.so/r/dWlvkD"
     scrolling="no">
   </iframe>
 </section>
 
 <footer class="footer">
-  © 2026 Filo · Your money, layered.
+  © 2026 Filo · Finance made simple.
 </footer>
 
 <script>
-  if ("scrollRestoration" in history) {
-    history.scrollRestoration = "manual";
-  }
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
 
-  window.addEventListener("load", () => {
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+window.addEventListener("load", () => {
+  window.scrollTo(0,0);
+});
+
+document.getElementById("topLogo").addEventListener("click", function(e){
+  e.preventDefault();
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
   });
-
-  document.querySelector('.nav-logo')?.addEventListener('click', function (e) {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-
-  const fadeObserver = new IntersectionObserver(
-    entries => entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('visible');
-    }),
-    { threshold: 0.12 }
-  );
-
-  document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
-
-  const grid = document.querySelector('.why-grid');
-  const cards = document.querySelectorAll('.why-card');
-
-  const cardObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        cards.forEach((card, i) => {
-          setTimeout(() => card.classList.add('card-visible'), i * 110);
-        });
-        cardObserver.disconnect();
-      }
-    });
-  }, { threshold: 0.15 });
-
-  if (grid) cardObserver.observe(grid);
+});
 </script>
+
 </body>
 </html>
