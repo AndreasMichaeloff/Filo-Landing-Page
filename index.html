@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Filo – Finance made simple.</title>
 
-  <link rel="icon" type="image/png" href="Glassmorphic _O_ logo design.png" />
-  <link rel="apple-touch-icon" href="Glassmorphic _O_ logo design.png" />
+  <link rel="icon" type="image/png" href="filo-glass-logo.png" />
+  <link rel="apple-touch-icon" href="filo-glass-logo.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,6 +20,9 @@
       --text: #1a1410;
       --muted: #8a7d6a;
       --border: #ecdfc4;
+
+      --nav-height: 68px;
+      --nav-radius: 999px;
     }
 
     * {
@@ -78,7 +81,7 @@
       z-index: 100;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
-      align-items: start;
+      align-items: center;
       padding: 20px 28px;
       pointer-events: none;
     }
@@ -93,18 +96,16 @@
 
     .nav-center {
       justify-self: center;
-      align-self: start;
-      margin-top: 0;
     }
 
     .nav-right {
       justify-self: end;
     }
 
-    .glass-pill,
-    .glass-btn,
-    .segmented-nav,
-    .seg-btn {
+    .nav-pill,
+    .nav-logo,
+    .nav-cta,
+    .segmented-nav {
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       transition:
@@ -112,13 +113,12 @@
         color .22s ease,
         border-color .22s ease,
         box-shadow .22s ease,
-        transform .22s ease,
-        opacity .22s ease;
+        transform .22s ease;
     }
 
-    /* ---------- HERO STATE ---------- */
+    /* HERO STATE */
     body.nav-on-hero .nav-logo,
-    body.nav-on-hero .glass-btn,
+    body.nav-on-hero .nav-cta,
     body.nav-on-hero .segmented-nav {
       color: #fff;
       border: 1px solid rgba(255,255,255,.10);
@@ -126,18 +126,6 @@
         inset 1.5px 0 0 rgba(255,255,255,.55),
         inset -1.5px 0 0 rgba(255,255,255,.55),
         0 12px 34px rgba(0,0,0,.20);
-    }
-
-    body.nav-on-hero .nav-logo {
-      background: linear-gradient(
-        180deg,
-        rgba(52,56,61,.34) 0%,
-        rgba(26,28,32,.30) 100%
-      );
-    }
-
-    body.nav-on-hero .glass-btn,
-    body.nav-on-hero .segmented-nav {
       background: linear-gradient(
         180deg,
         rgba(52,56,61,.52) 0%,
@@ -145,8 +133,8 @@
       );
     }
 
-    body.nav-on-hero .glass-btn:hover,
-    body.nav-on-hero .nav-logo:hover {
+    body.nav-on-hero .nav-logo:hover,
+    body.nav-on-hero .nav-cta:hover {
       background: linear-gradient(
         180deg,
         rgba(86,92,100,.54) 0%,
@@ -156,14 +144,11 @@
     }
 
     body.nav-on-hero .seg-btn {
-      background: transparent;
-      border: none;
-      box-shadow: none;
-      color: rgba(255,255,255,.95);
+      color: rgba(255,255,255,.96);
     }
 
     body.nav-on-hero .seg-btn:hover,
-    body.nav-on-hero .seg-btn.active {
+    body.nav-on-hero .seg-btn:focus-visible {
       background: linear-gradient(
         180deg,
         rgba(70,74,80,.56) 0%,
@@ -173,11 +158,12 @@
         inset 1px 0 0 rgba(255,255,255,.22),
         inset -1px 0 0 rgba(255,255,255,.22),
         0 8px 20px rgba(0,0,0,.12);
+      color: #fff;
     }
 
-    /* ---------- SCROLLED STATE ---------- */
+    /* SCROLLED STATE */
     body.nav-scrolled .nav-logo,
-    body.nav-scrolled .glass-btn,
+    body.nav-scrolled .nav-cta,
     body.nav-scrolled .segmented-nav {
       color: #2b2118;
       border: 1px solid rgba(120,110,92,.16);
@@ -185,18 +171,6 @@
         inset 1.5px 0 0 rgba(255,255,255,.82),
         inset -1.5px 0 0 rgba(255,255,255,.82),
         0 10px 28px rgba(32,20,6,.08);
-    }
-
-    body.nav-scrolled .nav-logo {
-      background: linear-gradient(
-        180deg,
-        rgba(255,253,247,.74) 0%,
-        rgba(248,241,226,.60) 100%
-      );
-    }
-
-    body.nav-scrolled .glass-btn,
-    body.nav-scrolled .segmented-nav {
       background: linear-gradient(
         180deg,
         rgba(255,253,247,.80) 0%,
@@ -204,8 +178,8 @@
       );
     }
 
-    body.nav-scrolled .glass-btn:hover,
-    body.nav-scrolled .nav-logo:hover {
+    body.nav-scrolled .nav-logo:hover,
+    body.nav-scrolled .nav-cta:hover {
       background: linear-gradient(
         180deg,
         rgba(70,74,80,.50) 0%,
@@ -220,14 +194,11 @@
     }
 
     body.nav-scrolled .seg-btn {
-      background: transparent;
-      border: none;
       color: #2b2118;
-      box-shadow: none;
     }
 
     body.nav-scrolled .seg-btn:hover,
-    body.nav-scrolled .seg-btn.active {
+    body.nav-scrolled .seg-btn:focus-visible {
       background: linear-gradient(
         180deg,
         rgba(70,74,80,.50) 0%,
@@ -240,59 +211,67 @@
         0 10px 24px rgba(0,0,0,.12);
     }
 
-    .nav-logo {
-      min-height: 66px;
-      min-width: 132px;
-      padding: 10px 20px;
-      border-radius: 999px;
-      display: flex;
+    .nav-logo,
+    .nav-cta,
+    .segmented-nav {
+      min-height: var(--nav-height);
+      height: var(--nav-height);
+      border-radius: var(--nav-radius);
+      display: inline-flex;
       align-items: center;
       justify-content: center;
     }
 
+    .nav-logo {
+      min-width: 168px;
+      padding: 0 24px;
+    }
+
     .nav-logo img {
-      height: 38px;
+      height: 40px;
       width: auto;
       display: block;
     }
 
     .nav-logo-fallback {
       display: none;
-      font-size: 30px;
+      font-size: 32px;
       font-weight: 700;
+      letter-spacing: -0.03em;
     }
 
-    .glass-btn {
-      min-height: 66px;
-      min-width: 224px;
-      padding: 16px 32px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    .nav-cta {
+      min-width: 280px;
+      padding: 0 34px;
       font-weight: 700;
       font-size: 16px;
     }
 
     .segmented-nav {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      min-width: 520px;
       padding: 8px;
-      border-radius: 999px;
-      min-height: 66px;
+      gap: 8px;
     }
 
     .seg-btn {
-      min-width: 170px;
-      min-height: 50px;
-      padding: 0 28px;
+      flex: 1;
+      min-width: 0;
+      min-height: calc(var(--nav-height) - 16px);
       border-radius: 999px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-size: 18px;
       font-weight: 600;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      outline: none;
+      transition:
+        background .22s ease,
+        color .22s ease,
+        box-shadow .22s ease,
+        transform .22s ease;
     }
 
     .hero-inner {
@@ -305,7 +284,7 @@
       align-items: center;
       justify-content: center;
       gap: 18px;
-      padding: 100px 20px 28px;
+      padding: 104px 20px 28px;
     }
 
     .hero-phone-wrap {
@@ -507,13 +486,13 @@
       border-top: 1px solid var(--border);
     }
 
-    @media (max-width: 1100px) {
-      .site-nav {
-        grid-template-columns: auto 1fr auto;
+    @media (max-width: 1200px) {
+      .segmented-nav {
+        min-width: 440px;
       }
 
-      .seg-btn {
-        min-width: 140px;
+      .nav-cta {
+        min-width: 240px;
       }
     }
 
@@ -522,22 +501,41 @@
         background-position: 60% center;
       }
 
-      .glass-btn {
-        min-width: auto;
-        padding: 14px 20px;
+      .site-nav {
+        grid-template-columns: 1fr auto 1fr;
+        padding: 16px 18px;
+      }
+
+      .nav-logo,
+      .nav-cta,
+      .segmented-nav {
         min-height: 58px;
+        height: 58px;
+      }
+
+      .nav-logo {
+        min-width: 130px;
+        padding: 0 18px;
+      }
+
+      .nav-logo img {
+        height: 34px;
+      }
+
+      .nav-cta {
+        min-width: 190px;
+        padding: 0 18px;
+        font-size: 14px;
       }
 
       .segmented-nav {
-        padding: 7px;
-        min-height: 60px;
+        min-width: 330px;
+        padding: 6px;
       }
 
       .seg-btn {
-        min-width: 118px;
         min-height: 46px;
         font-size: 16px;
-        padding: 0 20px;
       }
 
       .iphone {
@@ -552,52 +550,58 @@
     @media (max-width: 760px) {
       .site-nav {
         grid-template-columns: 1fr auto;
-        row-gap: 12px;
+        row-gap: 10px;
       }
 
       .nav-center {
         grid-column: 1 / -1;
         justify-self: center;
-        margin-top: 2px;
+      }
+
+      .segmented-nav {
+        width: min(92vw, 360px);
+        min-width: 0;
       }
     }
 
     @media (max-width: 520px) {
       .site-nav {
-        padding: 14px;
+        padding: 12px;
+      }
+
+      .nav-logo,
+      .nav-cta,
+      .segmented-nav {
+        min-height: 52px;
+        height: 52px;
       }
 
       .nav-logo {
-        min-width: 94px;
-        min-height: 52px;
-        padding: 8px 14px;
+        min-width: 96px;
+        padding: 0 12px;
       }
 
       .nav-logo img {
-        height: 30px;
+        height: 28px;
       }
 
-      .glass-btn {
-        font-size: 14px;
-        min-height: 52px;
-        padding: 12px 16px;
-      }
-
-      .iphone {
-        width: 220px;
+      .nav-cta {
+        min-width: 160px;
+        padding: 0 14px;
+        font-size: 13px;
       }
 
       .segmented-nav {
-        min-height: 56px;
-        width: min(92vw, 360px);
-        justify-content: center;
+        padding: 5px;
       }
 
       .seg-btn {
         min-height: 40px;
-        min-width: 0;
-        flex: 1;
         font-size: 15px;
+      }
+
+      .iphone {
+        width: 220px;
       }
     }
   </style>
@@ -611,9 +615,9 @@
 
   <nav class="site-nav">
     <div class="nav-left">
-      <a href="#top" class="nav-logo glass-pill" id="topLogo">
+      <a href="#top" class="nav-logo" id="topLogo">
         <img
-          src="Glassmorphic _O_ logo design.png"
+          src="filo-glass-logo.png"
           alt="Filo Logo"
           onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
         />
@@ -622,14 +626,14 @@
     </div>
 
     <div class="nav-center">
-      <div class="segmented-nav glass-pill">
+      <div class="segmented-nav">
         <a href="#about" class="seg-btn">About</a>
-        <a href="#why" class="seg-btn active">Learn</a>
+        <a href="#why" class="seg-btn">Learn</a>
       </div>
     </div>
 
     <div class="nav-right">
-      <a href="#waitlist" class="glass-btn">
+      <a href="#waitlist" class="nav-cta">
         Join the waitlist
       </a>
     </div>
