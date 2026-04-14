@@ -21,7 +21,7 @@
       --muted: #8a7d6a;
       --border: #ecdfc4;
 
-      --nav-height: 68px;
+      --nav-height: 58px;
       --nav-radius: 999px;
     }
 
@@ -82,7 +82,7 @@
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      padding: 20px 28px;
+      padding: 18px 24px;
       pointer-events: none;
     }
 
@@ -102,7 +102,6 @@
       justify-self: end;
     }
 
-    .nav-pill,
     .nav-logo,
     .nav-cta,
     .segmented-nav {
@@ -114,6 +113,32 @@
         border-color .22s ease,
         box-shadow .22s ease,
         transform .22s ease;
+      position: relative;
+      overflow: visible;
+    }
+
+    /* OUTER EDGE HIGHLIGHT */
+    .nav-logo::before,
+    .nav-cta::before,
+    .segmented-nav::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      pointer-events: none;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.65) 0%,
+          rgba(255,255,255,.10) 10%,
+          rgba(255,255,255,0) 18%,
+          rgba(255,255,255,0) 82%,
+          rgba(255,255,255,.10) 90%,
+          rgba(255,255,255,.65) 100%
+        );
+      opacity: .9;
+      z-index: -1;
+      filter: blur(.2px);
     }
 
     /* HERO STATE */
@@ -121,43 +146,38 @@
     body.nav-on-hero .nav-cta,
     body.nav-on-hero .segmented-nav {
       color: #fff;
-      border: 1px solid rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.08);
       box-shadow:
-        inset 1.5px 0 0 rgba(255,255,255,.55),
-        inset -1.5px 0 0 rgba(255,255,255,.55),
-        0 12px 34px rgba(0,0,0,.20);
+        0 10px 26px rgba(0,0,0,.18);
       background: linear-gradient(
         180deg,
-        rgba(52,56,61,.52) 0%,
-        rgba(28,30,34,.46) 100%
+        rgba(52,56,61,.44) 0%,
+        rgba(28,30,34,.40) 100%
       );
     }
 
     body.nav-on-hero .nav-logo:hover,
-    body.nav-on-hero .nav-cta:hover {
+    body.nav-on-hero .nav-cta:hover,
+    body.nav-on-hero .segmented-nav:hover {
       background: linear-gradient(
         180deg,
-        rgba(86,92,100,.54) 0%,
-        rgba(40,44,50,.46) 100%
+        rgba(66,72,79,.50) 0%,
+        rgba(36,39,44,.46) 100%
       );
       transform: translateY(-1px);
     }
 
     body.nav-on-hero .seg-btn {
-      color: rgba(255,255,255,.96);
+      color: rgba(255,255,255,.95);
     }
 
     body.nav-on-hero .seg-btn:hover,
     body.nav-on-hero .seg-btn:focus-visible {
       background: linear-gradient(
         180deg,
-        rgba(70,74,80,.56) 0%,
-        rgba(34,36,40,.46) 100%
+        rgba(86,92,100,.24) 0%,
+        rgba(44,48,54,.20) 100%
       );
-      box-shadow:
-        inset 1px 0 0 rgba(255,255,255,.22),
-        inset -1px 0 0 rgba(255,255,255,.22),
-        0 8px 20px rgba(0,0,0,.12);
       color: #fff;
     }
 
@@ -166,30 +186,25 @@
     body.nav-scrolled .nav-cta,
     body.nav-scrolled .segmented-nav {
       color: #2b2118;
-      border: 1px solid rgba(120,110,92,.16);
+      border: 1px solid rgba(120,110,92,.14);
       box-shadow:
-        inset 1.5px 0 0 rgba(255,255,255,.82),
-        inset -1.5px 0 0 rgba(255,255,255,.82),
-        0 10px 28px rgba(32,20,6,.08);
+        0 8px 20px rgba(32,20,6,.07);
       background: linear-gradient(
         180deg,
-        rgba(255,253,247,.80) 0%,
-        rgba(245,235,214,.64) 100%
+        rgba(255,253,247,.72) 0%,
+        rgba(245,235,214,.56) 100%
       );
     }
 
     body.nav-scrolled .nav-logo:hover,
-    body.nav-scrolled .nav-cta:hover {
+    body.nav-scrolled .nav-cta:hover,
+    body.nav-scrolled .segmented-nav:hover {
       background: linear-gradient(
         180deg,
-        rgba(70,74,80,.50) 0%,
-        rgba(34,36,40,.44) 100%
+        rgba(255,253,247,.82) 0%,
+        rgba(245,235,214,.68) 100%
       );
-      color: #fff;
-      box-shadow:
-        inset 1.5px 0 0 rgba(255,255,255,.20),
-        inset -1.5px 0 0 rgba(255,255,255,.20),
-        0 12px 34px rgba(0,0,0,.18);
+      color: #2b2118;
       transform: translateY(-1px);
     }
 
@@ -201,14 +216,10 @@
     body.nav-scrolled .seg-btn:focus-visible {
       background: linear-gradient(
         180deg,
-        rgba(70,74,80,.50) 0%,
-        rgba(34,36,40,.44) 100%
+        rgba(255,255,255,.30) 0%,
+        rgba(245,235,214,.22) 100%
       );
-      color: #fff;
-      box-shadow:
-        inset 1px 0 0 rgba(255,255,255,.18),
-        inset -1px 0 0 rgba(255,255,255,.18),
-        0 10px 24px rgba(0,0,0,.12);
+      color: #2b2118;
     }
 
     .nav-logo,
@@ -223,45 +234,45 @@
     }
 
     .nav-logo {
-      min-width: 168px;
-      padding: 0 24px;
+      min-width: 132px;
+      padding: 0 18px;
     }
 
     .nav-logo img {
-      height: 40px;
+      height: 32px;
       width: auto;
       display: block;
     }
 
     .nav-logo-fallback {
       display: none;
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 700;
       letter-spacing: -0.03em;
     }
 
     .nav-cta {
-      min-width: 280px;
-      padding: 0 34px;
+      min-width: 220px;
+      padding: 0 24px;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 14px;
     }
 
     .segmented-nav {
-      min-width: 520px;
-      padding: 8px;
-      gap: 8px;
+      min-width: 420px;
+      padding: 6px;
+      gap: 4px;
     }
 
     .seg-btn {
       flex: 1;
       min-width: 0;
-      min-height: calc(var(--nav-height) - 16px);
+      min-height: calc(var(--nav-height) - 12px);
       border-radius: 999px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
       background: transparent;
       border: none;
@@ -270,7 +281,6 @@
       transition:
         background .22s ease,
         color .22s ease,
-        box-shadow .22s ease,
         transform .22s ease;
     }
 
@@ -284,12 +294,12 @@
       align-items: center;
       justify-content: center;
       gap: 18px;
-      padding: 104px 20px 28px;
+      padding: 96px 20px 28px;
     }
 
     .hero-phone-wrap {
       position: relative;
-      margin-top: 18px;
+      margin-top: 14px;
     }
 
     .iphone-glow {
@@ -488,11 +498,11 @@
 
     @media (max-width: 1200px) {
       .segmented-nav {
-        min-width: 440px;
+        min-width: 360px;
       }
 
       .nav-cta {
-        min-width: 240px;
+        min-width: 190px;
       }
     }
 
@@ -503,39 +513,39 @@
 
       .site-nav {
         grid-template-columns: 1fr auto 1fr;
-        padding: 16px 18px;
+        padding: 14px 18px;
       }
 
       .nav-logo,
       .nav-cta,
       .segmented-nav {
-        min-height: 58px;
-        height: 58px;
+        min-height: 52px;
+        height: 52px;
       }
 
       .nav-logo {
-        min-width: 130px;
-        padding: 0 18px;
+        min-width: 110px;
+        padding: 0 14px;
       }
 
       .nav-logo img {
-        height: 34px;
+        height: 28px;
       }
 
       .nav-cta {
-        min-width: 190px;
-        padding: 0 18px;
-        font-size: 14px;
+        min-width: 170px;
+        padding: 0 16px;
+        font-size: 13px;
       }
 
       .segmented-nav {
-        min-width: 330px;
-        padding: 6px;
+        min-width: 290px;
+        padding: 5px;
       }
 
       .seg-btn {
-        min-height: 46px;
-        font-size: 16px;
+        min-height: 40px;
+        font-size: 15px;
       }
 
       .iphone {
@@ -559,7 +569,7 @@
       }
 
       .segmented-nav {
-        width: min(92vw, 360px);
+        width: min(92vw, 340px);
         min-width: 0;
       }
     }
@@ -572,32 +582,32 @@
       .nav-logo,
       .nav-cta,
       .segmented-nav {
-        min-height: 52px;
-        height: 52px;
+        min-height: 48px;
+        height: 48px;
       }
 
       .nav-logo {
-        min-width: 96px;
-        padding: 0 12px;
+        min-width: 88px;
+        padding: 0 10px;
       }
 
       .nav-logo img {
-        height: 28px;
+        height: 24px;
       }
 
       .nav-cta {
-        min-width: 160px;
-        padding: 0 14px;
-        font-size: 13px;
+        min-width: 142px;
+        padding: 0 12px;
+        font-size: 12px;
       }
 
       .segmented-nav {
-        padding: 5px;
+        padding: 4px;
       }
 
       .seg-btn {
-        min-height: 40px;
-        font-size: 15px;
+        min-height: 36px;
+        font-size: 14px;
       }
 
       .iphone {
