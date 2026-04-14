@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Filo – Finance made simple.</title>
 
-  <link rel="icon" type="image/png" href="Glassmorphic _O_ logo design.png" />
-  <link rel="apple-touch-icon" href="Glassmorphic _O_ logo design.png" />
+  <link rel="icon" type="image/png" href="a_vector_style_digital_illustration_features_the_w.png" />
+  <link rel="apple-touch-icon" href="a_vector_style_digital_illustration_features_the_w.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -118,7 +118,6 @@
       border-radius: var(--nav-radius);
     }
 
-    /* subtle clean border highlight */
     .nav-logo::before,
     .nav-cta::before,
     .segmented-nav::before {
@@ -131,7 +130,6 @@
       opacity: .9;
     }
 
-    /* HERO STATE */
     body.nav-on-hero .nav-logo,
     body.nav-on-hero .nav-cta,
     body.nav-on-hero .segmented-nav {
@@ -170,7 +168,6 @@
       color: #fff;
     }
 
-    /* SCROLLED STATE */
     body.nav-scrolled .nav-logo,
     body.nav-scrolled .nav-cta,
     body.nav-scrolled .segmented-nav {
@@ -200,7 +197,6 @@
       color: #2b2118;
     }
 
-    /* darker on hover even when scrolled */
     body.nav-scrolled .seg-btn:hover,
     body.nav-scrolled .seg-btn:focus-visible {
       background: linear-gradient(
@@ -226,10 +222,37 @@
       padding: 0 18px;
     }
 
-    .nav-logo img {
-      height: 32px;
-      width: auto;
+    .nav-logo-mark {
+      position: relative;
+      width: 92px;
+      height: 28px;
       display: block;
+    }
+
+    .nav-logo-mark img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      transition: opacity .28s ease;
+    }
+
+    .nav-logo-light {
+      opacity: 1;
+    }
+
+    .nav-logo-dark {
+      opacity: 0;
+    }
+
+    body.nav-scrolled .nav-logo-light {
+      opacity: 0;
+    }
+
+    body.nav-scrolled .nav-logo-dark {
+      opacity: 1;
     }
 
     .nav-logo-fallback {
@@ -516,8 +539,9 @@
         padding: 0 14px;
       }
 
-      .nav-logo img {
-        height: 28px;
+      .nav-logo-mark {
+        width: 78px;
+        height: 24px;
       }
 
       .nav-cta {
@@ -579,8 +603,9 @@
         padding: 0 10px;
       }
 
-      .nav-logo img {
-        height: 24px;
+      .nav-logo-mark {
+        width: 66px;
+        height: 20px;
       }
 
       .nav-cta {
@@ -614,11 +639,18 @@
   <nav class="site-nav">
     <div class="nav-left">
       <a href="#top" class="nav-logo" id="topLogo">
-        <img
-          src="Glassmorphic _O_ logo design.png"
-          alt="Filo Logo"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
-        />
+        <span class="nav-logo-mark">
+          <img
+            class="nav-logo-light"
+            src="a_vector_style_digital_illustration_features_the_w.png"
+            alt="Filo light logo"
+          />
+          <img
+            class="nav-logo-dark"
+            src="a_vector_based_digital_logo_features_the_word_fil.png"
+            alt="Filo dark logo"
+          />
+        </span>
         <span class="nav-logo-fallback">filo</span>
       </a>
     </div>
