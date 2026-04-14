@@ -217,27 +217,45 @@
       justify-content: center;
     }
 
-    .nav-logo {
-      min-width: 132px;
-      padding: 0 18px;
-    }
+    /* TOP LEFT BUTTON stays same size */
+.nav-logo{
+  min-width:132px;
+  padding:0 18px;
+}
 
-    .nav-logo-mark {
-      position: relative;
-      width: 92px;
-      height: 28px;
-      display: block;
-    }
+/* MAKE ONLY THE LOGOS BIGGER */
+.nav-logo-mark{
+  position:relative;
+  width:118px;   /* was 92px */
+  height:38px;   /* was 28px */
+  display:block;
+}
 
-    .nav-logo-mark img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      transition: opacity .28s ease;
-    }
+.nav-logo-mark img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  transition:opacity .28s ease;
+}
+
+/* tablet */
+@media (max-width:980px){
+  .nav-logo-mark{
+    width:102px;   /* was 78 */
+    height:34px;   /* was 24 */
+  }
+}
+
+/* mobile */
+@media (max-width:520px){
+  .nav-logo-mark{
+    width:88px;    /* was 66 */
+    height:28px;   /* was 20 */
+  }
+}
 
     .nav-logo-light {
       opacity: 1;
