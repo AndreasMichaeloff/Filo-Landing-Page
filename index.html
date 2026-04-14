@@ -1,819 +1,631 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Filo – Finance made simple.</title>
-  <link rel="icon" type="image/png" href="filo.png" />
-  <link rel="apple-touch-icon" href="filo.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700&display=swap" rel="stylesheet" />
-
-  <style>
-    :root {
-      --gold: #e8b84b;
-      --gold-dk: #c49a30;
-      --cream: #fffdf7;
-      --text: #1a1410;
-      --muted: #8a7d6a;
-      --border: #ecdfc4;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Inter Tight', sans-serif;
-      background: var(--cream);
-      color: var(--text);
-      overflow-x: hidden;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      min-height: 100svh;
-      overflow: hidden;
-      background: #e8ece8;
-      isolation: isolate;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background: url("hero-bg.png") center center / cover no-repeat;
-      transform: scale(1.015);
-      z-index: 0;
-    }
-
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        180deg,
-        rgba(255, 253, 247, 0.06) 0%,
-        rgba(255, 253, 247, 0.015) 45%,
-        rgba(255, 253, 247, 0.04) 100%
-      );
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .cloud-layer {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .cloud {
-      position: absolute;
-      border-radius: 999px;
-      filter: blur(24px);
-      opacity: 0.22;
-      background: radial-gradient(
-        ellipse at center,
-        rgba(255,255,255,0.9) 0%,
-        rgba(255,255,255,0.45) 45%,
-        rgba(255,255,255,0) 75%
-      );
-      will-change: transform;
-    }
-
-    .cloud-1 {
-      width: 420px;
-      height: 120px;
-      top: 14%;
-      left: -18%;
-      animation: driftCloud1 42s linear infinite;
-    }
-
-    .cloud-2 {
-      width: 320px;
-      height: 95px;
-      top: 23%;
-      left: -10%;
-      opacity: 0.16;
-      animation: driftCloud2 56s linear infinite;
-    }
-
-    .cloud-3 {
-      width: 500px;
-      height: 140px;
-      top: 9%;
-      left: 42%;
-      opacity: 0.14;
-      animation: driftCloud3 64s linear infinite;
-    }
-
-    .birds-layer {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .bird-group {
-      position: absolute;
-      top: 18%;
-      left: -12%;
-      width: 140px;
-      height: 60px;
-      opacity: 0.45;
-      animation: birdsFly 18s linear infinite;
-      will-change: transform;
-    }
-
-    .bird-group svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    .bird-group path {
-      fill: none;
-      stroke: rgba(58, 58, 58, 0.45);
-      stroke-width: 2.2;
-      stroke-linecap: round;
-    }
-
-    .bird-group.birds-2 {
-      top: 25%;
-      left: -18%;
-      transform: scale(0.75);
-      opacity: 0.28;
-      animation-duration: 24s;
-      animation-delay: -8s;
-    }
-
-    .river-shimmer {
-      position: absolute;
-      z-index: 2;
-      pointer-events: none;
-      left: 26%;
-      top: 40%;
-      width: 34%;
-      height: 42%;
-      opacity: 0.22;
-      background:
-        linear-gradient(
-          115deg,
-          rgba(255,255,255,0) 0%,
-          rgba(255,255,255,0.05) 35%,
-          rgba(255,251,230,0.45) 50%,
-          rgba(255,255,255,0.08) 65%,
-          rgba(255,255,255,0) 100%
-        );
-      filter: blur(16px);
-      transform: rotate(8deg) translateX(-10%);
-      animation: shimmerRiver 9s ease-in-out infinite;
-      mix-blend-mode: screen;
-    }
-
-    .site-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 22px 28px;
-      pointer-events: none;
-    }
-
-    .site-nav > * {
-      pointer-events: auto;
-    }
-
-    .glass-pill,
-    .glass-btn {
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      transition:
-        background 0.22s ease,
-        color 0.22s ease,
-        border-color 0.22s ease,
-        box-shadow 0.22s ease,
-        transform 0.22s ease;
-    }
-
-    /* HERO / DARK STATE */
-    body.nav-on-hero .nav-logo,
-    body.nav-on-hero .glass-btn {
-      border: 1px solid rgba(255,255,255,0.16);
-      box-shadow:
-        0 12px 34px rgba(0,0,0,0.22),
-        inset 0 1px 0 rgba(255,255,255,0.08);
-      color: #ffffff;
-    }
-
-    body.nav-on-hero .nav-logo {
-      background: linear-gradient(
-        180deg,
-        rgba(52, 56, 61, 0.34) 0%,
-        rgba(26, 28, 32, 0.30) 100%
-      );
-    }
-
-    body.nav-on-hero .glass-btn {
-      background: linear-gradient(
-        180deg,
-        rgba(52, 56, 61, 0.52) 0%,
-        rgba(28, 30, 34, 0.46) 100%
-      );
-    }
-
-    body.nav-on-hero .nav-logo:hover,
-    body.nav-on-hero .glass-btn:hover {
-      background: linear-gradient(
-        180deg,
-        rgba(90, 96, 104, 0.52) 0%,
-        rgba(44, 48, 54, 0.48) 100%
-      );
-      color: #fff;
-      transform: translateY(-1px);
-    }
-
-    /* SCROLLED / LIGHT STATE */
-    body.nav-scrolled .nav-logo,
-    body.nav-scrolled .glass-btn {
-      border: 1px solid rgba(120, 110, 92, 0.18);
-      box-shadow:
-        0 10px 28px rgba(32, 20, 6, 0.08),
-        inset 0 1px 0 rgba(255,255,255,0.30);
-      color: #2b2118;
-    }
-
-    body.nav-scrolled .nav-logo {
-      background: linear-gradient(
-        180deg,
-        rgba(255, 253, 247, 0.72) 0%,
-        rgba(248, 241, 226, 0.58) 100%
-      );
-    }
-
-    body.nav-scrolled .glass-btn {
-      background: linear-gradient(
-        180deg,
-        rgba(255, 253, 247, 0.78) 0%,
-        rgba(245, 235, 214, 0.62) 100%
-      );
-    }
-
-    body.nav-scrolled .nav-logo:hover,
-    body.nav-scrolled .glass-btn:hover {
-      background: linear-gradient(
-        180deg,
-        rgba(70, 74, 80, 0.50) 0%,
-        rgba(34, 36, 40, 0.44) 100%
-      );
-      border-color: rgba(255,255,255,0.12);
-      box-shadow:
-        0 12px 34px rgba(0,0,0,0.18),
-        inset 0 1px 0 rgba(255,255,255,0.06);
-      color: #ffffff;
-      transform: translateY(-1px);
-    }
-
-    .nav-logo {
-      min-height: 58px;
-      min-width: 118px;
-      padding: 10px 18px;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .nav-logo img {
-      height: 30px;
-      display: block;
-    }
-
-    .nav-logo-fallback {
-      display: none;
-      font-size: 28px;
-      font-weight: 700;
-    }
-
-    .glass-btn {
-      min-height: 62px;
-      min-width: 194px;
-      padding: 16px 28px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 15px;
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 5;
-      min-height: 100vh;
-      min-height: 100svh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 80px 20px 20px;
-    }
-
-    .hero-phone-wrap {
-      position: relative;
-      animation: phoneFloat 5.4s ease-in-out infinite;
-      will-change: transform;
-    }
-
-    .iphone-glow {
-      position: absolute;
-      inset: -110px;
-      background: radial-gradient(
-        ellipse at center,
-        rgba(255, 245, 214, 0.20) 0%,
-        rgba(255, 245, 214, 0.08) 35%,
-        rgba(255, 245, 214, 0.02) 56%,
-        transparent 72%
-      );
-      pointer-events: none;
-    }
-
-    .iphone {
-      position: relative;
-      width: 300px;
-      z-index: 2;
-      background: linear-gradient(
-        155deg,
-        #5a5a5c 0%,
-        #3a3a3c 15%,
-        #2a2a2c 40%,
-        #404042 60%,
-        #2c2c2e 80%,
-        #1e1e20 100%
-      );
-      border-radius: 48px;
-      padding: 6px;
-      box-shadow:
-        0 28px 70px rgba(0,0,0,0.38),
-        0 6px 18px rgba(0,0,0,0.22),
-        inset 0 1px 0 rgba(255,255,255,0.13),
-        inset 0 -1px 0 rgba(0,0,0,0.3);
-    }
-
-    .iphone-screen {
-      position: relative;
-      border-radius: 43px;
-      overflow: hidden;
-      background: #050505;
-    }
-
-    .iphone-screen img {
-      width: 100%;
-      display: block;
-      border-radius: 43px;
-    }
-
-    .dynamic-island {
-      position: absolute;
-      top: 9px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 88px;
-      height: 26px;
-      background: #000;
-      border-radius: 13px;
-      z-index: 10;
-    }
-
-    .btn-mute,
-    .btn-vol-up,
-    .btn-vol-down,
-    .btn-power {
-      position: absolute;
-      background: #333;
-    }
-
-    .btn-mute {
-      left: -3px;
-      top: 58px;
-      width: 3px;
-      height: 20px;
-    }
-
-    .btn-vol-up {
-      left: -3px;
-      top: 96px;
-      width: 3px;
-      height: 48px;
-    }
-
-    .btn-vol-down {
-      left: -3px;
-      top: 156px;
-      width: 3px;
-      height: 48px;
-    }
-
-    .btn-power {
-      right: -3px;
-      top: 112px;
-      width: 3px;
-      height: 68px;
-    }
-
-    .section-divider {
-      height: 1px;
-      max-width: 800px;
-      margin: 0 auto;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-    }
-
-    .why-section,
-    .waitlist-section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 90px 24px;
-    }
-
-    .section-label {
-      text-align: center;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--gold-dk);
-      margin-bottom: 14px;
-    }
-
-    h2 {
-      text-align: center;
-      font-size: clamp(32px, 4vw, 50px);
-      margin-bottom: 14px;
-      line-height: 1.1;
-    }
-
-    h2 em {
-      color: var(--gold);
-      font-style: italic;
-    }
-
-    .why-sub,
-    .waitlist-section p {
-      text-align: center;
-      max-width: 560px;
-      margin: 0 auto 56px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
-
-    .why-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 32px;
-    }
-
-    .why-card h3 {
-      margin-bottom: 10px;
-      font-size: 19px;
-    }
-
-    .why-card p {
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .tally-frame {
-      width: 100%;
-      height: 560px;
-      border: none;
-      border-radius: 20px;
-    }
-
-    .footer {
-      padding: 32px;
-      text-align: center;
-      font-size: 13px;
-      color: #bbb;
-      border-top: 1px solid var(--border);
-    }
-
-    @keyframes driftCloud1 {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(145vw); }
-    }
-
-    @keyframes driftCloud2 {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(155vw); }
-    }
-
-    @keyframes driftCloud3 {
-      0% { transform: translateX(0); }
-      50% { transform: translateX(36px); }
-      100% { transform: translateX(0); }
-    }
-
-    @keyframes birdsFly {
-      0% {
-        transform: translateX(0) translateY(0);
-        opacity: 0;
-      }
-      8% {
-        opacity: 0.42;
-      }
-      85% {
-        opacity: 0.42;
-      }
-      100% {
-        transform: translateX(125vw) translateY(-18px);
-        opacity: 0;
-      }
-    }
-
-    @keyframes shimmerRiver {
-      0% {
-        transform: rotate(8deg) translateX(-16%) translateY(0);
-        opacity: 0.12;
-      }
-      50% {
-        transform: rotate(8deg) translateX(8%) translateY(-1%);
-        opacity: 0.26;
-      }
-      100% {
-        transform: rotate(8deg) translateX(-16%) translateY(0);
-        opacity: 0.12;
-      }
-    }
-
-    @keyframes phoneFloat {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-8px);
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .cloud,
-      .bird-group,
-      .river-shimmer,
-      .hero-phone-wrap {
-        animation: none !important;
-      }
-    }
-
-    @media (max-width: 980px) {
-      .glass-btn {
-        min-width: auto;
-        padding: 14px 20px;
-      }
-
-      .hero-bg {
-        background-position: 60% center;
-      }
-
-      .iphone {
-        width: 255px;
-      }
-
-      .why-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .cloud-1,
-      .cloud-2,
-      .cloud-3 {
-        opacity: 0.12;
-      }
-
-      .river-shimmer {
-        left: 24%;
-        width: 42%;
-        opacity: 0.14;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .site-nav {
-        padding: 14px;
-      }
-
-      .nav-logo {
-        min-width: 90px;
-        min-height: 50px;
-      }
-
-      .nav-logo img {
-        height: 24px;
-      }
-
-      .glass-btn {
-        font-size: 14px;
-        min-height: 52px;
-        padding: 12px 16px;
-      }
-
-      .iphone {
-        width: 220px;
-      }
-
-      .bird-group {
-        transform: scale(0.65);
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Filo – Finance made simple.</title>
+
+<link rel="icon" type="image/png" href="filo.png" />
+<link rel="apple-touch-icon" href="filo.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --gold:#e8b84b;
+  --gold-dk:#c49a30;
+  --cream:#fffdf7;
+  --text:#1a1410;
+  --muted:#8a7d6a;
+  --border:#ecdfc4;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Inter Tight',sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+a{
+  text-decoration:none;
+}
+
+/* ---------------- HERO ---------------- */
+
+.hero{
+  position:relative;
+  min-height:100vh;
+  min-height:100svh;
+  overflow:hidden;
+  background:#e8ece8;
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+  background:url("hero-bg.png") center center / cover no-repeat;
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,253,247,.06) 0%,
+      rgba(255,253,247,.015) 45%,
+      rgba(255,253,247,.04) 100%
+    );
+  pointer-events:none;
+}
+
+/* ---------------- NAV ---------------- */
+
+.site-nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:100;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:22px 28px;
+  pointer-events:none;
+}
+
+.site-nav > *{
+  pointer-events:auto;
+}
+
+.glass-pill,
+.glass-btn{
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  transition:
+    background .22s ease,
+    color .22s ease,
+    border-color .22s ease,
+    box-shadow .22s ease,
+    transform .22s ease;
+}
+
+/* HERO STATE (dark) */
+
+body.nav-on-hero .nav-logo,
+body.nav-on-hero .glass-btn{
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:
+    0 12px 34px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.08);
+  color:#fff;
+}
+
+body.nav-on-hero .nav-logo{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(52,56,61,.34) 0%,
+      rgba(26,28,32,.30) 100%
+    );
+}
+
+body.nav-on-hero .glass-btn{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(52,56,61,.52) 0%,
+      rgba(28,30,34,.46) 100%
+    );
+}
+
+body.nav-on-hero .nav-logo:hover,
+body.nav-on-hero .glass-btn:hover{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(90,96,104,.52) 0%,
+      rgba(44,48,54,.48) 100%
+    );
+  transform:translateY(-1px);
+}
+
+/* SCROLLED STATE (light) */
+
+body.nav-scrolled .nav-logo,
+body.nav-scrolled .glass-btn{
+  border:1px solid rgba(120,110,92,.18);
+  box-shadow:
+    0 10px 28px rgba(32,20,6,.08),
+    inset 0 1px 0 rgba(255,255,255,.30);
+  color:#2b2118;
+}
+
+body.nav-scrolled .nav-logo{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,253,247,.72) 0%,
+      rgba(248,241,226,.58) 100%
+    );
+}
+
+body.nav-scrolled .glass-btn{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,253,247,.78) 0%,
+      rgba(245,235,214,.62) 100%
+    );
+}
+
+body.nav-scrolled .nav-logo:hover,
+body.nav-scrolled .glass-btn:hover{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(70,74,80,.50) 0%,
+      rgba(34,36,40,.44) 100%
+    );
+  color:#fff;
+  border-color:rgba(255,255,255,.12);
+  box-shadow:
+    0 12px 34px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  transform:translateY(-1px);
+}
+
+.nav-logo{
+  min-height:58px;
+  min-width:118px;
+  padding:10px 18px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.nav-logo img{
+  height:30px;
+  display:block;
+}
+
+.nav-logo-fallback{
+  display:none;
+  font-size:28px;
+  font-weight:700;
+}
+
+.glass-btn{
+  min-height:62px;
+  min-width:194px;
+  padding:16px 28px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:15px;
+}
+
+/* ---------------- HERO CENTER ---------------- */
+
+.hero-inner{
+  position:relative;
+  z-index:5;
+  min-height:100vh;
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:80px 20px 20px;
+}
+
+.hero-phone-wrap{
+  position:relative;
+}
+
+.iphone-glow{
+  position:absolute;
+  inset:-110px;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255,245,214,.20) 0%,
+      rgba(255,245,214,.08) 35%,
+      rgba(255,245,214,.02) 56%,
+      transparent 72%
+    );
+  pointer-events:none;
+}
+
+.iphone{
+  position:relative;
+  width:300px;
+  z-index:2;
+  background:
+    linear-gradient(
+      155deg,
+      #5a5a5c 0%,
+      #3a3a3c 15%,
+      #2a2a2c 40%,
+      #404042 60%,
+      #2c2c2e 80%,
+      #1e1e20 100%
+    );
+  border-radius:48px;
+  padding:6px;
+  box-shadow:
+    0 28px 70px rgba(0,0,0,.38),
+    0 6px 18px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.13),
+    inset 0 -1px 0 rgba(0,0,0,.30);
+}
+
+.iphone-screen{
+  position:relative;
+  border-radius:43px;
+  overflow:hidden;
+  background:#050505;
+}
+
+.iphone-screen img{
+  width:100%;
+  display:block;
+  border-radius:43px;
+}
+
+.dynamic-island{
+  position:absolute;
+  top:9px;
+  left:50%;
+  transform:translateX(-50%);
+  width:88px;
+  height:26px;
+  background:#000;
+  border-radius:13px;
+  z-index:10;
+}
+
+.btn-mute,
+.btn-vol-up,
+.btn-vol-down,
+.btn-power{
+  position:absolute;
+  background:#333;
+}
+
+.btn-mute{
+  left:-3px;
+  top:58px;
+  width:3px;
+  height:20px;
+}
+
+.btn-vol-up{
+  left:-3px;
+  top:96px;
+  width:3px;
+  height:48px;
+}
+
+.btn-vol-down{
+  left:-3px;
+  top:156px;
+  width:3px;
+  height:48px;
+}
+
+.btn-power{
+  right:-3px;
+  top:112px;
+  width:3px;
+  height:68px;
+}
+
+/* ---------------- CONTENT ---------------- */
+
+.section-divider{
+  height:1px;
+  max-width:800px;
+  margin:0 auto;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+}
+
+.why-section,
+.waitlist-section{
+  max-width:1100px;
+  margin:0 auto;
+  padding:90px 24px;
+}
+
+.section-label{
+  text-align:center;
+  font-size:11px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--gold-dk);
+  margin-bottom:14px;
+}
+
+h2{
+  text-align:center;
+  font-size:clamp(32px,4vw,50px);
+  margin-bottom:14px;
+  line-height:1.1;
+}
+
+h2 em{
+  color:var(--gold);
+  font-style:italic;
+}
+
+.why-sub,
+.waitlist-section p{
+  text-align:center;
+  max-width:560px;
+  margin:0 auto 56px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.why-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:24px;
+}
+
+.why-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:32px;
+}
+
+.why-card h3{
+  margin-bottom:10px;
+  font-size:19px;
+}
+
+.why-card p{
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.tally-frame{
+  width:100%;
+  height:560px;
+  border:none;
+  border-radius:20px;
+}
+
+.footer{
+  padding:32px;
+  text-align:center;
+  font-size:13px;
+  color:#bbb;
+  border-top:1px solid var(--border);
+}
+
+/* ---------------- MOBILE ---------------- */
+
+@media (max-width:980px){
+
+  .glass-btn{
+    min-width:auto;
+    padding:14px 20px;
+  }
+
+  .hero-bg{
+    background-position:60% center;
+  }
+
+  .iphone{
+    width:255px;
+  }
+
+  .why-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width:520px){
+
+  .site-nav{
+    padding:14px;
+  }
+
+  .nav-logo{
+    min-width:90px;
+    min-height:50px;
+  }
+
+  .nav-logo img{
+    height:24px;
+  }
+
+  .glass-btn{
+    font-size:14px;
+    min-height:52px;
+    padding:12px 16px;
+  }
+
+  .iphone{
+    width:220px;
+  }
+}
+</style>
 </head>
+
 <body class="nav-on-hero">
 
-  <section class="hero" id="top">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
+<section class="hero" id="top">
 
-    <div class="cloud-layer" aria-hidden="true">
-      <div class="cloud cloud-1"></div>
-      <div class="cloud cloud-2"></div>
-      <div class="cloud cloud-3"></div>
-    </div>
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
 
-    <div class="birds-layer" aria-hidden="true">
-      <div class="bird-group">
-        <svg viewBox="0 0 140 60">
-          <path d="M10 28 Q18 18 26 28" />
-          <path d="M38 20 Q47 10 56 20" />
-          <path d="M70 30 Q79 20 88 30" />
-          <path d="M98 16 Q106 8 114 16" />
-        </svg>
-      </div>
-      <div class="bird-group birds-2">
-        <svg viewBox="0 0 140 60">
-          <path d="M10 28 Q18 18 26 28" />
-          <path d="M38 20 Q47 10 56 20" />
-          <path d="M70 30 Q79 20 88 30" />
-          <path d="M98 16 Q106 8 114 16" />
-        </svg>
-      </div>
-    </div>
+  <nav class="site-nav">
 
-    <div class="river-shimmer" aria-hidden="true"></div>
+    <a href="#top" class="nav-logo glass-pill" id="topLogo">
+      <img
+        src="filo.png"
+        alt="Filo Logo"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+      />
+      <span class="nav-logo-fallback">filo</span>
+    </a>
 
-    <nav class="site-nav">
-      <a href="#top" class="nav-logo glass-pill" id="topLogo">
-        <img
-          src="filo.png"
-          alt="Filo Logo"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
-        />
-        <span class="nav-logo-fallback">filo</span>
-      </a>
+    <a href="#waitlist" class="glass-btn">
+      Join the waitlist
+    </a>
 
-      <a href="#waitlist" class="glass-btn">
-        Join the waitlist
-      </a>
-    </nav>
+  </nav>
 
-    <div class="hero-inner">
-      <div class="hero-phone-wrap">
-        <div class="iphone-glow"></div>
+  <div class="hero-inner">
 
-        <div class="iphone">
-          <div class="btn-mute"></div>
-          <div class="btn-vol-up"></div>
-          <div class="btn-vol-down"></div>
-          <div class="btn-power"></div>
+    <div class="hero-phone-wrap">
 
-          <div class="iphone-screen">
-            <div class="dynamic-island"></div>
-            <img
-              src="Filo_App.png"
-              alt="Filo App"
-              onerror="this.src='';this.parentElement.style.minHeight='540px';this.parentElement.style.background='linear-gradient(160deg,#fffdf7,#f5ead0)';"
-            />
-          </div>
+      <div class="iphone-glow"></div>
+
+      <div class="iphone">
+
+        <div class="btn-mute"></div>
+        <div class="btn-vol-up"></div>
+        <div class="btn-vol-down"></div>
+        <div class="btn-power"></div>
+
+        <div class="iphone-screen">
+
+          <div class="dynamic-island"></div>
+
+          <img
+            src="Filo_App.png"
+            alt="Filo App"
+            onerror="this.src='';this.parentElement.style.minHeight='540px';this.parentElement.style.background='linear-gradient(160deg,#fffdf7,#f5ead0)';"
+          />
+
         </div>
       </div>
     </div>
-  </section>
 
-  <div class="section-divider"></div>
+  </div>
+</section>
 
-  <section class="why-section" id="why">
-    <div class="section-label">Why Filo?</div>
+<div class="section-divider"></div>
 
-    <h2>
-      Built for<br>
-      <em>how you actually earn.</em>
-    </h2>
+<section class="why-section" id="why">
 
-    <p class="why-sub">
-      Filo is made for people with side income, freelancing,
-      multiple streams, and bigger goals.
-    </p>
+  <div class="section-label">Why Filo?</div>
 
-    <div class="why-grid">
-      <div class="why-card">
-        <h3>Multiple income streams</h3>
-        <p>Track every source of income in one clean place.</p>
-      </div>
+  <h2>
+    Built for<br>
+    <em>how you actually earn.</em>
+  </h2>
 
-      <div class="why-card">
-        <h3>A better money view</h3>
-        <p>See progress clearly and feel momentum every month.</p>
-      </div>
+  <p class="why-sub">
+    Filo is made for people with side income, freelancing,
+    multiple streams, and bigger goals.
+  </p>
 
-      <div class="why-card">
-        <h3>You stay in control</h3>
-        <p>Connect accounts securely or track manually.</p>
-      </div>
+  <div class="why-grid">
 
-      <div class="why-card">
-        <h3>Actually enjoyable</h3>
-        <p>Warm, calm, and designed to be opened often.</p>
-      </div>
+    <div class="why-card">
+      <h3>Multiple income streams</h3>
+      <p>Track every source of income in one clean place.</p>
     </div>
-  </section>
 
-  <div class="section-divider"></div>
+    <div class="why-card">
+      <h3>A better money view</h3>
+      <p>See progress clearly and feel momentum every month.</p>
+    </div>
 
-  <section class="waitlist-section" id="waitlist">
-    <div class="section-label">Early access</div>
+    <div class="why-card">
+      <h3>You stay in control</h3>
+      <p>Connect accounts securely or track manually.</p>
+    </div>
 
-    <h2>
-      Get early access<br>
-      to <em>Filo</em>
-    </h2>
+    <div class="why-card">
+      <h3>Actually enjoyable</h3>
+      <p>Warm, calm, and designed to be opened often.</p>
+    </div>
 
-    <p>
-      Be the first to know when Filo launches.
-    </p>
+  </div>
+</section>
 
-    <iframe
-      class="tally-frame"
-      src="https://tally.so/r/dWlvkD"
-      scrolling="no">
-    </iframe>
-  </section>
+<div class="section-divider"></div>
 
-  <footer class="footer">
-    © 2026 Filo · Finance made simple.
-  </footer>
+<section class="waitlist-section" id="waitlist">
 
-  <script>
-    if ("scrollRestoration" in history) {
-      history.scrollRestoration = "manual";
-    }
+  <div class="section-label">Early access</div>
 
-    window.addEventListener("load", () => {
-      window.scrollTo(0, 0);
-      updateNavTheme();
-    });
+  <h2>
+    Get early access<br>
+    to <em>Filo</em>
+  </h2>
 
-    document.getElementById("topLogo").addEventListener("click", function (e) {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    });
+  <p>
+    Be the first to know when Filo launches.
+  </p>
 
-    function updateNavTheme() {
-      const hero = document.querySelector(".hero");
-      const body = document.body;
-      const trigger = hero.offsetHeight - 90;
+  <iframe
+    class="tally-frame"
+    src="https://tally.so/r/dWlvkD"
+    scrolling="no">
+  </iframe>
 
-      if (window.scrollY < trigger) {
-        body.classList.add("nav-on-hero");
-        body.classList.remove("nav-scrolled");
-      } else {
-        body.classList.add("nav-scrolled");
-        body.classList.remove("nav-on-hero");
-      }
-    }
+</section>
 
-    window.addEventListener("scroll", updateNavTheme, { passive: true });
-    window.addEventListener("resize", updateNavTheme);
-  </script>
+<footer class="footer">
+  © 2026 Filo · Finance made simple.
+</footer>
+
+<script>
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
+window.addEventListener("load", () => {
+  window.scrollTo(0,0);
+  updateNavTheme();
+});
+
+document.getElementById("topLogo").addEventListener("click", function(e){
+  e.preventDefault();
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+});
+
+function updateNavTheme(){
+  const hero = document.querySelector(".hero");
+  const trigger = hero.offsetHeight - 90;
+
+  if(window.scrollY < trigger){
+    document.body.classList.add("nav-on-hero");
+    document.body.classList.remove("nav-scrolled");
+  } else {
+    document.body.classList.add("nav-scrolled");
+    document.body.classList.remove("nav-on-hero");
+  }
+}
+
+window.addEventListener("scroll", updateNavTheme, { passive:true });
+window.addEventListener("resize", updateNavTheme);
+</script>
+
 </body>
 </html>
