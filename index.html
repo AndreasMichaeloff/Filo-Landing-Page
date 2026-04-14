@@ -1,484 +1,603 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Filo – Finance made simple.</title>
-
-<link rel="icon" type="image/png" href="filo.png" />
-<link rel="apple-touch-icon" href="filo.png" />
-
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700&display=swap" rel="stylesheet" />
-
-<style>
-:root{
-  --gold:#e8b84b;
-  --gold-dk:#c49a30;
-  --cream:#fffdf7;
-  --text:#1a1410;
-  --muted:#8a7d6a;
-  --border:#ecdfc4;
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  font-family:'Inter Tight',sans-serif;
-  background:var(--cream);
-  color:var(--text);
-  overflow-x:hidden;
-}
-
-a{
-  text-decoration:none;
-}
-
-/* ---------------- HERO ---------------- */
-
-.hero{
-  position:relative;
-  min-height:100vh;
-  min-height:100svh;
-  overflow:hidden;
-  background:#e8ece8;
-}
-
-.hero-bg{
-  position:absolute;
-  inset:0;
-  background:url("hero-bg.png") center center / cover no-repeat;
-}
-
-.hero-overlay{
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,253,247,.06) 0%,
-      rgba(255,253,247,.015) 45%,
-      rgba(255,253,247,.04) 100%
-    );
-  pointer-events:none;
-}
-
-/* ---------------- NAV ---------------- */
-
-.site-nav{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:100;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:22px 28px;
-  pointer-events:none;
-}
-
-.site-nav > *{
-  pointer-events:auto;
-}
-
-.glass-pill,
-.glass-btn{
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-  transition:
-    background .22s ease,
-    color .22s ease,
-    border-color .22s ease,
-    box-shadow .22s ease,
-    transform .22s ease;
-}
-
-/* HERO STATE (dark) */
-
-body.nav-on-hero .nav-logo,
-body.nav-on-hero .glass-btn{
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow:
-    0 12px 34px rgba(0,0,0,.22),
-    inset 0 1px 0 rgba(255,255,255,.08);
-  color:#fff;
-}
-
-body.nav-on-hero .nav-logo{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(52,56,61,.34) 0%,
-      rgba(26,28,32,.30) 100%
-    );
-}
-
-body.nav-on-hero .glass-btn{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(52,56,61,.52) 0%,
-      rgba(28,30,34,.46) 100%
-    );
-}
-
-body.nav-on-hero .nav-logo:hover,
-body.nav-on-hero .glass-btn:hover{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(90,96,104,.52) 0%,
-      rgba(44,48,54,.48) 100%
-    );
-  transform:translateY(-1px);
-}
-
-/* SCROLLED STATE (light) */
-
-body.nav-scrolled .nav-logo,
-body.nav-scrolled .glass-btn{
-  border:1px solid rgba(120,110,92,.18);
-  box-shadow:
-    0 10px 28px rgba(32,20,6,.08),
-    inset 0 1px 0 rgba(255,255,255,.30);
-  color:#2b2118;
-}
-
-body.nav-scrolled .nav-logo{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,253,247,.72) 0%,
-      rgba(248,241,226,.58) 100%
-    );
-}
-
-body.nav-scrolled .glass-btn{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,253,247,.78) 0%,
-      rgba(245,235,214,.62) 100%
-    );
-}
-
-body.nav-scrolled .nav-logo:hover,
-body.nav-scrolled .glass-btn:hover{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(70,74,80,.50) 0%,
-      rgba(34,36,40,.44) 100%
-    );
-  color:#fff;
-  border-color:rgba(255,255,255,.12);
-  box-shadow:
-    0 12px 34px rgba(0,0,0,.18),
-    inset 0 1px 0 rgba(255,255,255,.06);
-  transform:translateY(-1px);
-}
-
-.nav-logo{
-  min-height:58px;
-  min-width:118px;
-  padding:10px 18px;
-  border-radius:999px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.nav-logo img{
-  height:30px;
-  display:block;
-}
-
-.nav-logo-fallback{
-  display:none;
-  font-size:28px;
-  font-weight:700;
-}
-
-.glass-btn{
-  min-height:62px;
-  min-width:194px;
-  padding:16px 28px;
-  border-radius:999px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:700;
-  font-size:15px;
-}
-
-/* ---------------- HERO CENTER ---------------- */
-
-.hero-inner{
-  position:relative;
-  z-index:5;
-  min-height:100vh;
-  min-height:100svh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:80px 20px 20px;
-}
-
-.hero-phone-wrap{
-  position:relative;
-}
-
-.iphone-glow{
-  position:absolute;
-  inset:-110px;
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(255,245,214,.20) 0%,
-      rgba(255,245,214,.08) 35%,
-      rgba(255,245,214,.02) 56%,
-      transparent 72%
-    );
-  pointer-events:none;
-}
-
-.iphone{
-  position:relative;
-  width:300px;
-  z-index:2;
-  background:
-    linear-gradient(
-      155deg,
-      #5a5a5c 0%,
-      #3a3a3c 15%,
-      #2a2a2c 40%,
-      #404042 60%,
-      #2c2c2e 80%,
-      #1e1e20 100%
-    );
-  border-radius:48px;
-  padding:6px;
-  box-shadow:
-    0 28px 70px rgba(0,0,0,.38),
-    0 6px 18px rgba(0,0,0,.22),
-    inset 0 1px 0 rgba(255,255,255,.13),
-    inset 0 -1px 0 rgba(0,0,0,.30);
-}
-
-.iphone-screen{
-  position:relative;
-  border-radius:43px;
-  overflow:hidden;
-  background:#050505;
-}
-
-.iphone-screen img{
-  width:100%;
-  display:block;
-  border-radius:43px;
-}
-
-.dynamic-island{
-  position:absolute;
-  top:9px;
-  left:50%;
-  transform:translateX(-50%);
-  width:88px;
-  height:26px;
-  background:#000;
-  border-radius:13px;
-  z-index:10;
-}
-
-.btn-mute,
-.btn-vol-up,
-.btn-vol-down,
-.btn-power{
-  position:absolute;
-  background:#333;
-}
-
-.btn-mute{
-  left:-3px;
-  top:58px;
-  width:3px;
-  height:20px;
-}
-
-.btn-vol-up{
-  left:-3px;
-  top:96px;
-  width:3px;
-  height:48px;
-}
-
-.btn-vol-down{
-  left:-3px;
-  top:156px;
-  width:3px;
-  height:48px;
-}
-
-.btn-power{
-  right:-3px;
-  top:112px;
-  width:3px;
-  height:68px;
-}
-
-/* ---------------- CONTENT ---------------- */
-
-.section-divider{
-  height:1px;
-  max-width:800px;
-  margin:0 auto;
-  background:linear-gradient(90deg,transparent,var(--border),transparent);
-}
-
-.why-section,
-.waitlist-section{
-  max-width:1100px;
-  margin:0 auto;
-  padding:90px 24px;
-}
-
-.section-label{
-  text-align:center;
-  font-size:11px;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  color:var(--gold-dk);
-  margin-bottom:14px;
-}
-
-h2{
-  text-align:center;
-  font-size:clamp(32px,4vw,50px);
-  margin-bottom:14px;
-  line-height:1.1;
-}
-
-h2 em{
-  color:var(--gold);
-  font-style:italic;
-}
-
-.why-sub,
-.waitlist-section p{
-  text-align:center;
-  max-width:560px;
-  margin:0 auto 56px;
-  color:var(--muted);
-  line-height:1.7;
-}
-
-.why-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:24px;
-}
-
-.why-card{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:32px;
-}
-
-.why-card h3{
-  margin-bottom:10px;
-  font-size:19px;
-}
-
-.why-card p{
-  color:var(--muted);
-  line-height:1.7;
-}
-
-.tally-frame{
-  width:100%;
-  height:560px;
-  border:none;
-  border-radius:20px;
-}
-
-.footer{
-  padding:32px;
-  text-align:center;
-  font-size:13px;
-  color:#bbb;
-  border-top:1px solid var(--border);
-}
-
-/* ---------------- MOBILE ---------------- */
-
-@media (max-width:980px){
-
-  .glass-btn{
-    min-width:auto;
-    padding:14px 20px;
-  }
-
-  .hero-bg{
-    background-position:60% center;
-  }
-
-  .iphone{
-    width:255px;
-  }
-
-  .why-grid{
-    grid-template-columns:1fr;
-  }
-}
-
-@media (max-width:520px){
-
-  .site-nav{
-    padding:14px;
-  }
-
-  .nav-logo{
-    min-width:90px;
-    min-height:50px;
-  }
-
-  .nav-logo img{
-    height:24px;
-  }
-
-  .glass-btn{
-    font-size:14px;
-    min-height:52px;
-    padding:12px 16px;
-  }
-
-  .iphone{
-    width:220px;
-  }
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filo – Finance made simple.</title>
+
+  <link rel="icon" type="image/png" href="filo.png" />
+  <link rel="apple-touch-icon" href="filo.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --gold: #e8b84b;
+      --gold-dk: #c49a30;
+      --cream: #fffdf7;
+      --text: #1a1410;
+      --muted: #8a7d6a;
+      --border: #ecdfc4;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter Tight', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100svh;
+      overflow: hidden;
+      background: #e8ece8;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url("hero-bg.png") center center / cover no-repeat;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255,253,247,.06) 0%,
+          rgba(255,253,247,.015) 45%,
+          rgba(255,253,247,.04) 100%
+        );
+      pointer-events: none;
+    }
+
+    .site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 28px;
+      pointer-events: none;
+    }
+
+    .site-nav > * {
+      pointer-events: auto;
+    }
+
+    .glass-pill,
+    .glass-btn,
+    .segmented-nav,
+    .seg-btn {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition:
+        background .22s ease,
+        color .22s ease,
+        border-color .22s ease,
+        box-shadow .22s ease,
+        transform .22s ease,
+        opacity .22s ease;
+    }
+
+    /* hero state */
+    body.nav-on-hero .nav-logo,
+    body.nav-on-hero .glass-btn,
+    body.nav-on-hero .segmented-nav,
+    body.nav-on-hero .seg-btn {
+      color: #fff;
+    }
+
+    body.nav-on-hero .nav-logo,
+    body.nav-on-hero .glass-btn,
+    body.nav-on-hero .segmented-nav {
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow:
+        inset 1px 0 0 rgba(255,255,255,.35),
+        inset -1px 0 0 rgba(255,255,255,.35),
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 12px 34px rgba(0,0,0,.22);
+    }
+
+    body.nav-on-hero .nav-logo {
+      background: linear-gradient(
+        180deg,
+        rgba(52,56,61,.34) 0%,
+        rgba(26,28,32,.30) 100%
+      );
+    }
+
+    body.nav-on-hero .glass-btn,
+    body.nav-on-hero .segmented-nav {
+      background: linear-gradient(
+        180deg,
+        rgba(52,56,61,.52) 0%,
+        rgba(28,30,34,.46) 100%
+      );
+    }
+
+    body.nav-on-hero .glass-btn:hover,
+    body.nav-on-hero .nav-logo:hover {
+      background: linear-gradient(
+        180deg,
+        rgba(90,96,104,.52) 0%,
+        rgba(44,48,54,.48) 100%
+      );
+      transform: translateY(-1px);
+    }
+
+    body.nav-on-hero .seg-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      box-shadow: none;
+      color: rgba(255,255,255,.95);
+    }
+
+    body.nav-on-hero .seg-btn:hover,
+    body.nav-on-hero .seg-btn.active {
+      background: linear-gradient(
+        180deg,
+        rgba(70,74,80,.52) 0%,
+        rgba(34,36,40,.44) 100%
+      );
+      border: 1px solid rgba(255,255,255,.20);
+      box-shadow:
+        inset 1px 0 0 rgba(255,255,255,.20),
+        inset -1px 0 0 rgba(255,255,255,.20),
+        0 8px 20px rgba(0,0,0,.14);
+    }
+
+    /* scrolled state */
+    body.nav-scrolled .nav-logo,
+    body.nav-scrolled .glass-btn,
+    body.nav-scrolled .segmented-nav,
+    body.nav-scrolled .seg-btn {
+      color: #2b2118;
+    }
+
+    body.nav-scrolled .nav-logo,
+    body.nav-scrolled .glass-btn,
+    body.nav-scrolled .segmented-nav {
+      border: 1px solid rgba(120,110,92,.18);
+      box-shadow:
+        inset 1px 0 0 rgba(255,255,255,.65),
+        inset -1px 0 0 rgba(255,255,255,.65),
+        inset 0 1px 0 rgba(255,255,255,.30),
+        0 10px 28px rgba(32,20,6,.08);
+    }
+
+    body.nav-scrolled .nav-logo {
+      background: linear-gradient(
+        180deg,
+        rgba(255,253,247,.72) 0%,
+        rgba(248,241,226,.58) 100%
+      );
+    }
+
+    body.nav-scrolled .glass-btn,
+    body.nav-scrolled .segmented-nav {
+      background: linear-gradient(
+        180deg,
+        rgba(255,253,247,.78) 0%,
+        rgba(245,235,214,.62) 100%
+      );
+    }
+
+    body.nav-scrolled .glass-btn:hover,
+    body.nav-scrolled .nav-logo:hover {
+      background: linear-gradient(
+        180deg,
+        rgba(70,74,80,.50) 0%,
+        rgba(34,36,40,.44) 100%
+      );
+      color: #fff;
+      border-color: rgba(255,255,255,.12);
+      box-shadow:
+        inset 1px 0 0 rgba(255,255,255,.18),
+        inset -1px 0 0 rgba(255,255,255,.18),
+        0 12px 34px rgba(0,0,0,.18);
+      transform: translateY(-1px);
+    }
+
+    body.nav-scrolled .seg-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: #2b2118;
+    }
+
+    body.nav-scrolled .seg-btn:hover,
+    body.nav-scrolled .seg-btn.active {
+      background: linear-gradient(
+        180deg,
+        rgba(70,74,80,.50) 0%,
+        rgba(34,36,40,.44) 100%
+      );
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow:
+        inset 1px 0 0 rgba(255,255,255,.16),
+        inset -1px 0 0 rgba(255,255,255,.16),
+        0 10px 24px rgba(0,0,0,.14);
+    }
+
+    .nav-logo {
+      min-height: 58px;
+      min-width: 118px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-logo img {
+      height: 30px;
+      display: block;
+    }
+
+    .nav-logo-fallback {
+      display: none;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .glass-btn {
+      min-height: 62px;
+      min-width: 194px;
+      padding: 16px 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 5;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      padding: 110px 20px 28px;
+    }
+
+    .segmented-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px;
+      border-radius: 999px;
+      min-height: 74px;
+    }
+
+    .seg-btn {
+      min-width: 150px;
+      min-height: 58px;
+      padding: 0 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .hero-phone-wrap {
+      position: relative;
+    }
+
+    .iphone-glow {
+      position: absolute;
+      inset: -110px;
+      background:
+        radial-gradient(
+          ellipse at center,
+          rgba(255,245,214,.20) 0%,
+          rgba(255,245,214,.08) 35%,
+          rgba(255,245,214,.02) 56%,
+          transparent 72%
+        );
+      pointer-events: none;
+    }
+
+    .iphone {
+      position: relative;
+      width: 300px;
+      z-index: 2;
+      background:
+        linear-gradient(
+          155deg,
+          #5a5a5c 0%,
+          #3a3a3c 15%,
+          #2a2a2c 40%,
+          #404042 60%,
+          #2c2c2e 80%,
+          #1e1e20 100%
+        );
+      border-radius: 48px;
+      padding: 6px;
+      box-shadow:
+        0 28px 70px rgba(0,0,0,.38),
+        0 6px 18px rgba(0,0,0,.22),
+        inset 0 1px 0 rgba(255,255,255,.13),
+        inset 0 -1px 0 rgba(0,0,0,.30);
+    }
+
+    .iphone-screen {
+      position: relative;
+      border-radius: 43px;
+      overflow: hidden;
+      background: #050505;
+    }
+
+    .iphone-screen img {
+      width: 100%;
+      display: block;
+      border-radius: 43px;
+    }
+
+    .dynamic-island {
+      position: absolute;
+      top: 9px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 88px;
+      height: 26px;
+      background: #000;
+      border-radius: 13px;
+      z-index: 10;
+    }
+
+    .btn-mute,
+    .btn-vol-up,
+    .btn-vol-down,
+    .btn-power {
+      position: absolute;
+      background: #333;
+    }
+
+    .btn-mute {
+      left: -3px;
+      top: 58px;
+      width: 3px;
+      height: 20px;
+    }
+
+    .btn-vol-up {
+      left: -3px;
+      top: 96px;
+      width: 3px;
+      height: 48px;
+    }
+
+    .btn-vol-down {
+      left: -3px;
+      top: 156px;
+      width: 3px;
+      height: 48px;
+    }
+
+    .btn-power {
+      right: -3px;
+      top: 112px;
+      width: 3px;
+      height: 68px;
+    }
+
+    .section-divider {
+      height: 1px;
+      max-width: 800px;
+      margin: 0 auto;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    .why-section,
+    .waitlist-section,
+    .about-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 90px 24px;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold-dk);
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: clamp(32px, 4vw, 50px);
+      margin-bottom: 14px;
+      line-height: 1.1;
+    }
+
+    h2 em {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .why-sub,
+    .waitlist-section p,
+    .about-section p {
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto 56px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 24px;
+    }
+
+    .why-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+    }
+
+    .why-card h3 {
+      margin-bottom: 10px;
+      font-size: 19px;
+    }
+
+    .why-card p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .about-placeholder {
+      max-width: 760px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px 32px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .tally-frame {
+      width: 100%;
+      height: 560px;
+      border: none;
+      border-radius: 20px;
+    }
+
+    .footer {
+      padding: 32px;
+      text-align: center;
+      font-size: 13px;
+      color: #bbb;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 980px) {
+      .hero-bg {
+        background-position: 60% center;
+      }
+
+      .glass-btn {
+        min-width: auto;
+        padding: 14px 20px;
+      }
+
+      .segmented-nav {
+        padding: 7px;
+        min-height: 66px;
+      }
+
+      .seg-btn {
+        min-width: 118px;
+        min-height: 50px;
+        font-size: 16px;
+        padding: 0 20px;
+      }
+
+      .iphone {
+        width: 255px;
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-inner {
+        gap: 20px;
+        padding-top: 96px;
+      }
+
+      .segmented-nav {
+        width: min(92vw, 360px);
+        justify-content: center;
+      }
+
+      .seg-btn {
+        min-width: 0;
+        flex: 1;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .site-nav {
+        padding: 14px;
+      }
+
+      .nav-logo {
+        min-width: 90px;
+        min-height: 50px;
+      }
+
+      .nav-logo img {
+        height: 24px;
+      }
+
+      .glass-btn {
+        font-size: 14px;
+        min-height: 52px;
+        padding: 12px 16px;
+      }
+
+      .iphone {
+        width: 220px;
+      }
+
+      .segmented-nav {
+        min-height: 60px;
+      }
+
+      .seg-btn {
+        min-height: 44px;
+        font-size: 15px;
+      }
+    }
+  </style>
 </head>
 
 <body class="nav-on-hero">
 
 <section class="hero" id="top">
-
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
 
   <nav class="site-nav">
-
     <a href="#top" class="nav-logo glass-pill" id="topLogo">
       <img
         src="filo.png"
@@ -491,24 +610,24 @@ h2 em{
     <a href="#waitlist" class="glass-btn">
       Join the waitlist
     </a>
-
   </nav>
 
   <div class="hero-inner">
+    <div class="segmented-nav glass-pill">
+      <a href="#about" class="seg-btn">About</a>
+      <a href="#why" class="seg-btn active">Learn</a>
+    </div>
 
     <div class="hero-phone-wrap">
-
       <div class="iphone-glow"></div>
 
       <div class="iphone">
-
         <div class="btn-mute"></div>
         <div class="btn-vol-up"></div>
         <div class="btn-vol-down"></div>
         <div class="btn-power"></div>
 
         <div class="iphone-screen">
-
           <div class="dynamic-island"></div>
 
           <img
@@ -516,18 +635,15 @@ h2 em{
             alt="Filo App"
             onerror="this.src='';this.parentElement.style.minHeight='540px';this.parentElement.style.background='linear-gradient(160deg,#fffdf7,#f5ead0)';"
           />
-
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
 <div class="section-divider"></div>
 
 <section class="why-section" id="why">
-
   <div class="section-label">Why Filo?</div>
 
   <h2>
@@ -541,7 +657,6 @@ h2 em{
   </p>
 
   <div class="why-grid">
-
     <div class="why-card">
       <h3>Multiple income streams</h3>
       <p>Track every source of income in one clean place.</p>
@@ -561,14 +676,12 @@ h2 em{
       <h3>Actually enjoyable</h3>
       <p>Warm, calm, and designed to be opened often.</p>
     </div>
-
   </div>
 </section>
 
 <div class="section-divider"></div>
 
 <section class="waitlist-section" id="waitlist">
-
   <div class="section-label">Early access</div>
 
   <h2>
@@ -585,7 +698,26 @@ h2 em{
     src="https://tally.so/r/dWlvkD"
     scrolling="no">
   </iframe>
+</section>
 
+<div class="section-divider"></div>
+
+<section class="about-section" id="about">
+  <div class="section-label">About</div>
+
+  <h2>
+    More about<br>
+    <em>Filo</em>
+  </h2>
+
+  <p>
+    This is a placeholder section for now.
+  </p>
+
+  <div class="about-placeholder">
+    We can turn this into your About section next. For now, this is just a placeholder area
+    where you can talk about the story behind Filo, who it is built for, and what makes it different.
+  </div>
 </section>
 
 <footer class="footer">
@@ -593,38 +725,38 @@ h2 em{
 </footer>
 
 <script>
-if ("scrollRestoration" in history) {
-  history.scrollRestoration = "manual";
-}
-
-window.addEventListener("load", () => {
-  window.scrollTo(0,0);
-  updateNavTheme();
-});
-
-document.getElementById("topLogo").addEventListener("click", function(e){
-  e.preventDefault();
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-});
-
-function updateNavTheme(){
-  const hero = document.querySelector(".hero");
-  const trigger = hero.offsetHeight - 90;
-
-  if(window.scrollY < trigger){
-    document.body.classList.add("nav-on-hero");
-    document.body.classList.remove("nav-scrolled");
-  } else {
-    document.body.classList.add("nav-scrolled");
-    document.body.classList.remove("nav-on-hero");
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
   }
-}
 
-window.addEventListener("scroll", updateNavTheme, { passive:true });
-window.addEventListener("resize", updateNavTheme);
+  window.addEventListener("load", () => {
+    window.scrollTo(0, 0);
+    updateNavTheme();
+  });
+
+  document.getElementById("topLogo").addEventListener("click", function(e) {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+
+  function updateNavTheme() {
+    const hero = document.querySelector(".hero");
+    const trigger = hero.offsetHeight - 90;
+
+    if (window.scrollY < trigger) {
+      document.body.classList.add("nav-on-hero");
+      document.body.classList.remove("nav-scrolled");
+    } else {
+      document.body.classList.add("nav-scrolled");
+      document.body.classList.remove("nav-on-hero");
+    }
+  }
+
+  window.addEventListener("scroll", updateNavTheme, { passive: true });
+  window.addEventListener("resize", updateNavTheme);
 </script>
 
 </body>
