@@ -1,1055 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Filo – Finance made simple.</title>
-
-  <link rel="icon" type="image/png" href="filo-alt logo.png" />
-  <link rel="apple-touch-icon" href="filo-alt logo.png" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700&display=swap" rel="stylesheet" />
-
-  <style>
-    :root {
-      --gold: #e8b84b;
-      --gold-soft: #f3d98a;
-      --gold-dk: #c49a30;
-      --cream: #fffdf7;
-      --text: #1a1410;
-      --muted: #8a7d6a;
-      --border: #ecdfc4;
-      --ink: #15130f;
-      --nav-height: 58px;
-      --nav-radius: 999px;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter Tight', sans-serif;
-      background: var(--cream);
-      color: var(--text);
-      overflow-x: hidden;
-    }
-    a { text-decoration: none; }
-
-    .site-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      padding: 18px 24px;
-      pointer-events: none;
-    }
-
-    .site-nav > * { pointer-events: auto; }
-    .nav-left { justify-self: start; }
-    .nav-center { justify-self: center; }
-    .nav-right { justify-self: end; }
-
-    .nav-logo,
-    .nav-cta,
-    .segmented-nav {
-      min-height: var(--nav-height);
-      height: var(--nav-height);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      transition: background .22s ease, color .22s ease, border-color .22s ease, box-shadow .22s ease, transform .22s ease;
-      position: relative;
-      overflow: hidden;
-      border-radius: var(--nav-radius);
-    }
-
-    .nav-logo::before,
-    .nav-cta::before,
-    .segmented-nav::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      border: 1px solid rgba(255,255,255,.34);
-      opacity: .70;
-    }
-
-    body.nav-on-hero .nav-logo,
-    body.nav-on-hero .nav-cta,
-    body.nav-on-hero .segmented-nav {
-      color: #fff;
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: 0 10px 26px rgba(0,0,0,.18);
-      background: linear-gradient(180deg, rgba(52,56,61,.44) 0%, rgba(28,30,34,.40) 100%);
-    }
-
-    body.nav-on-hero .nav-logo:hover,
-    body.nav-on-hero .nav-cta:hover,
-    body.nav-on-hero .segmented-nav:hover {
-      background: linear-gradient(180deg, rgba(66,72,79,.50) 0%, rgba(36,39,44,.46) 100%);
-      transform: translateY(-1px);
-    }
-
-    body.nav-scrolled .nav-logo,
-    body.nav-scrolled .nav-cta,
-    body.nav-scrolled .segmented-nav {
-      color: #2b2118;
-      border: 1px solid rgba(120,110,92,.14);
-      box-shadow: 0 8px 20px rgba(32,20,6,.07);
-      background: linear-gradient(180deg, rgba(255,253,247,.72) 0%, rgba(245,235,214,.56) 100%);
-    }
-
-    body.nav-scrolled .nav-logo:hover,
-    body.nav-scrolled .nav-cta:hover,
-    body.nav-scrolled .segmented-nav:hover {
-      background: linear-gradient(180deg, rgba(245,237,220,.88) 0%, rgba(232,220,191,.78) 100%);
-      color: #2b2118;
-      transform: translateY(-1px);
-    }
-
-    .nav-logo { min-width:132px; padding:0 18px; }
-    .nav-logo-mark { position:relative; width:118px; height:38px; display:block; }
-    .nav-logo-mark img {
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      display:block;
-      transition:opacity .28s ease;
-    }
-
-    .nav-logo-light { opacity: .70; }
-    .nav-logo-dark { opacity: 0; }
-    body.nav-scrolled .nav-logo-light { opacity: 0; }
-    body.nav-scrolled .nav-logo-dark { opacity: .70; }
-    .nav-logo-fallback { display: none; font-size: 28px; font-weight: 700; letter-spacing: -0.03em; }
-
-    .nav-cta { min-width: 220px; padding: 0 24px; font-weight: 700; font-size: 14px; }
-    .segmented-nav { min-width: 420px; padding: 6px; gap: 4px; }
-    .seg-btn {
-      flex: 1;
-      min-width: 0;
-      min-height: calc(var(--nav-height) - 12px);
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      font-weight: 600;
-      color: inherit;
-      transition: background .22s ease, color .22s ease, transform .22s ease;
-    }
-
-    body.nav-on-hero .seg-btn { color: rgba(255,255,255,.95); }
-    body.nav-on-hero .seg-btn:hover { background: rgba(255,255,255,.12); color: #fff; }
-    body.nav-scrolled .seg-btn { color: #2b2118; }
-    body.nav-scrolled .seg-btn:hover { background: rgba(44,48,54,.38); color: #fff; }
-
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      min-height: 100svh;
-      overflow: hidden;
-      background: radial-gradient(circle at 30% 15%, #fde7a7 0%, transparent 27%),
-                  linear-gradient(135deg, #f7d873 0%, #b8d0c4 40%, #6f8798 78%, #2a3339 100%);
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background: url("filo_website_bg.png") center center / cover no-repeat;
-      opacity: .58;
-      filter: saturate(1.08) contrast(1.02);
-      transform: scale(1.02);
-    }
-
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 68% 44%, rgba(255,255,255,.24), transparent 22%),
-        linear-gradient(90deg, rgba(10,13,18,.25) 0%, rgba(10,13,18,.06) 44%, rgba(10,13,18,.20) 100%),
-        linear-gradient(180deg, rgba(255,253,247,.10) 0%, rgba(255,253,247,.02) 45%, rgba(255,253,247,.12) 100%);
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 5;
-      min-height: 100vh;
-      min-height: 100svh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 104px 24px 42px;
-    }
-
-    .hero-stage {
-      position: relative;
-      width: min(1180px, 100%);
-      min-height: 620px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-copy {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      max-width: 520px;
-      z-index: 8;
-    }
-
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: rgba(255,255,255,.88);
-      font-size: 12px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      font-weight: 700;
-      margin-bottom: 18px;
-      text-shadow: 0 6px 18px rgba(0,0,0,.20);
-    }
-
-    .hero-kicker::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--gold);
-      box-shadow: 0 0 18px rgba(232,184,75,.9);
-    }
-
-    .hero-title {
-      font-size: clamp(44px, 6.2vw, 78px);
-      line-height: .95;
-      letter-spacing: -0.055em;
-      color: #fff;
-      margin-bottom: 20px;
-      text-shadow: 0 10px 32px rgba(0,0,0,.28);
-    }
-
-    .hero-sub {
-      font-size: 18px;
-      line-height: 1.55;
-      color: rgba(255,255,255,.93);
-      max-width: 440px;
-      text-shadow: 0 6px 20px rgba(0,0,0,.20);
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 28px;
-      flex-wrap: wrap;
-    }
-
-    .hero-primary,
-    .hero-secondary {
-      height: 54px;
-      padding: 0 22px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      font-weight: 700;
-      transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
-    }
-
-    .hero-primary {
-      background: linear-gradient(180deg,#f4cd68,#d9a23b);
-      color: #1a1410;
-      box-shadow: 0 14px 32px rgba(0,0,0,.22);
-    }
-
-    .hero-secondary {
-      color: #fff;
-      border: 1px solid rgba(255,255,255,.24);
-      background: rgba(28,31,35,.28);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-
-    .hero-primary:hover,
-    .hero-secondary:hover { transform: translateY(-2px); }
-
-    .layer-world {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 3;
-    }
-
-    .orb {
-      position: absolute;
-      border-radius: 999px;
-      filter: blur(.2px);
-      opacity: .95;
-      animation: floaty 8s ease-in-out infinite;
-    }
-
-    .orb.gold { background: radial-gradient(circle at 32% 25%, #fff2bd, #e8b84b 50%, #b37a25 100%); box-shadow: 0 20px 55px rgba(155,101,24,.28); }
-    .orb.cream { background: radial-gradient(circle at 35% 25%, #fff, #f7e8bd 60%, #d8b76a 100%); box-shadow: 0 16px 45px rgba(90,66,24,.18); }
-    .orb.glass { background: rgba(255,255,255,.28); border: 1px solid rgba(255,255,255,.40); backdrop-filter: blur(10px); }
-
-    .orb-1 { width: 86px; height: 86px; right: 130px; top: 122px; animation-delay: -.7s; }
-    .orb-2 { width: 46px; height: 46px; right: 44px; top: 310px; animation-delay: -2s; }
-    .orb-3 { width: 62px; height: 62px; left: 46%; bottom: 76px; animation-delay: -3.5s; }
-    .orb-4 { width: 28px; height: 28px; left: 38%; top: 158px; animation-delay: -1.5s; }
-
-    .income-card {
-      position: absolute;
-      min-width: 154px;
-      padding: 14px 16px;
-      border-radius: 22px;
-      background: rgba(255,253,247,.82);
-      border: 1px solid rgba(255,255,255,.72);
-      box-shadow: 0 18px 50px rgba(0,0,0,.16);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      animation: drift 9s ease-in-out infinite;
-    }
-
-    .income-card span {
-      display: block;
-      font-size: 11px;
-      color: #7b6e5d;
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-
-    .income-card strong {
-      font-size: 23px;
-      letter-spacing: -0.04em;
-      color: #1a1410;
-    }
-
-    .income-card small {
-      display: block;
-      margin-top: 4px;
-      font-size: 11px;
-      color: #2f966a;
-      font-weight: 700;
-    }
-
-    .income-1 { right: 50px; top: 190px; transform: rotate(4deg); }
-    .income-2 { right: 180px; bottom: 118px; transform: rotate(-5deg); animation-delay: -2.4s; }
-    .income-3 { left: 54%; top: 72px; transform: rotate(-3deg); animation-delay: -4s; }
-
-    .layer-stack {
-      position: absolute;
-      right: 290px;
-      top: 47%;
-      width: 220px;
-      height: 152px;
-      transform: translateY(-50%) rotate(-7deg);
-      animation: floaty 7.5s ease-in-out infinite;
-    }
-
-    .layer-sheet {
-      position: absolute;
-      width: 190px;
-      height: 44px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(255,250,231,.95), rgba(232,184,75,.92));
-      border: 1px solid rgba(255,255,255,.70);
-      box-shadow: 0 18px 46px rgba(130,91,20,.18);
-    }
-
-    .layer-sheet:nth-child(1) { top: 0; left: 14px; opacity: .72; }
-    .layer-sheet:nth-child(2) { top: 34px; left: 0; opacity: .84; }
-    .layer-sheet:nth-child(3) { top: 68px; left: 22px; opacity: .94; }
-    .layer-sheet:nth-child(4) { top: 102px; left: 6px; opacity: 1; }
-
-    .flow-line {
-      position: absolute;
-      width: 320px;
-      height: 320px;
-      right: 172px;
-      top: 160px;
-      opacity: .42;
-      animation: pulseLine 4s ease-in-out infinite;
-    }
-
-    .phone-proof-mini {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      width: 246px;
-      border-radius: 42px;
-      padding: 6px;
-      background: linear-gradient(155deg,#5a5a5c,#202022);
-      box-shadow: 0 28px 70px rgba(0,0,0,.32);
-      z-index: 5;
-      transform: translateY(18px) rotate(2deg);
-    }
-
-    .phone-proof-mini img {
-      width: 100%;
-      border-radius: 37px;
-      display: block;
-    }
-
-    .scroll-hint {
-      position: absolute;
-      left: 50%;
-      bottom: 26px;
-      transform: translateX(-50%);
-      z-index: 10;
-      color: rgba(255,255,255,.76);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    @keyframes floaty {
-      0%,100% { transform: translate3d(0,0,0); }
-      50% { transform: translate3d(0,-16px,0); }
-    }
-
-    @keyframes drift {
-      0%,100% { translate: 0 0; }
-      50% { translate: 0 -18px; }
-    }
-
-    @keyframes pulseLine {
-      0%,100% { opacity: .25; transform: scale(.98); }
-      50% { opacity: .58; transform: scale(1.02); }
-    }
-
-    .section-divider {
-      height: 1px;
-      max-width: 800px;
-      margin: 0 auto;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-    }
-
-    .section {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 96px 24px;
-    }
-
-    .section-label {
-      text-align: center;
-      font-size: 11px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--gold-dk);
-      margin-bottom: 14px;
-      font-weight: 700;
-    }
-
-    h2 {
-      text-align: center;
-      font-size: clamp(34px, 4vw, 54px);
-      margin-bottom: 14px;
-      line-height: 1.05;
-      letter-spacing: -0.045em;
-    }
-
-    h2 em { color: var(--gold); font-style: italic; }
-
-    .section-sub {
-      text-align: center;
-      max-width: 620px;
-      margin: 0 auto 54px;
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 17px;
-    }
-
-    .proof-section {
-      display: grid;
-      grid-template-columns: .95fr 1.05fr;
-      gap: 54px;
-      align-items: center;
-    }
-
-    .phone-large {
-      width: min(340px, 100%);
-      margin: 0 auto;
-      border-radius: 54px;
-      padding: 7px;
-      background: linear-gradient(155deg,#5a5a5c,#1f1f21);
-      box-shadow: 0 30px 80px rgba(0,0,0,.22);
-    }
-
-    .phone-large img { width: 100%; display: block; border-radius: 48px; }
-
-    .proof-copy h2 { text-align: left; margin-bottom: 18px; }
-    .proof-copy p { color: var(--muted); line-height: 1.75; font-size: 17px; margin-bottom: 24px; }
-
-    .formula-card {
-      border-radius: 26px;
-      border: 1px solid var(--border);
-      background: #fff;
-      padding: 22px;
-      box-shadow: 0 18px 45px rgba(62,45,10,.07);
-    }
-
-    .formula-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 13px 0;
-      border-bottom: 1px solid #f1e6cd;
-      color: #6e6253;
-      font-weight: 700;
-    }
-
-    .formula-row:last-child { border-bottom: none; color: var(--text); font-size: 18px; }
-    .formula-row .positive { color: #2f966a; }
-    .formula-row .negative { color: #b06a42; }
-
-    .bento-grid {
-      display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 18px;
-    }
-
-    .bento-card {
-      position: relative;
-      min-height: 230px;
-      border-radius: 30px;
-      border: 1px solid var(--border);
-      background: #fff;
-      padding: 28px;
-      overflow: hidden;
-      box-shadow: 0 18px 48px rgba(62,45,10,.06);
-      transition: transform .25s ease, box-shadow .25s ease;
-      cursor: pointer;
-    }
-
-    .bento-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px rgba(62,45,10,.10); }
-    .bento-card.tall { min-height: 478px; }
-    .bento-card.dark { background: #171717; color: #fff; border-color: rgba(255,255,255,.10); }
-
-    .bento-card h3 {
-      font-size: 26px;
-      letter-spacing: -0.04em;
-      margin-bottom: 10px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .bento-card p {
-      color: var(--muted);
-      line-height: 1.6;
-      max-width: 390px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .bento-card.dark p { color: rgba(255,255,255,.70); }
-
-    .mini-bars {
-      position: absolute;
-      left: 28px;
-      right: 28px;
-      bottom: 26px;
-      display: flex;
-      align-items: flex-end;
-      gap: 10px;
-      height: 95px;
-    }
-
-    .mini-bars span {
-      flex: 1;
-      border-radius: 999px 999px 8px 8px;
-      background: linear-gradient(180deg, #f4d679, #d9a23b);
-      opacity: .88;
-      animation: barPulse 3.4s ease-in-out infinite;
-    }
-
-    .mini-bars span:nth-child(1){ height: 35%; }
-    .mini-bars span:nth-child(2){ height: 62%; animation-delay: -.4s; }
-    .mini-bars span:nth-child(3){ height: 48%; animation-delay: -.8s; }
-    .mini-bars span:nth-child(4){ height: 86%; animation-delay: -1.2s; }
-    .mini-bars span:nth-child(5){ height: 70%; animation-delay: -1.6s; }
-
-    @keyframes barPulse {
-      0%,100% { transform: scaleY(.96); }
-      50% { transform: scaleY(1.08); }
-    }
-
-    .tax-ring {
-      position: absolute;
-      width: 190px;
-      height: 190px;
-      right: -32px;
-      bottom: -38px;
-      border-radius: 999px;
-      border: 24px solid rgba(232,184,75,.22);
-      box-shadow: inset 0 0 0 24px rgba(232,184,75,.18);
-    }
-
-    .goal-orbit {
-      position: absolute;
-      width: 210px;
-      height: 210px;
-      right: -42px;
-      bottom: -46px;
-      border-radius: 999px;
-      background: radial-gradient(circle, transparent 43%, rgba(232,184,75,.30) 44%, rgba(232,184,75,.30) 54%, transparent 55%);
-      animation: spin 16s linear infinite;
-    }
-
-    .goal-orbit::after {
-      content: "";
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      border-radius: 999px;
-      background: var(--gold);
-      top: 16px;
-      left: 92px;
-      box-shadow: 0 0 22px rgba(232,184,75,.8);
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .engine-section {
-      max-width: none;
-      padding: 110px 24px;
-      background: radial-gradient(circle at 20% 10%, rgba(232,184,75,.22), transparent 26%), #141414;
-      color: #fff;
-    }
-
-    .engine-inner { max-width: 1120px; margin: 0 auto; }
-    .engine-section .section-label { color: var(--gold-soft); }
-    .engine-section h2 { color: #fff; }
-    .engine-section .section-sub { color: rgba(255,255,255,.68); }
-
-    .engine-flow {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 42px;
-    }
-
-    .engine-box {
-      min-height: 210px;
-      border-radius: 28px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035));
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .engine-box h3 { font-size: 24px; letter-spacing: -0.035em; margin-bottom: 10px; }
-    .engine-box p { color: rgba(255,255,255,.66); line-height: 1.6; }
-    .engine-box::after {
-      content: "";
-      position: absolute;
-      inset: auto -20% -45% -20%;
-      height: 130px;
-      background: radial-gradient(circle, rgba(232,184,75,.24), transparent 65%);
-    }
-
-    .about-placeholder {
-      max-width: 760px;
-      margin: 0 auto;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 40px 34px;
-      text-align: center;
-      color: var(--muted);
-      line-height: 1.85;
-      font-size: 17px;
-      box-shadow: 0 18px 48px rgba(62,45,10,.06);
-    }
-
-    .waitlist-section {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 96px 24px;
-    }
-
-    .tally-frame {
-      width: 100%;
-      height: 560px;
-      border: none;
-      border-radius: 24px;
-      background: #fff;
-      box-shadow: 0 18px 48px rgba(62,45,10,.08);
-    }
-
-    .footer {
-      padding: 32px;
-      text-align: center;
-      font-size: 13px;
-      color: #bbb;
-      border-top: 1px solid var(--border);
-    }
-
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      background: rgba(20,20,20,.42);
-      backdrop-filter: blur(10px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 22px;
-    }
-
-    .modal-backdrop.open { display: flex; }
-    .modal-card {
-      width: min(620px, 100%);
-      background: var(--cream);
-      border-radius: 32px;
-      padding: 32px;
-      box-shadow: 0 30px 90px rgba(0,0,0,.28);
-      position: relative;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      width: 36px;
-      height: 36px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: #fff;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .modal-card h3 { font-size: 34px; letter-spacing: -0.04em; margin-bottom: 12px; }
-    .modal-card p { color: var(--muted); line-height: 1.7; font-size: 17px; }
-
-    @media (max-width: 1200px) {
-      .segmented-nav { min-width: 360px; }
-      .nav-cta { min-width: 190px; }
-      .hero-copy { left: 0; max-width: 470px; }
-      .income-1 { right: 20px; }
-      .layer-stack { right: 240px; }
-    }
-
-    @media (max-width: 980px) {
-      .hero-stage { min-height: 720px; align-items: flex-start; padding-top: 42px; }
-      .hero-copy {
-        position: relative;
-        left: auto;
-        top: auto;
-        transform: none;
-        text-align: center;
-        margin: 0 auto;
-      }
-      .hero-sub { margin: 0 auto; }
-      .hero-actions { justify-content: center; }
-      .income-1, .income-2, .income-3, .layer-stack, .flow-line, .phone-proof-mini { display: none; }
-      .orb-1 { right: 12%; top: 390px; }
-      .orb-2 { right: 22%; top: 520px; }
-      .orb-3 { left: 18%; bottom: 60px; }
-      .proof-section { grid-template-columns: 1fr; text-align: center; }
-      .proof-copy h2 { text-align: center; }
-      .bento-grid { grid-template-columns: 1fr; }
-      .engine-flow { grid-template-columns: 1fr; }
-      .site-nav {
-        grid-template-columns: 1fr auto 1fr;
-        padding: 14px 18px;
-      }
-      .nav-logo,
-      .nav-cta,
-      .segmented-nav { min-height: 52px; height: 52px; }
-      .nav-logo { min-width: 110px; padding: 0 14px; }
-      .nav-logo-mark { width: 78px; height: 24px; }
-      .nav-cta { min-width: 170px; padding: 0 16px; font-size: 13px; }
-      .segmented-nav { min-width: 290px; padding: 5px; }
-      .seg-btn { min-height: 40px; font-size: 15px; }
-    }
-
-    @media (max-width: 760px) {
-      .site-nav { grid-template-columns: 1fr auto; row-gap: 10px; }
-      .nav-center { grid-column: 1 / -1; justify-self: center; }
-      .segmented-nav { width: min(92vw, 340px); min-width: 0; }
-      .hero-title { font-size: clamp(42px, 13vw, 60px); }
-    }
-
-    @media (max-width: 520px) {
-      .site-nav { padding: 12px; }
-      .nav-logo,
-      .nav-cta,
-      .segmented-nav { min-height: 48px; height: 48px; }
-      .nav-logo { min-width: 88px; padding: 0 10px; }
-      .nav-logo-mark { width: 66px; height: 20px; }
-      .nav-cta { min-width: 142px; padding: 0 12px; font-size: 12px; }
-      .segmented-nav { padding: 4px; }
-      .seg-btn { min-height: 36px; font-size: 14px; }
-      .hero-inner { padding-left: 18px; padding-right: 18px; }
-      .hero-stage { min-height: 680px; }
-      .hero-sub { font-size: 16px; }
-      .hero-primary, .hero-secondary { width: 100%; }
-      .section { padding: 76px 18px; }
-      .waitlist-section { padding: 76px 18px; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Filo – Finance made simple.</title>
+
+<link rel="icon" type="image/png" href="filo-alt logo.png" />
+<link rel="apple-touch-icon" href="filo-alt logo.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --gold:#e8b84b;
+  --gold-dk:#c49a30;
+  --cream:#fffdf7;
+  --text:#1a1410;
+  --muted:#8a7d6a;
+  --border:#ecdfc4;
+
+  --hero-bg:#EAE0C8;
+
+  --nav-height:58px;
+  --nav-radius:999px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Inter Tight',sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+a{
+  text-decoration:none;
+}
+
+/* HERO */
+.hero{
+  position:relative;
+  min-height:100vh;
+  min-height:100svh;
+  overflow:hidden;
+  background:var(--hero-bg);
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(234,224,200,1) 0%,
+      rgba(234,224,200,1) 48%,
+      rgba(234,224,200,.92) 60%,
+      rgba(234,224,200,.55) 74%,
+      rgba(234,224,200,.15) 100%
+    );
+  z-index:1;
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+}
+
+.site-nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:100;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  padding:18px 24px;
+  pointer-events:none;
+}
+
+.site-nav>*{
+  pointer-events:auto;
+}
+
+.nav-left{justify-self:start;}
+.nav-center{justify-self:center;}
+.nav-right{justify-self:end;}
+
+.nav-logo,
+.nav-cta,
+.segmented-nav{
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  transition:.22s ease;
+  position:relative;
+  overflow:hidden;
+  border-radius:var(--nav-radius);
+}
+
+.nav-logo::before,
+.nav-cta::before,
+.segmented-nav::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  border:1px solid rgba(255,255,255,.34);
+}
+
+body.nav-on-hero .nav-logo,
+body.nav-on-hero .nav-cta,
+body.nav-on-hero .segmented-nav{
+  color:#2b2118;
+  border:1px solid rgba(120,110,92,.14);
+  background:linear-gradient(
+    180deg,
+    rgba(255,253,247,.72) 0%,
+    rgba(245,235,214,.56) 100%
+  );
+}
+
+body.nav-scrolled .nav-logo,
+body.nav-scrolled .nav-cta,
+body.nav-scrolled .segmented-nav{
+  color:#2b2118;
+  border:1px solid rgba(120,110,92,.14);
+  background:linear-gradient(
+    180deg,
+    rgba(255,253,247,.86) 0%,
+    rgba(245,235,214,.78) 100%
+  );
+}
+
+.nav-logo,
+.nav-cta,
+.segmented-nav{
+  min-height:var(--nav-height);
+  height:var(--nav-height);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.nav-logo{
+  min-width:132px;
+  padding:0 18px;
+}
+
+.nav-logo-mark{
+  position:relative;
+  width:118px;
+  height:38px;
+  display:block;
+}
+
+.nav-logo-mark img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.nav-logo-light{opacity:.72;}
+.nav-logo-dark{opacity:0;}
+
+body.nav-scrolled .nav-logo-light{opacity:0;}
+body.nav-scrolled .nav-logo-dark{opacity:.72;}
+
+.nav-cta{
+  min-width:220px;
+  padding:0 24px;
+  font-weight:700;
+  font-size:14px;
+}
+
+.segmented-nav{
+  min-width:420px;
+  padding:6px;
+  gap:4px;
+}
+
+.seg-btn{
+  flex:1;
+  min-height:46px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  font-weight:600;
+  color:#2b2118;
+}
+
+/* HERO CONTENT */
+.hero-inner{
+  position:relative;
+  z-index:5;
+  min-height:100vh;
+  min-height:100svh;
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  align-items:center;
+  gap:30px;
+  padding:110px 70px 40px;
+}
+
+.hero-floating-copy{
+  max-width:520px;
+}
+
+.hero-floating-title{
+  font-size:clamp(42px,5vw,72px);
+  line-height:.98;
+  letter-spacing:-.04em;
+  color:#1a1410;
+  margin-bottom:20px;
+}
+
+.hero-floating-sub{
+  font-size:20px;
+  line-height:1.55;
+  color:#5b4f3e;
+  max-width:460px;
+}
+
+.hero-phone-wrap{
+  position:relative;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+}
+
+.hero-phone-wrap img{
+  width:min(720px,100%);
+  height:auto;
+  display:block;
+  filter:drop-shadow(0 35px 60px rgba(0,0,0,.12));
+}
+
+/* SECTIONS */
+.section-divider{
+  height:1px;
+  max-width:800px;
+  margin:0 auto;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+}
+
+.why-section,
+.about-section{
+  max-width:1100px;
+  margin:0 auto;
+  padding:90px 24px;
+}
+
+.section-label{
+  text-align:center;
+  font-size:11px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--gold-dk);
+  margin-bottom:14px;
+}
+
+h2{
+  text-align:center;
+  font-size:clamp(32px,4vw,50px);
+  margin-bottom:14px;
+  line-height:1.1;
+}
+
+h2 em{
+  color:var(--gold);
+  font-style:italic;
+}
+
+.why-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:24px;
+  margin-top:40px;
+}
+
+.why-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:32px;
+}
+
+.why-card h3{
+  margin-bottom:10px;
+}
+
+.why-card p{
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.about-placeholder{
+  max-width:760px;
+  margin:0 auto;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:40px 32px;
+  text-align:center;
+  color:var(--muted);
+  line-height:1.8;
+}
+
+.footer{
+  padding:32px;
+  text-align:center;
+  font-size:13px;
+  color:#bbb;
+  border-top:1px solid var(--border);
+}
+
+/* MOBILE */
+@media (max-width:980px){
+
+.hero-inner{
+  grid-template-columns:1fr;
+  text-align:center;
+  padding:110px 24px 50px;
+}
+
+.hero-floating-copy{
+  margin:0 auto;
+}
+
+.hero-floating-sub{
+  margin:0 auto;
+}
+
+.hero-phone-wrap{
+  justify-content:center;
+}
+
+.hero-phone-wrap img{
+  width:min(560px,100%);
+}
+
+.why-grid{
+  grid-template-columns:1fr;
+}
+
+.site-nav{
+  grid-template-columns:1fr auto;
+  row-gap:10px;
+}
+
+.nav-center{
+  grid-column:1/-1;
+}
+}
+
+@media (max-width:520px){
+
+.hero-floating-title{
+  font-size:42px;
+}
+
+.hero-floating-sub{
+  font-size:17px;
+}
+
+.nav-cta{
+  min-width:150px;
+  font-size:12px;
+}
+
+.segmented-nav{
+  min-width:320px;
+}
+}
+</style>
 </head>
 
 <body class="nav-on-hero">
 
 <section class="hero" id="top">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
 
-  <nav class="site-nav">
-    <div class="nav-left">
-      <a href="#top" class="nav-logo" id="topLogo">
-        <span class="nav-logo-mark">
-          <img class="nav-logo-light" src="Modern logo with abstract 'o' design.png" alt="Filo light logo" />
-          <img class="nav-logo-dark" src="Minimalist dark gray logo design.png" alt="Filo dark logo" />
-        </span>
-        <span class="nav-logo-fallback">filo</span>
-      </a>
-    </div>
+<div class="hero-bg"></div>
+<div class="hero-overlay"></div>
 
-    <div class="nav-center">
-      <div class="segmented-nav">
-        <a href="#about" class="seg-btn">About</a>
-        <a href="#why" class="seg-btn">Learn</a>
-      </div>
-    </div>
+<nav class="site-nav">
 
-    <div class="nav-right">
-      <a href="#waitlist" class="nav-cta">Join the waitlist</a>
-    </div>
-  </nav>
-
-  <div class="hero-inner">
-    <div class="hero-stage">
-      <div class="hero-copy">
-        <div class="hero-kicker">Filo</div>
-        <h1 class="hero-title">When your income has layers,<br>your money app should too.</h1>
-        <p class="hero-sub">Track every stream, know what’s safe to spend, and grow with clarity.</p>
-        <div class="hero-actions">
-          <a href="#waitlist" class="hero-primary">Join the waitlist</a>
-          <a href="#product" class="hero-secondary">See how it works</a>
-        </div>
-      </div>
-
-      <div class="layer-world" aria-hidden="true">
-        <svg class="flow-line" viewBox="0 0 320 320" fill="none">
-          <path d="M34 206 C110 90, 220 282, 292 106" stroke="rgba(255,255,255,.8)" stroke-width="2" stroke-linecap="round"/>
-          <path d="M34 206 C110 90, 220 282, 292 106" stroke="rgba(232,184,75,.85)" stroke-width="7" stroke-linecap="round" stroke-dasharray="10 18"/>
-        </svg>
-
-        <div class="orb orb-1 gold"></div>
-        <div class="orb orb-2 glass"></div>
-        <div class="orb orb-3 cream"></div>
-        <div class="orb orb-4 gold"></div>
-
-        <div class="layer-stack">
-          <div class="layer-sheet"></div>
-          <div class="layer-sheet"></div>
-          <div class="layer-sheet"></div>
-          <div class="layer-sheet"></div>
-        </div>
-
-        <div class="income-card income-1">
-          <span>Creator revenue</span>
-          <strong>+$842</strong>
-          <small>this week</small>
-        </div>
-
-        <div class="income-card income-2">
-          <span>Tax safe</span>
-          <strong>$1,284</strong>
-          <small>protected</small>
-        </div>
-
-        <div class="income-card income-3">
-          <span>Top stream</span>
-          <strong>YouTube</strong>
-          <small>46% of income</small>
-        </div>
-
-        <div class="phone-proof-mini">
-          <img src="filo_app_rn.PNG" alt="Filo App preview" />
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="scroll-hint">Scroll</div>
-</section>
-
-<div class="section-divider"></div>
-
-<section class="section proof-section" id="product">
-  <div class="phone-large">
-    <img src="filo_app_rn.PNG" alt="Filo app homepage" />
-  </div>
-
-  <div class="proof-copy">
-    <div class="section-label" style="text-align:left;">See Filo in action</div>
-    <h2>One clear view of what you earn, protect, and can use.</h2>
-    <p>Filo turns income streams, bills, taxes, and goals into a simple money view designed around how you actually earn.</p>
-
-    <div class="formula-card">
-      <div class="formula-row"><span>Income this month</span><strong class="positive">+$5,320</strong></div>
-      <div class="formula-row"><span>Taxes protected</span><strong class="negative">−$1,284</strong></div>
-      <div class="formula-row"><span>Bills coming</span><strong class="negative">−$1,545</strong></div>
-      <div class="formula-row"><span>Available now</span><strong>$2,491</strong></div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<section class="section" id="why">
-  <div class="section-label">Why Filo?</div>
-  <h2>Built for<br><em>layered income.</em></h2>
-  <p class="section-sub">Explore the pieces that make Filo different. Each layer helps turn income into clearer decisions.</p>
-
-  <div class="bento-grid">
-    <div class="bento-card tall" data-title="Income Streams" data-body="Track creator revenue, freelancing, affiliate income, digital products, commissions, and more in one clean place. Filo helps you see which stream is growing and which stream needs attention.">
-      <h3>Income streams</h3>
-      <p>See where your money is coming from and what’s driving your momentum.</p>
-      <div class="mini-bars"><span></span><span></span><span></span><span></span><span></span></div>
-    </div>
-
-    <div class="bento-card" data-title="Available Now" data-body="Available Now is the number Filo is built around. It estimates what you can actually use after taxes, bills, and important obligations are accounted for.">
-      <h3>Available now</h3>
-      <p>Know what’s safe to use without doing mental math.</p>
-      <div class="tax-ring"></div>
-    </div>
-
-    <div class="bento-card dark" data-title="Tax Safe" data-body="Filo helps you separate money that should be protected for taxes so creator income or side income does not accidentally become spending money.">
-      <h3>Tax safe</h3>
-      <p>Keep tax money visible, protected, and easier to plan around.</p>
-    </div>
-
-    <div class="bento-card" data-title="Goals" data-body="Set a monthly income target, track progress, and see whether you are on pace. Filo makes goals feel connected to your actual earning streams.">
-      <h3>Goals</h3>
-      <p>Build toward your best month without losing track of the details.</p>
-      <div class="goal-orbit"></div>
-    </div>
-  </div>
-</section>
-
-<section class="engine-section">
-  <div class="engine-inner">
-    <div class="section-label">The Filo Engine</div>
-    <h2>From scattered income<br><em>to clear decisions.</em></h2>
-    <p class="section-sub">Filo organizes the layers of your money so the homepage answers what matters first.</p>
-
-    <div class="engine-flow">
-      <div class="engine-box">
-        <h3>Capture</h3>
-        <p>Bring together side income, creator revenue, freelance work, and everyday money activity.</p>
-      </div>
-      <div class="engine-box">
-        <h3>Separate</h3>
-        <p>Split money into taxes, bills, goals, and flexible spending so nothing important gets buried.</p>
-      </div>
-      <div class="engine-box">
-        <h3>Decide</h3>
-        <p>See what’s available now, what changed this week, and where your money is growing.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<section class="section" id="about">
-  <div class="section-label">About</div>
-  <h2>Money changed.<br><em>Your tools should too.</em></h2>
-
-  <div class="about-placeholder">
-    Most finance apps were designed for a world of fixed paychecks and predictable routines.<br><br>
-    But today, many people earn through side income, freelancing, creator revenue, online business, commissions, and multiple streams at once.<br><br>
-    Filo was created to help you understand what’s coming in, what’s safe to spend, and where you’re growing.<br><br>
-    We believe money tools should feel calm, modern, and built around how your life works.
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<section class="waitlist-section" id="waitlist">
-  <div class="section-label">Early access</div>
-  <h2>Get early access<br>to <em>Filo</em></h2>
-  <p class="section-sub">Join the waitlist and help shape the money app for people building more than one stream.</p>
-
-  <iframe class="tally-frame" src="https://tally.so/r/dWlvkD" scrolling="no"></iframe>
-</section>
-
-<footer class="footer">© 2026 Filo</footer>
-
-<div class="modal-backdrop" id="featureModal">
-  <div class="modal-card">
-    <button class="modal-close" id="modalClose">×</button>
-    <h3 id="modalTitle">Feature</h3>
-    <p id="modalBody">Feature description.</p>
-  </div>
+<div class="nav-left">
+<a href="#top" class="nav-logo" id="topLogo">
+<span class="nav-logo-mark">
+<img class="nav-logo-light" src="Modern logo with abstract 'o' design.png">
+<img class="nav-logo-dark" src="Minimalist dark gray logo design.png">
+</span>
+</a>
 </div>
 
+<div class="nav-center">
+<div class="segmented-nav">
+<a href="#about" class="seg-btn">About</a>
+<a href="#why" class="seg-btn">Learn</a>
+</div>
+</div>
+
+<div class="nav-right">
+<a href="#waitlist" class="nav-cta">Join the waitlist</a>
+</div>
+
+</nav>
+
+<div class="hero-inner">
+
+<div class="hero-floating-copy">
+<h1 class="hero-floating-title">
+When your income has layers,<br>
+your money app should too.
+</h1>
+
+<p class="hero-floating-sub">
+Track every stream, know what’s safe to spend, and grow with clarity.
+</p>
+</div>
+
+<div class="hero-phone-wrap">
+<img src="main_hero.png" alt="Filo Hero Phones">
+</div>
+
+</div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="why-section" id="why">
+<div class="section-label">Why Filo?</div>
+
+<h2>
+Built for<br>
+<em>how you actually earn.</em>
+</h2>
+
+<div class="why-grid">
+
+<div class="why-card">
+<h3>Multiple income streams</h3>
+<p>Track every source of income in one clean place.</p>
+</div>
+
+<div class="why-card">
+<h3>A better money view</h3>
+<p>See progress clearly and feel momentum every month.</p>
+</div>
+
+<div class="why-card">
+<h3>You stay in control</h3>
+<p>Connect accounts securely or track manually.</p>
+</div>
+
+<div class="why-card">
+<h3>Actually enjoyable</h3>
+<p>Warm, calm, and designed to be opened often.</p>
+</div>
+
+</div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="about-section" id="about">
+
+<div class="section-label">About</div>
+
+<h2>
+More about<br>
+<em>Filo</em>
+</h2>
+
+<div class="about-placeholder">
+Most finance apps were designed for a world of fixed paychecks and predictable routines.
+
+But today, many people earn through side income, freelancing, creator revenue, online business, commissions, and multiple streams at once.
+
+Filo was created to help you understand what’s coming in, what’s safe to spend, and where you’re growing.
+
+We believe money tools should feel calm, modern, and built around how your life works.
+</div>
+
+</section>
+
+<footer class="footer">
+© 2026 Filo
+</footer>
+
 <script>
-  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
 
-  window.addEventListener("load", () => {
-    window.scrollTo(0, 0);
-    updateNavTheme();
+window.addEventListener("load", () => {
+  window.scrollTo(0,0);
+  updateNavTheme();
+});
+
+document.getElementById("topLogo").addEventListener("click", function(e){
+  e.preventDefault();
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
   });
+});
 
-  document.getElementById("topLogo").addEventListener("click", function(e) {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
+function updateNavTheme(){
+  const hero = document.querySelector(".hero");
+  const trigger = hero.offsetHeight - 90;
 
-  function updateNavTheme() {
-    const hero = document.querySelector(".hero");
-    const trigger = hero.offsetHeight - 90;
-    if (window.scrollY < trigger) {
-      document.body.classList.add("nav-on-hero");
-      document.body.classList.remove("nav-scrolled");
-    } else {
-      document.body.classList.add("nav-scrolled");
-      document.body.classList.remove("nav-on-hero");
-    }
+  if(window.scrollY < trigger){
+    document.body.classList.add("nav-on-hero");
+    document.body.classList.remove("nav-scrolled");
+  } else {
+    document.body.classList.add("nav-scrolled");
+    document.body.classList.remove("nav-on-hero");
   }
+}
 
-  window.addEventListener("scroll", updateNavTheme, { passive: true });
-  window.addEventListener("resize", updateNavTheme);
-
-  const modal = document.getElementById("featureModal");
-  const modalTitle = document.getElementById("modalTitle");
-  const modalBody = document.getElementById("modalBody");
-  const modalClose = document.getElementById("modalClose");
-
-  document.querySelectorAll(".bento-card").forEach(card => {
-    card.addEventListener("click", () => {
-      modalTitle.textContent = card.dataset.title;
-      modalBody.textContent = card.dataset.body;
-      modal.classList.add("open");
-    });
-  });
-
-  modalClose.addEventListener("click", () => modal.classList.remove("open"));
-  modal.addEventListener("click", e => {
-    if (e.target === modal) modal.classList.remove("open");
-  });
+window.addEventListener("scroll", updateNavTheme, {passive:true});
+window.addEventListener("resize", updateNavTheme);
 </script>
 
 </body>
