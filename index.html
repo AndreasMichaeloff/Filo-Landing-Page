@@ -1,544 +1,599 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filo – Finance made simple.</title>
 
-<title>Filo – Finance made simple.</title>
+  <link rel="icon" type="image/png" href="filo-alt logo.png" />
+  <link rel="apple-touch-icon" href="filo-alt logo.png" />
 
-<link rel="icon" type="image/png" href="filo-alt logo.png" />
-<link rel="apple-touch-icon" href="filo-alt logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700&display=swap" rel="stylesheet" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.88/build/spline-viewer.js"></script>
 
-<style>
-:root{
-  --gold:#e8b84b;
-  --gold-dk:#c49a30;
-  --cream:#fffdf7;
-  --text:#1a1410;
-  --muted:#8a7d6a;
-  --border:#ecdfc4;
+  <style>
+    :root {
+      --gold: #e8b84b;
+      --gold-dk: #c49a30;
+      --cream: #fffdf7;
+      --hero-bg: #EAE0C8;
+      --text: #1a1410;
+      --muted: #8a7d6a;
+      --border: #ecdfc4;
 
-  --hero-bg:#EAE0C8;
+      --nav-height: 58px;
+      --nav-radius: 999px;
+    }
 
-  --nav-height:58px;
-  --nav-radius:999px;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-html{
-  scroll-behavior:smooth;
-}
+    body {
+      font-family: 'Inter Tight', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
 
-body{
-  font-family:'Inter Tight',sans-serif;
-  background:var(--cream);
-  color:var(--text);
-  overflow-x:hidden;
-}
+    a {
+      text-decoration: none;
+    }
 
-a{
-  text-decoration:none;
-}
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100svh;
+      overflow: hidden;
+      background: var(--hero-bg);
+    }
 
-/* HERO */
-.hero{
-  position:relative;
-  min-height:100vh;
-  min-height:100svh;
-  overflow:hidden;
-  background:var(--hero-bg);
-}
+    .site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 18px 24px;
+      pointer-events: none;
+    }
 
-.hero-bg{
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(234,224,200,1) 0%,
-      rgba(234,224,200,1) 48%,
-      rgba(234,224,200,.92) 60%,
-      rgba(234,224,200,.55) 74%,
-      rgba(234,224,200,.15) 100%
-    );
-  z-index:1;
-}
+    .site-nav > * {
+      pointer-events: auto;
+    }
 
-.hero-overlay{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  z-index:2;
-}
+    .nav-left { justify-self: start; }
+    .nav-center { justify-self: center; }
+    .nav-right { justify-self: end; }
 
-.site-nav{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:100;
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
-  padding:18px 24px;
-  pointer-events:none;
-}
+    .nav-logo,
+    .nav-cta,
+    .segmented-nav {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: .22s ease;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--nav-radius);
+      min-height: var(--nav-height);
+      height: var(--nav-height);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #2b2118;
+      border: 1px solid rgba(120,110,92,.14);
+      background: linear-gradient(
+        180deg,
+        rgba(255,253,247,.72) 0%,
+        rgba(245,235,214,.56) 100%
+      );
+      box-shadow: 0 8px 20px rgba(32,20,6,.07);
+    }
 
-.site-nav>*{
-  pointer-events:auto;
-}
+    .nav-logo {
+      min-width: 132px;
+      padding: 0 18px;
+    }
 
-.nav-left{justify-self:start;}
-.nav-center{justify-self:center;}
-.nav-right{justify-self:end;}
+    .nav-logo-mark {
+      position: relative;
+      width: 118px;
+      height: 38px;
+      display: block;
+    }
 
-.nav-logo,
-.nav-cta,
-.segmented-nav{
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-  transition:.22s ease;
-  position:relative;
-  overflow:hidden;
-  border-radius:var(--nav-radius);
-}
+    .nav-logo-mark img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      transition: opacity .28s ease;
+    }
 
-.nav-logo::before,
-.nav-cta::before,
-.segmented-nav::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  border:1px solid rgba(255,255,255,.34);
-}
+    .nav-logo-light {
+      opacity: .70;
+    }
 
-body.nav-on-hero .nav-logo,
-body.nav-on-hero .nav-cta,
-body.nav-on-hero .segmented-nav{
-  color:#2b2118;
-  border:1px solid rgba(120,110,92,.14);
-  background:linear-gradient(
-    180deg,
-    rgba(255,253,247,.72) 0%,
-    rgba(245,235,214,.56) 100%
-  );
-}
+    .nav-logo-dark {
+      opacity: 0;
+    }
 
-body.nav-scrolled .nav-logo,
-body.nav-scrolled .nav-cta,
-body.nav-scrolled .segmented-nav{
-  color:#2b2118;
-  border:1px solid rgba(120,110,92,.14);
-  background:linear-gradient(
-    180deg,
-    rgba(255,253,247,.86) 0%,
-    rgba(245,235,214,.78) 100%
-  );
-}
+    body.nav-scrolled .nav-logo-light {
+      opacity: 0;
+    }
 
-.nav-logo,
-.nav-cta,
-.segmented-nav{
-  min-height:var(--nav-height);
-  height:var(--nav-height);
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-}
+    body.nav-scrolled .nav-logo-dark {
+      opacity: .70;
+    }
 
-.nav-logo{
-  min-width:132px;
-  padding:0 18px;
-}
+    .nav-cta {
+      min-width: 220px;
+      padding: 0 24px;
+      font-weight: 700;
+      font-size: 14px;
+    }
 
-.nav-logo-mark{
-  position:relative;
-  width:118px;
-  height:38px;
-  display:block;
-}
+    .segmented-nav {
+      min-width: 420px;
+      padding: 6px;
+      gap: 4px;
+    }
 
-.nav-logo-mark img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
+    .seg-btn {
+      flex: 1;
+      min-width: 0;
+      min-height: calc(var(--nav-height) - 12px);
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: #2b2118;
+      background: transparent;
+      transition: .22s ease;
+    }
 
-.nav-logo-light{opacity:.72;}
-.nav-logo-dark{opacity:0;}
+    .seg-btn:hover,
+    .nav-cta:hover,
+    .nav-logo:hover {
+      transform: translateY(-1px);
+    }
 
-body.nav-scrolled .nav-logo-light{opacity:0;}
-body.nav-scrolled .nav-logo-dark{opacity:.72;}
+    .hero-inner {
+      position: relative;
+      z-index: 5;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      align-items: center;
+      gap: 24px;
+      padding: 110px 64px 40px;
+    }
 
-.nav-cta{
-  min-width:220px;
-  padding:0 24px;
-  font-weight:700;
-  font-size:14px;
-}
+    .hero-floating-copy {
+      max-width: 530px;
+      z-index: 10;
+    }
 
-.segmented-nav{
-  min-width:420px;
-  padding:6px;
-  gap:4px;
-}
+    .hero-floating-title {
+      font-size: clamp(42px, 5vw, 72px);
+      line-height: .98;
+      letter-spacing: -0.04em;
+      color: #1a1410;
+      margin-bottom: 20px;
+    }
 
-.seg-btn{
-  flex:1;
-  min-height:46px;
-  border-radius:999px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:16px;
-  font-weight:600;
-  color:#2b2118;
-}
+    .hero-floating-sub {
+      font-size: 20px;
+      line-height: 1.55;
+      color: #5b4f3e;
+      max-width: 450px;
+    }
 
-/* HERO CONTENT */
-.hero-inner{
-  position:relative;
-  z-index:5;
-  min-height:100vh;
-  min-height:100svh;
-  display:grid;
-  grid-template-columns:1.1fr 1fr;
-  align-items:center;
-  gap:30px;
-  padding:110px 70px 40px;
-}
+    .hero-spline-wrap {
+      position: relative;
+      width: 100%;
+      height: min(78vh, 760px);
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
 
-.hero-floating-copy{
-  max-width:520px;
-}
+    .hero-spline-wrap spline-viewer {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
 
-.hero-floating-title{
-  font-size:clamp(42px,5vw,72px);
-  line-height:.98;
-  letter-spacing:-.04em;
-  color:#1a1410;
-  margin-bottom:20px;
-}
+    .section-divider {
+      height: 1px;
+      max-width: 800px;
+      margin: 0 auto;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
 
-.hero-floating-sub{
-  font-size:20px;
-  line-height:1.55;
-  color:#5b4f3e;
-  max-width:460px;
-}
+    .why-section,
+    .waitlist-section,
+    .about-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 90px 24px;
+    }
 
-.hero-phone-wrap{
-  position:relative;
-  display:flex;
-  justify-content:flex-end;
-  align-items:center;
-}
+    .section-label {
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold-dk);
+      margin-bottom: 14px;
+    }
 
-.hero-phone-wrap img{
-  width:min(720px,100%);
-  height:auto;
-  display:block;
-  filter:drop-shadow(0 35px 60px rgba(0,0,0,.12));
-}
+    h2 {
+      text-align: center;
+      font-size: clamp(32px, 4vw, 50px);
+      margin-bottom: 14px;
+      line-height: 1.1;
+    }
 
-/* SECTIONS */
-.section-divider{
-  height:1px;
-  max-width:800px;
-  margin:0 auto;
-  background:linear-gradient(90deg,transparent,var(--border),transparent);
-}
+    h2 em {
+      color: var(--gold);
+      font-style: italic;
+    }
 
-.why-section,
-.about-section{
-  max-width:1100px;
-  margin:0 auto;
-  padding:90px 24px;
-}
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
 
-.section-label{
-  text-align:center;
-  font-size:11px;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  color:var(--gold-dk);
-  margin-bottom:14px;
-}
+    .why-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+    }
 
-h2{
-  text-align:center;
-  font-size:clamp(32px,4vw,50px);
-  margin-bottom:14px;
-  line-height:1.1;
-}
+    .why-card h3 {
+      margin-bottom: 10px;
+      font-size: 19px;
+    }
 
-h2 em{
-  color:var(--gold);
-  font-style:italic;
-}
+    .why-card p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
 
-.why-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:24px;
-  margin-top:40px;
-}
+    .about-placeholder {
+      max-width: 760px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px 32px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.8;
+      white-space: pre-line;
+    }
 
-.why-card{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:32px;
-}
+    .tally-frame {
+      width: 100%;
+      height: 560px;
+      border: none;
+      border-radius: 20px;
+    }
 
-.why-card h3{
-  margin-bottom:10px;
-}
+    .footer {
+      padding: 32px;
+      text-align: center;
+      font-size: 13px;
+      color: #bbb;
+      border-top: 1px solid var(--border);
+    }
 
-.why-card p{
-  color:var(--muted);
-  line-height:1.7;
-}
+    @media (max-width: 1200px) {
+      .segmented-nav {
+        min-width: 360px;
+      }
 
-.about-placeholder{
-  max-width:760px;
-  margin:0 auto;
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:40px 32px;
-  text-align:center;
-  color:var(--muted);
-  line-height:1.8;
-}
+      .nav-cta {
+        min-width: 190px;
+      }
+    }
 
-.footer{
-  padding:32px;
-  text-align:center;
-  font-size:13px;
-  color:#bbb;
-  border-top:1px solid var(--border);
-}
+    @media (max-width: 980px) {
+      .site-nav {
+        grid-template-columns: 1fr auto 1fr;
+        padding: 14px 18px;
+      }
 
-/* MOBILE */
-@media (max-width:980px){
+      .nav-logo,
+      .nav-cta,
+      .segmented-nav {
+        min-height: 52px;
+        height: 52px;
+      }
 
-.hero-inner{
-  grid-template-columns:1fr;
-  text-align:center;
-  padding:110px 24px 50px;
-}
+      .nav-logo {
+        min-width: 110px;
+        padding: 0 14px;
+      }
 
-.hero-floating-copy{
-  margin:0 auto;
-}
+      .nav-logo-mark {
+        width: 78px;
+        height: 24px;
+      }
 
-.hero-floating-sub{
-  margin:0 auto;
-}
+      .nav-cta {
+        min-width: 170px;
+        padding: 0 16px;
+        font-size: 13px;
+      }
 
-.hero-phone-wrap{
-  justify-content:center;
-}
+      .segmented-nav {
+        min-width: 290px;
+        padding: 5px;
+      }
 
-.hero-phone-wrap img{
-  width:min(560px,100%);
-}
+      .seg-btn {
+        min-height: 40px;
+        font-size: 15px;
+      }
 
-.why-grid{
-  grid-template-columns:1fr;
-}
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 120px 24px 50px;
+      }
 
-.site-nav{
-  grid-template-columns:1fr auto;
-  row-gap:10px;
-}
+      .hero-floating-copy {
+        max-width: 560px;
+        margin: 0 auto;
+      }
 
-.nav-center{
-  grid-column:1/-1;
-}
-}
+      .hero-floating-sub {
+        margin: 0 auto;
+        font-size: 17px;
+      }
 
-@media (max-width:520px){
+      .hero-spline-wrap {
+        height: 520px;
+        min-height: 420px;
+      }
 
-.hero-floating-title{
-  font-size:42px;
-}
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
-.hero-floating-sub{
-  font-size:17px;
-}
+    @media (max-width: 760px) {
+      .site-nav {
+        grid-template-columns: 1fr auto;
+        row-gap: 10px;
+      }
 
-.nav-cta{
-  min-width:150px;
-  font-size:12px;
-}
+      .nav-center {
+        grid-column: 1 / -1;
+        justify-self: center;
+      }
 
-.segmented-nav{
-  min-width:320px;
-}
-}
-</style>
+      .segmented-nav {
+        width: min(92vw, 340px);
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .site-nav {
+        padding: 12px;
+      }
+
+      .nav-logo,
+      .nav-cta,
+      .segmented-nav {
+        min-height: 48px;
+        height: 48px;
+      }
+
+      .nav-logo {
+        min-width: 88px;
+        padding: 0 10px;
+      }
+
+      .nav-logo-mark {
+        width: 66px;
+        height: 20px;
+      }
+
+      .nav-cta {
+        min-width: 142px;
+        padding: 0 12px;
+        font-size: 12px;
+      }
+
+      .segmented-nav {
+        padding: 4px;
+      }
+
+      .seg-btn {
+        min-height: 36px;
+        font-size: 14px;
+      }
+
+      .hero-floating-title {
+        font-size: 42px;
+      }
+
+      .hero-spline-wrap {
+        height: 430px;
+        min-height: 360px;
+      }
+    }
+  </style>
 </head>
 
 <body class="nav-on-hero">
 
 <section class="hero" id="top">
+  <nav class="site-nav">
+    <div class="nav-left">
+      <a href="#top" class="nav-logo" id="topLogo">
+        <span class="nav-logo-mark">
+          <img class="nav-logo-light" src="Modern logo with abstract 'o' design.png" alt="Filo light logo" />
+          <img class="nav-logo-dark" src="Minimalist dark gray logo design.png" alt="Filo dark logo" />
+        </span>
+      </a>
+    </div>
 
-<div class="hero-bg"></div>
-<div class="hero-overlay"></div>
+    <div class="nav-center">
+      <div class="segmented-nav">
+        <a href="#about" class="seg-btn">About</a>
+        <a href="#why" class="seg-btn">Learn</a>
+      </div>
+    </div>
 
-<nav class="site-nav">
+    <div class="nav-right">
+      <a href="#waitlist" class="nav-cta">Join the waitlist</a>
+    </div>
+  </nav>
 
-<div class="nav-left">
-<a href="#top" class="nav-logo" id="topLogo">
-<span class="nav-logo-mark">
-<img class="nav-logo-light" src="Modern logo with abstract 'o' design.png">
-<img class="nav-logo-dark" src="Minimalist dark gray logo design.png">
-</span>
-</a>
-</div>
+  <div class="hero-inner">
+    <div class="hero-floating-copy">
+      <h1 class="hero-floating-title">
+        When your income has layers,<br>
+        your money app should too.
+      </h1>
 
-<div class="nav-center">
-<div class="segmented-nav">
-<a href="#about" class="seg-btn">About</a>
-<a href="#why" class="seg-btn">Learn</a>
-</div>
-</div>
+      <p class="hero-floating-sub">
+        Track every stream, know what’s safe to spend, and grow with clarity.
+      </p>
+    </div>
 
-<div class="nav-right">
-<a href="#waitlist" class="nav-cta">Join the waitlist</a>
-</div>
-
-</nav>
-
-<div class="hero-inner">
-
-<div class="hero-floating-copy">
-<h1 class="hero-floating-title">
-When your income has layers,<br>
-your money app should too.
-</h1>
-
-<p class="hero-floating-sub">
-Track every stream, know what’s safe to spend, and grow with clarity.
-</p>
-</div>
-
-<div class="hero-phone-wrap">
-<img src="main_hero.png" alt="Filo Hero Phones">
-</div>
-
-</div>
+    <div class="hero-spline-wrap">
+      <spline-viewer url="https://prod.spline.design/XnoZ45XGxjvIR4mh/scene.splinecode"></spline-viewer>
+    </div>
+  </div>
 </section>
 
 <div class="section-divider"></div>
 
 <section class="why-section" id="why">
-<div class="section-label">Why Filo?</div>
+  <div class="section-label">Why Filo?</div>
 
-<h2>
-Built for<br>
-<em>how you actually earn.</em>
-</h2>
+  <h2>
+    Built for<br>
+    <em>how you actually earn.</em>
+  </h2>
 
-<div class="why-grid">
+  <div class="why-grid">
+    <div class="why-card">
+      <h3>Multiple income streams</h3>
+      <p>Track every source of income in one clean place.</p>
+    </div>
 
-<div class="why-card">
-<h3>Multiple income streams</h3>
-<p>Track every source of income in one clean place.</p>
-</div>
+    <div class="why-card">
+      <h3>A better money view</h3>
+      <p>See progress clearly and feel momentum every month.</p>
+    </div>
 
-<div class="why-card">
-<h3>A better money view</h3>
-<p>See progress clearly and feel momentum every month.</p>
-</div>
+    <div class="why-card">
+      <h3>You stay in control</h3>
+      <p>Connect accounts securely or track manually.</p>
+    </div>
 
-<div class="why-card">
-<h3>You stay in control</h3>
-<p>Connect accounts securely or track manually.</p>
-</div>
+    <div class="why-card">
+      <h3>Actually enjoyable</h3>
+      <p>Warm, calm, and designed to be opened often.</p>
+    </div>
+  </div>
+</section>
 
-<div class="why-card">
-<h3>Actually enjoyable</h3>
-<p>Warm, calm, and designed to be opened often.</p>
-</div>
+<div class="section-divider"></div>
 
-</div>
+<section class="waitlist-section" id="waitlist">
+  <iframe
+    class="tally-frame"
+    src="https://tally.so/r/dWlvkD"
+    scrolling="no">
+  </iframe>
 </section>
 
 <div class="section-divider"></div>
 
 <section class="about-section" id="about">
+  <div class="section-label">About</div>
 
-<div class="section-label">About</div>
+  <h2>
+    More about<br>
+    <em>Filo</em>
+  </h2>
 
-<h2>
-More about<br>
-<em>Filo</em>
-</h2>
-
-<div class="about-placeholder">
-Most finance apps were designed for a world of fixed paychecks and predictable routines.
+  <div class="about-placeholder">Most finance apps were designed for a world of fixed paychecks and predictable routines.
 
 But today, many people earn through side income, freelancing, creator revenue, online business, commissions, and multiple streams at once.
 
 Filo was created to help you understand what’s coming in, what’s safe to spend, and where you’re growing.
 
-We believe money tools should feel calm, modern, and built around how your life works.
-</div>
-
+We believe money tools should feel calm, modern, and built around how your life works.</div>
 </section>
 
 <footer class="footer">
-© 2026 Filo
+  © 2026 Filo
 </footer>
 
 <script>
-if ("scrollRestoration" in history) {
-  history.scrollRestoration = "manual";
-}
-
-window.addEventListener("load", () => {
-  window.scrollTo(0,0);
-  updateNavTheme();
-});
-
-document.getElementById("topLogo").addEventListener("click", function(e){
-  e.preventDefault();
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-});
-
-function updateNavTheme(){
-  const hero = document.querySelector(".hero");
-  const trigger = hero.offsetHeight - 90;
-
-  if(window.scrollY < trigger){
-    document.body.classList.add("nav-on-hero");
-    document.body.classList.remove("nav-scrolled");
-  } else {
-    document.body.classList.add("nav-scrolled");
-    document.body.classList.remove("nav-on-hero");
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
   }
-}
 
-window.addEventListener("scroll", updateNavTheme, {passive:true});
-window.addEventListener("resize", updateNavTheme);
+  window.addEventListener("load", () => {
+    window.scrollTo(0, 0);
+    updateNavTheme();
+  });
+
+  document.getElementById("topLogo").addEventListener("click", function(e) {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+
+  function updateNavTheme() {
+    const hero = document.querySelector(".hero");
+    const trigger = hero.offsetHeight - 90;
+
+    if (window.scrollY < trigger) {
+      document.body.classList.add("nav-on-hero");
+      document.body.classList.remove("nav-scrolled");
+    } else {
+      document.body.classList.add("nav-scrolled");
+      document.body.classList.remove("nav-on-hero");
+    }
+  }
+
+  window.addEventListener("scroll", updateNavTheme, { passive: true });
+  window.addEventListener("resize", updateNavTheme);
 </script>
 
 </body>
