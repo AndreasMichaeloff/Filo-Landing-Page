@@ -16,11 +16,11 @@
     :root {
       --gold: #e8b84b;
       --gold-dk: #c49a30;
-      --cream: #f3efe6;
-      --cream-2: #eee7d8;
+      --cream: #E9E6DD;
+      --cream-soft: #F6F2EA;
       --text: #1a1410;
       --muted: #7f7365;
-      --border: #e8dcc5;
+      --border: #dcd2bd;
       --nav-height: 58px;
       --nav-radius: 999px;
     }
@@ -81,6 +81,10 @@
       -webkit-backdrop-filter: blur(14px);
       position: relative;
       overflow: hidden;
+      color: #2b2118;
+      border: 1px solid rgba(120,110,92,.14);
+      box-shadow: 0 8px 20px rgba(32,20,6,.07);
+      background: rgba(246,242,234,.58);
       transition: background .22s ease, color .22s ease, border-color .22s ease, box-shadow .22s ease, transform .22s ease;
     }
 
@@ -96,22 +100,10 @@
       opacity: .72;
     }
 
-    body.nav-on-hero .nav-logo,
-    body.nav-on-hero .nav-cta,
-    body.nav-on-hero .segmented-nav,
-    body.nav-scrolled .nav-logo,
-    body.nav-scrolled .nav-cta,
-    body.nav-scrolled .segmented-nav {
-      color: #2b2118;
-      border: 1px solid rgba(120,110,92,.14);
-      box-shadow: 0 8px 20px rgba(32,20,6,.07);
-      background: #F3EFE6 0%, rgba(245,235,214,.56) 100%);
-    }
-
     .nav-logo:hover,
     .nav-cta:hover,
     .segmented-nav:hover {
-      background: #F3EFE6 0%, rgba(232,220,191,.78) 100%);
+      background: rgba(255,253,247,.76);
       transform: translateY(-1px);
     }
 
@@ -184,13 +176,13 @@
       min-height: 100vh;
       min-height: 100svh;
       overflow: hidden;
-      background: #F3EFE6;
+      background: var(--cream);
     }
 
     .hero-inner {
       min-height: 100vh;
       min-height: 100svh;
-      max-width: 1320px;
+      max-width: 1380px;
       margin: 0 auto;
       padding: 110px 28px 44px;
       display: grid;
@@ -204,27 +196,6 @@
     .hero-copy {
       max-width: 570px;
       padding-left: clamp(0px, 3vw, 32px);
-    }
-
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--gold-dk);
-      font-size: 12px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
-
-    .hero-kicker::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--gold);
-      box-shadow: 0 0 18px rgba(232,184,75,.78);
     }
 
     .hero-title {
@@ -254,23 +225,30 @@
 
     .hero-primary,
     .hero-secondary {
-      color: #2b2118;
-      border: 1px solid rgba(120,110,92,.18);
-      background: rgba(255,253,247,.46);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      height: 56px;
+      min-width: 184px;
+      padding: 0 26px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease;
     }
 
     .hero-primary {
-      background: #E9E6DD;
-      color: #1a1410;
-      box-shadow: 0 14px 32px rgba(130,91,20,.20);
+      color: #17110d;
+      background: #fffdf7;
+      border: 1px solid rgba(120,110,92,.13);
+      box-shadow: 0 14px 34px rgba(72,58,36,.12);
     }
 
     .hero-secondary {
-      color: #E9E6DD;
-      border: 1px solid rgba(120,110,92,.18);
-      background: rgba(255,253,247,.58);
+      color: #1a1410;
+      border: 1px solid rgba(120,110,92,.20);
+      background: rgba(255,253,247,.38);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
@@ -278,6 +256,8 @@
     .hero-primary:hover,
     .hero-secondary:hover {
       transform: translateY(-2px);
+      background: #fffdf7;
+      box-shadow: 0 18px 42px rgba(72,58,36,.15);
     }
 
     .hero-visual {
@@ -288,8 +268,8 @@
 
     .hero-visual img {
       position: absolute;
-      right: -34px;
-      top: 50%;
+      right: -92px;
+      top: 58%;
       transform: translateY(-50%);
       width: min(680px, 54vw);
       max-width: none;
@@ -302,7 +282,7 @@
       height: 1px;
       max-width: 800px;
       margin: 0 auto;
-      background: #F3EFE6, transparent);
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
     }
 
     .section {
@@ -355,7 +335,7 @@
       margin: 0 auto;
       border-radius: 54px;
       padding: 7px;
-      background: #F3EFE6;
+      background: #2d2d2f;
       box-shadow: 0 30px 80px rgba(0,0,0,.22);
     }
 
@@ -433,6 +413,7 @@
     }
 
     .bento-card.tall { min-height: 478px; }
+
     .bento-card.dark {
       background: #171717;
       color: #fff;
@@ -471,7 +452,7 @@
     .mini-bars span {
       flex: 1;
       border-radius: 999px 999px 8px 8px;
-      background: #F3EFE6;
+      background: linear-gradient(180deg, #f4d679, #d9a23b);
       opacity: .88;
       animation: barPulse 3.4s ease-in-out infinite;
     }
@@ -505,7 +486,7 @@
       right: -42px;
       bottom: -46px;
       border-radius: 999px;
-      background: #F3EFE6;
+      background: radial-gradient(circle, transparent 43%, rgba(232,184,75,.30) 44%, rgba(232,184,75,.30) 54%, transparent 55%);
       animation: spin 16s linear infinite;
     }
 
@@ -526,7 +507,7 @@
     .engine-section {
       max-width: none;
       padding: 110px 24px;
-      background: #F3EFE6;
+      background: radial-gradient(circle at 20% 10%, rgba(232,184,75,.22), transparent 26%), #141414;
       color: #fff;
     }
 
@@ -546,7 +527,7 @@
       min-height: 210px;
       border-radius: 28px;
       border: 1px solid rgba(255,255,255,.10);
-      background: #F3EFE6, rgba(255,255,255,.035));
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035));
       padding: 24px;
       position: relative;
       overflow: hidden;
@@ -568,7 +549,7 @@
       position: absolute;
       inset: auto -20% -45% -20%;
       height: 130px;
-      background: #F3EFE6;
+      background: radial-gradient(circle, rgba(232,184,75,.24), transparent 65%);
     }
 
     .about-placeholder {
@@ -670,6 +651,12 @@
         padding-left: 0;
       }
 
+      .hero-title {
+        max-width: 9.2ch;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
       .hero-sub {
         margin: 0 auto;
       }
@@ -684,6 +671,7 @@
 
       .hero-visual img {
         right: 50%;
+        top: 50%;
         transform: translate(50%, -50%);
         width: min(620px, 96vw);
       }
