@@ -244,32 +244,29 @@
 
     .hero-actions {
       display: flex;
-      gap: 12px;
-      margin-top: 30px;
+      gap: 14px;
+      margin-top: 34px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     .hero-primary,
     .hero-secondary {
-      height: 54px;
-      padding: 0 23px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      font-weight: 700;
-      transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+      color: #2b2118;
+      border: 1px solid rgba(120,110,92,.18);
+      background: rgba(255,253,247,.46);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .hero-primary {
-      background: #FBF8ED;
+      background: #F3EFE6;
       color: #1a1410;
       box-shadow: 0 14px 32px rgba(130,91,20,.20);
     }
 
     .hero-secondary {
-      color: #FBF8ED;
+      color: #2b2118;
       border: 1px solid rgba(120,110,92,.18);
       background: rgba(255,253,247,.58);
       backdrop-filter: blur(12px);
@@ -283,16 +280,16 @@
 
     .hero-visual {
       position: relative;
-      min-height: 640px;
+      min-height: 560px;
       width: 100%;
     }
 
     .hero-visual img {
       position: absolute;
-      right: -120px;
+      right: -34px;
       top: 50%;
       transform: translateY(-50%);
-      width: min(920px, 70vw);
+      width: min(680px, 54vw);
       max-width: none;
       display: block;
       pointer-events: none;
@@ -680,13 +677,13 @@
       }
 
       .hero-visual {
-        min-height: 430px;
+        min-height: 390px;
       }
 
       .hero-visual img {
         right: 50%;
         transform: translate(50%, -50%);
-        width: min(760px, 110vw);
+        width: min(620px, 96vw);
       }
 
       .proof-section {
@@ -766,7 +763,7 @@
       }
 
       .hero-visual {
-        min-height: 350px;
+        min-height: 320px;
       }
     }
 
@@ -822,7 +819,7 @@
       }
 
       .hero-visual {
-        min-height: 300px;
+        min-height: 280px;
       }
 
       .section,
@@ -861,7 +858,6 @@
 
   <div class="hero-inner">
     <div class="hero-copy">
-      <div class="hero-kicker">Filo</div>
       <h1 class="hero-title">When your income has layers,<br>your money app should too.</h1>
       <p class="hero-sub">Track every stream, know what’s safe to spend, and grow with clarity.</p>
       <div class="hero-actions">
