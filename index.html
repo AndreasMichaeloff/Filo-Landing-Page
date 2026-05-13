@@ -16,9 +16,9 @@
     :root {
       --gold: #e8b84b;
       --gold-dk: #c49a30;
-      --cream: #F7F2EA;
-      --cream-soft: #F6F2EA;
-      --text: #1a1410;
+      --cream: #FFFDF8;
+      --cream-soft: #FFF9EF;
+      --text: #181818;
       --muted: #7f7365;
       --border: #dcd2bd;
       --nav-height: 58px;
@@ -77,14 +77,18 @@
       align-items: center;
       justify-content: center;
       border-radius: var(--nav-radius);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       position: relative;
       overflow: hidden;
       color: #2b2118;
-      border: 1px solid rgba(120,110,92,.14);
-      box-shadow: 0 8px 20px rgba(32,20,6,.07);
-      background: rgba(246,242,234,.58);
+      border: 1px solid rgba(120,110,92,.12);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.86),
+        inset 0 -1px 0 rgba(210,184,118,.1),
+        0 10px 24px rgba(32,20,6,.06);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.78) 0%, rgba(255,253,248,.48) 48%, rgba(255,249,239,.34) 100%);
       transition: background .22s ease, color .22s ease, border-color .22s ease, box-shadow .22s ease, transform .22s ease;
     }
 
@@ -96,27 +100,30 @@
       inset: 0;
       border-radius: inherit;
       pointer-events: none;
-      border: 1px solid rgba(255,255,255,.48);
-      opacity: .72;
+      border: 1px solid rgba(255,255,255,.66);
+      opacity: .9;
+      box-shadow: inset 0 12px 18px rgba(255,255,255,.36);
     }
 
     .nav-logo:hover,
     .nav-cta:hover,
     .segmented-nav:hover {
-      background: rgba(255,253,247,.76);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.9) 0%, rgba(255,253,248,.58) 52%, rgba(255,249,239,.42) 100%);
       transform: translateY(-1px);
     }
 
     .nav-logo {
       min-width: 132px;
-      padding: 0 18px;
+      padding: 0 20px;
     }
 
     .nav-logo-mark {
       position: relative;
-      width: 118px;
-      height: 38px;
+      width: 72px;
+      height: 23px;
       display: block;
+      margin: 0 auto;
     }
 
     .nav-logo-mark img {
@@ -130,7 +137,7 @@
     }
 
     .nav-logo-light { opacity: 0; }
-    .nav-logo-dark { opacity: .72; }
+    .nav-logo-dark { opacity: 1; }
 
     .nav-logo-fallback {
       display: none;
@@ -163,12 +170,15 @@
       font-size: 16px;
       font-weight: 600;
       color: #2b2118;
-      transition: background .22s ease, color .22s ease;
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
     }
 
     .seg-btn:hover {
-      background: rgba(44,48,54,.38);
-      color: #fff;
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.34);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.7),
+        0 8px 18px rgba(72,58,36,.08);
     }
 
     .hero {
@@ -194,7 +204,7 @@
     }
 
     .hero-copy {
-      max-width: 570px;
+      max-width: 660px;
       padding-left: clamp(0px, 3vw, 32px);
     }
 
@@ -204,7 +214,7 @@
       letter-spacing: -0.06em;
       color: var(--text);
       margin-bottom: 22px;
-      max-width: 9.2ch;
+      max-width: 11.8ch;
       text-wrap: balance;
     }
 
@@ -268,10 +278,10 @@
 
     .hero-visual img {
       position: absolute;
-      right: -92px;
+      right: -34px;
       top: 58%;
       transform: translateY(-50%);
-      width: min(680px, 54vw);
+      width: min(630px, 50vw);
       max-width: none;
       display: block;
       pointer-events: none;
@@ -324,72 +334,267 @@
     }
 
     .proof-section {
-      display: grid;
-      grid-template-columns: .95fr 1.05fr;
-      gap: 54px;
+      display: flex;
+      justify-content: center;
       align-items: center;
     }
 
-    .phone-large {
-      width: min(340px, 100%);
+    .clarity-board {
+      position: relative;
+      width: min(640px, 100%);
       margin: 0 auto;
-      border-radius: 54px;
-      padding: 7px;
-      background: #2d2d2f;
-      box-shadow: 0 30px 80px rgba(0,0,0,.22);
+      overflow: hidden;
+      border: 1px solid rgba(232,184,75,.28);
+      border-radius: 42px;
+      padding: 34px;
+      background:
+        radial-gradient(circle at 24% 16%, rgba(255,255,255,.95), transparent 34%),
+        radial-gradient(circle at 84% 12%, rgba(232,184,75,.28), transparent 34%),
+        linear-gradient(180deg, rgba(255,250,238,.96), rgba(251,226,164,.46));
+      box-shadow:
+        0 26px 76px rgba(112,80,22,.13),
+        inset 0 1px 0 rgba(255,255,255,.85),
+        inset 0 -1px 0 rgba(232,184,75,.14);
     }
 
-    .phone-large img {
-      width: 100%;
-      display: block;
-      border-radius: 48px;
+    .clarity-board::before {
+      content: "";
+      position: absolute;
+      inset: 24px;
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,.72);
+      pointer-events: none;
+      z-index: 1;
     }
 
-    .proof-copy h2 {
-      text-align: left;
+    .clarity-board::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      right: -86px;
+      bottom: -96px;
+      border-radius: 999px;
+      background: rgba(232,184,75,.18);
+      filter: blur(10px);
+      pointer-events: none;
+    }
+
+    .clarity-board > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .flow-label {
+      color: var(--gold-dk);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
       margin-bottom: 18px;
     }
 
-    .proof-copy p {
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 17px;
+    .income-streams {
+      display: grid;
+      gap: 12px;
       margin-bottom: 24px;
     }
 
-    .formula-card {
-      border-radius: 26px;
-      border: 1px solid var(--border);
-      background: rgba(255,253,247,.62);
-      padding: 22px;
-      box-shadow: 0 18px 45px rgba(62,45,10,.07);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    .formula-row {
+    .stream-pill {
       display: flex;
+      align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding: 13px 0;
-      border-bottom: 1px solid #e8dcc5;
-      color: #6e6253;
+      min-height: 64px;
+      border: 1px solid rgba(220,210,189,.78);
+      border-radius: 24px;
+      background: rgba(255,253,248,.72);
+      padding: 14px 16px;
+      box-shadow: 0 14px 32px rgba(62,45,10,.05);
+    }
+
+    .stream-name {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #4d4337;
+      font-weight: 800;
+    }
+
+    .stream-dot {
+      position: relative;
+      width: 38px;
+      height: 34px;
+      border-radius: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 900;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.36);
+    }
+
+    .stream-dot.youtube {
+      background: #ffe4e7;
+      color: #ff0000;
+      font-size: 0;
+    }
+
+    .stream-dot.youtube::before {
+      content: "";
+      width: 21px;
+      height: 15px;
+      border-radius: 5px;
+      background: #ff0000;
+      display: block;
+    }
+
+    .stream-dot.youtube::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-left: 7px solid #fff;
+      transform: translateX(1px);
+    }
+
+    .stream-dot.brand { background: linear-gradient(135deg, #ffd7e3, #ff78a9); }
+
+    .stream-dot.stripe {
+      width: 48px;
+      background: #eeeaff;
+      color: #635bff;
+      font-size: 0;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.62);
+    }
+
+    .stream-dot.stripe::before {
+      content: "stripe";
+      color: #635bff;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      line-height: 1;
+      transform: translateY(-1px);
+    }
+
+    .stream-amount {
+      color: var(--text);
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .source-goal-panel {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 26px;
+      border-radius: 30px;
+      padding: 24px 28px;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 32% 50%, rgba(232,184,75,.16), transparent 42%),
+        rgba(255,253,248,.7);
+      border: 1px solid rgba(220,210,189,.78);
+      box-shadow:
+        0 18px 42px rgba(62,45,10,.08),
+        inset 0 1px 0 rgba(255,255,255,.78);
+    }
+
+    .goal-donut {
+      position: relative;
+      width: 142px;
+      aspect-ratio: 1;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle, var(--cream) 0 43%, transparent 44%),
+        conic-gradient(from 0deg, #f14c4c 0 17%, #f06aa9 17% 25%, #766cf1 25% 31%, #5ee2e8 31% 34%, #3b8dc4 34% 36%, rgba(238,230,212,.72) 36% 100%);
+      box-shadow:
+        inset 0 0 0 13px rgba(255,255,255,.28),
+        0 18px 38px rgba(86,59,20,.10);
+    }
+
+    .goal-donut::before {
+      content: "";
+      position: absolute;
+      inset: 15px;
+      border-radius: inherit;
+      background: rgba(244,237,222,.82);
+      z-index: 1;
+    }
+
+    .goal-donut::after {
+      content: "";
+      position: absolute;
+      inset: 34px;
+      border-radius: inherit;
+      background: var(--cream);
+      z-index: 2;
+    }
+
+    .goal-donut-center {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      font-size: 34px;
+    }
+
+    .goal-donut-center span {
+      margin-top: 2px;
+      color: #9d8f74;
+      font-size: 13px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .goal-summary span {
+      display: block;
+      width: fit-content;
+      margin-bottom: 12px;
+      border-radius: 999px;
+      padding: 7px 14px;
+      background: rgba(232,184,75,.12);
+      font-weight: 900;
+      color: var(--gold-dk);
+      font-size: 16px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .goal-summary strong {
+      display: block;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    .goal-summary p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 15px;
       font-weight: 700;
     }
-
-    .formula-row:last-child {
-      border-bottom: none;
-      color: var(--text);
-      font-size: 18px;
-    }
-
-    .formula-row .positive { color: #2f966a; }
-    .formula-row .negative { color: #b06a42; }
 
     .bento-grid {
       display: grid;
       grid-template-columns: 1.15fr .85fr;
       gap: 18px;
+    }
+
+    .why-desktop-showcase {
+      display: none;
     }
 
     .bento-card {
@@ -402,7 +607,6 @@
       overflow: hidden;
       box-shadow: 0 18px 48px rgba(62,45,10,.06);
       transition: transform .25s ease, box-shadow .25s ease;
-      cursor: pointer;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
@@ -414,10 +618,10 @@
 
     .bento-card.tall { min-height: 478px; }
 
-    .bento-card.dark {
-      background: #171717;
-      color: #fff;
-      border-color: rgba(255,255,255,.10);
+    .bento-card.featured {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .bento-card h3 {
@@ -436,82 +640,189 @@
       z-index: 2;
     }
 
-    .bento-card.dark p { color: rgba(255,255,255,.70); }
-
-    .mini-bars {
-      position: absolute;
-      left: 28px;
-      right: 28px;
-      bottom: 26px;
-      display: flex;
-      align-items: flex-end;
-      gap: 10px;
-      height: 95px;
-    }
-
-    .mini-bars span {
-      flex: 1;
-      border-radius: 999px 999px 8px 8px;
-      background: linear-gradient(180deg, #f4d679, #d9a23b);
-      opacity: .88;
-      animation: barPulse 3.4s ease-in-out infinite;
-    }
-
-    .mini-bars span:nth-child(1){ height: 35%; }
-    .mini-bars span:nth-child(2){ height: 62%; animation-delay: -.4s; }
-    .mini-bars span:nth-child(3){ height: 48%; animation-delay: -.8s; }
-    .mini-bars span:nth-child(4){ height: 86%; animation-delay: -1.2s; }
-    .mini-bars span:nth-child(5){ height: 70%; animation-delay: -1.6s; }
-
-    @keyframes barPulse {
-      0%,100% { transform: scaleY(.96); }
-      50% { transform: scaleY(1.08); }
-    }
-
-    .tax-ring {
-      position: absolute;
-      width: 190px;
-      height: 190px;
-      right: -32px;
-      bottom: -38px;
+    .card-kicker {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 32px;
+      margin-bottom: 18px;
       border-radius: 999px;
-      border: 24px solid rgba(232,184,75,.22);
-      box-shadow: inset 0 0 0 24px rgba(232,184,75,.18);
+      padding: 0 12px;
+      background: rgba(232,184,75,.12);
+      color: var(--gold-dk);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
     }
 
-    .goal-orbit {
-      position: absolute;
-      width: 210px;
-      height: 210px;
-      right: -42px;
-      bottom: -46px;
-      border-radius: 999px;
-      background: radial-gradient(circle, transparent 43%, rgba(232,184,75,.30) 44%, rgba(232,184,75,.30) 54%, transparent 55%);
-      animation: spin 16s linear infinite;
+    .cleanup-preview,
+    .safe-math,
+    .insight-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
     }
 
-    .goal-orbit::after {
-      content: "";
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      border-radius: 999px;
-      background: var(--gold);
-      top: 16px;
-      left: 92px;
-      box-shadow: 0 0 22px rgba(232,184,75,.8);
+    .math-row,
+    .insight-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(220,210,189,.74);
+      color: #6e6253;
+      font-weight: 800;
     }
 
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .math-row:last-child,
+    .insight-row:last-child {
+      border-bottom: none;
+    }
+
+    .math-row span,
+    .insight-row span {
+      min-width: 0;
+    }
+
+    .math-row small {
+      display: block;
+      margin-top: 4px;
+      color: #a09689;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .math-row strong,
+    .insight-row strong {
+      color: var(--text);
+      font-size: 18px;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+    }
+
+    .cleanup-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, .82fr);
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border: 1px solid rgba(220,210,189,.72);
+      border-radius: 20px;
+      background: rgba(255,253,248,.68);
+      box-shadow: 0 12px 28px rgba(62,45,10,.045);
+    }
+
+    .raw-transaction,
+    .clean-source {
+      min-width: 0;
+    }
+
+    .raw-transaction span,
+    .clean-source span {
+      display: block;
+      margin-bottom: 5px;
+      color: #a09689;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .raw-transaction strong,
+    .clean-source strong {
+      display: block;
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .clean-source strong {
+      color: #2f966a;
+    }
+
+    .clean-source small {
+      display: block;
+      margin-top: 4px;
+      color: #6e6253;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .cleanup-arrow {
+      color: var(--gold-dk);
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .safe-number {
+      margin-top: 28px;
+      color: var(--text);
+      font-size: clamp(46px, 5vw, 68px);
+      line-height: .9;
+      letter-spacing: -0.07em;
+      font-weight: 900;
+    }
+
+    .safe-number span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.3;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .insight-row strong.good { color: #2f966a; }
+    .insight-row strong.gold { color: var(--gold-dk); }
 
     .engine-section {
       max-width: none;
-      padding: 110px 24px;
-      background: radial-gradient(circle at 20% 10%, rgba(232,184,75,.22), transparent 26%), #141414;
+      padding: 100px 24px;
+      background: var(--cream);
       color: #fff;
     }
 
-    .engine-inner { max-width: 1120px; margin: 0 auto; }
+    .engine-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 42px;
+      padding: 72px 56px;
+      overflow: hidden;
+      position: relative;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(232,184,75,.24), transparent 28%),
+        linear-gradient(135deg, #1b1a18, #121212 68%);
+      box-shadow:
+        0 28px 80px rgba(62,45,10,.14),
+        inset 0 1px 0 rgba(255,255,255,.1);
+    }
+
+    .engine-inner::after {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      right: -140px;
+      top: -130px;
+      border-radius: 999px;
+      background: rgba(232,184,75,.12);
+      filter: blur(6px);
+      pointer-events: none;
+    }
+
+    .engine-inner > * {
+      position: relative;
+      z-index: 2;
+    }
+
     .engine-section .section-label { color: #f3d98a; }
     .engine-section h2 { color: #fff; }
     .engine-section .section-sub { color: rgba(255,255,255,.68); }
@@ -552,6 +863,22 @@
       background: radial-gradient(circle, rgba(232,184,75,.24), transparent 65%);
     }
 
+    @media (min-width: 1121px) {
+      .proof-section,
+      .product-section-divider {
+        display: none;
+      }
+
+      .why-desktop-showcase {
+        display: block;
+        margin: 0 auto 64px;
+      }
+
+      .why-desktop-showcase .clarity-board {
+        width: min(760px, 100%);
+      }
+    }
+
     .about-placeholder {
       max-width: 760px;
       margin: 0 auto;
@@ -559,13 +886,53 @@
       border: 1px solid var(--border);
       border-radius: 28px;
       padding: 40px 34px;
-      text-align: center;
+      text-align: left;
       color: var(--muted);
-      line-height: 1.85;
+      line-height: 1.65;
       font-size: 17px;
       box-shadow: 0 18px 48px rgba(62,45,10,.06);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
+    }
+
+    .about-placeholder strong {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--text);
+      font-size: 24px;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
+
+    .about-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .about-chip {
+      border: 1px solid rgba(220,210,189,.82);
+      border-radius: 20px;
+      padding: 16px;
+      background: rgba(255,255,255,.36);
+    }
+
+    .about-chip span {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--gold-dk);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .about-chip p {
+      color: #6e6253;
+      line-height: 1.45;
+      font-size: 14px;
+      font-weight: 700;
     }
 
     .waitlist-section {
@@ -585,7 +952,7 @@
 
     .footer {
       padding: 32px;
-      text-align: center;
+      text-align: left;
       font-size: 13px;
       color: #a69a88;
       border-top: 1px solid var(--border);
@@ -643,7 +1010,9 @@
       .hero-inner {
         grid-template-columns: 1fr;
         text-align: center;
-        padding-top: 110px;
+        padding-top: 128px;
+        padding-bottom: 58px;
+        gap: 18px;
       }
 
       .hero-copy {
@@ -652,7 +1021,7 @@
       }
 
       .hero-title {
-        max-width: 9.2ch;
+        max-width: 12.8ch;
         margin-left: auto;
         margin-right: auto;
       }
@@ -666,24 +1035,18 @@
       }
 
       .hero-visual {
-        min-height: 390px;
+        min-height: 440px;
       }
 
       .hero-visual img {
         right: 50%;
-        top: 50%;
+        top: 51%;
         transform: translate(50%, -50%);
-        width: min(620px, 96vw);
+        width: min(560px, 88vw);
       }
 
-      .proof-section {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .proof-copy h2,
-      .proof-copy .section-label {
-        text-align: center !important;
+      .clarity-board {
+        width: min(620px, 94vw);
       }
 
       .bento-grid,
@@ -733,6 +1096,38 @@
     }
 
     @media (max-width: 760px) {
+      .segmented-nav {
+        min-width: 240px;
+      }
+
+      .nav-logo {
+        min-width: 96px;
+      }
+
+      .nav-logo-mark {
+        width: 68px;
+        height: 21px;
+      }
+
+      .nav-cta {
+        min-width: 150px;
+        padding: 0 14px;
+      }
+
+      .hero-title {
+        font-size: clamp(42px, 13vw, 60px);
+      }
+
+      .hero-visual {
+        min-height: 380px;
+      }
+
+      .hero-visual img {
+        width: min(500px, 104vw);
+      }
+    }
+
+    @media (max-width: 640px) {
       .site-nav {
         grid-template-columns: 1fr auto;
         row-gap: 10px;
@@ -746,14 +1141,6 @@
       .segmented-nav {
         width: min(92vw, 340px);
         min-width: 0;
-      }
-
-      .hero-title {
-        font-size: clamp(42px, 13vw, 60px);
-      }
-
-      .hero-visual {
-        min-height: 320px;
       }
     }
 
@@ -797,6 +1184,8 @@
       .hero-inner {
         padding-left: 18px;
         padding-right: 18px;
+        padding-top: 146px;
+        gap: 8px;
       }
 
       .hero-sub {
@@ -805,16 +1194,67 @@
 
       .hero-primary,
       .hero-secondary {
-        width: 100%;
+        width: min(100%, 260px);
       }
 
       .hero-visual {
-        min-height: 280px;
+        min-height: 330px;
+      }
+
+      .hero-visual img {
+        width: min(420px, 112vw);
       }
 
       .section,
       .waitlist-section {
         padding: 76px 18px;
+      }
+
+      .clarity-board {
+        padding: 24px;
+        border-radius: 32px;
+      }
+
+      .stream-pill {
+        min-height: 58px;
+        border-radius: 20px;
+      }
+
+      .cleanup-row {
+        grid-template-columns: 1fr;
+      }
+
+      .cleanup-arrow {
+        transform: rotate(90deg);
+        width: fit-content;
+      }
+
+      .stream-amount {
+        font-size: 18px;
+      }
+
+      .source-goal-panel {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+      }
+
+      .goal-summary span {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .about-list {
+        grid-template-columns: 1fr;
+      }
+
+      .engine-section {
+        padding: 76px 18px;
+      }
+
+      .engine-inner {
+        padding: 52px 24px;
+        border-radius: 32px;
       }
     }
   </style>
@@ -827,8 +1267,8 @@
     <div class="nav-left">
       <a href="#top" class="nav-logo" id="topLogo">
         <span class="nav-logo-mark">
-          <img class="nav-logo-light" src="Modern logo with abstract 'o' design.png" alt="Filo light logo" />
-          <img class="nav-logo-dark" src="Minimalist dark gray logo design.png" alt="Filo dark logo" />
+          <img class="nav-logo-light" src="filo-glow-logo.png" alt="Filo light logo" />
+          <img class="nav-logo-dark" src="filo-glow-logo.png" alt="Filo logo" />
         </span>
         <span class="nav-logo-fallback">filo</span>
       </a>
@@ -848,11 +1288,10 @@
 
   <div class="hero-inner">
     <div class="hero-copy">
-      <h1 class="hero-title">When your<br>income has layers,<br>your money<br>app should too.</h1>
-      <p class="hero-sub">Track every stream, know what’s safe to spend, and grow with clarity.</p>
+      <h1 class="hero-title">Tracking income can be hard when you work for yourself.</h1>
+      <p class="hero-sub">Filo changes that. Track every stream, understand your month’s pace, and grow with clarity.</p>
       <div class="hero-actions">
-        <a href="#waitlist" class="hero-primary">Join the waitlist</a>
-        <a href="#product" class="hero-secondary">See how it works</a>
+        <a href="#product" class="hero-primary">See how it works</a>
       </div>
     </div>
 
@@ -865,60 +1304,130 @@
 <div class="section-divider"></div>
 
 <section class="section proof-section" id="product">
-  <div class="phone-large">
-    <img src="filo_app_rn.PNG" alt="Filo app homepage" />
-  </div>
-
-  <div class="proof-copy">
-    <div class="section-label" style="text-align:left;">See Filo in action</div>
-    <h2>One clear view of what you earn, protect, and can use.</h2>
-    <p>Filo turns income streams, bills, taxes, and goals into a simple money view designed around how you actually earn.</p>
-
-    <div class="formula-card">
-      <div class="formula-row"><span>Income this month</span><strong class="positive">+$5,320</strong></div>
-      <div class="formula-row"><span>Taxes protected</span><strong class="negative">−$1,284</strong></div>
-      <div class="formula-row"><span>Bills coming</span><strong class="negative">−$1,545</strong></div>
-      <div class="formula-row"><span>Available now</span><strong>$2,491</strong></div>
+  <div class="clarity-board" aria-label="Filo income clarity preview">
+    <div class="flow-label">Sources tracked</div>
+    <div class="income-streams">
+      <div class="stream-pill">
+        <div class="stream-name"><span class="stream-dot youtube">YT</span>YouTube</div>
+        <div class="stream-amount">+$1,420</div>
+      </div>
+      <div class="stream-pill">
+        <div class="stream-name"><span class="stream-dot brand">AF</span>Affiliates</div>
+        <div class="stream-amount">+$1,200</div>
+      </div>
+      <div class="stream-pill">
+        <div class="stream-name"><span class="stream-dot stripe">S</span>Stripe</div>
+        <div class="stream-amount">+$400</div>
+      </div>
+    </div>
+    <div class="source-goal-panel">
+      <div class="goal-donut" aria-hidden="true">
+        <div class="goal-donut-center">36%<span>to goal</span></div>
+      </div>
+      <div class="goal-summary">
+        <span>On pace</span>
+        <p>See which sources are moving the month and how close you are to your target.</p>
+      </div>
     </div>
   </div>
+
 </section>
 
-<div class="section-divider"></div>
+<div class="section-divider product-section-divider"></div>
 
 <section class="section" id="why">
-  <div class="section-label">Why Filo?</div>
-  <h2>Built for<br><em>layered income.</em></h2>
-  <p class="section-sub">Explore the pieces that make Filo different. Each layer helps turn income into clearer decisions.</p>
+  <h2>Built for how<br><em>you actually earn.</em></h2>
+  <p class="section-sub">Filo helps creators, freelancers, and hustlers turn scattered money activity into the answers they actually need.</p>
+
+  <div class="why-desktop-showcase" aria-hidden="true">
+    <div class="clarity-board">
+      <div class="flow-label">Sources tracked</div>
+      <div class="income-streams">
+        <div class="stream-pill">
+          <div class="stream-name"><span class="stream-dot youtube">YT</span>YouTube</div>
+          <div class="stream-amount">+$1,420</div>
+        </div>
+        <div class="stream-pill">
+          <div class="stream-name"><span class="stream-dot brand">AF</span>Affiliates</div>
+          <div class="stream-amount">+$1,200</div>
+        </div>
+        <div class="stream-pill">
+          <div class="stream-name"><span class="stream-dot stripe">S</span>Stripe</div>
+          <div class="stream-amount">+$400</div>
+        </div>
+      </div>
+      <div class="source-goal-panel">
+        <div class="goal-donut" aria-hidden="true">
+          <div class="goal-donut-center">36%<span>to goal</span></div>
+        </div>
+        <div class="goal-summary">
+          <span>On pace</span>
+          <p>See which sources are moving the month and how close you are to your target.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="bento-grid">
-    <div class="bento-card tall" data-title="Income Streams" data-body="Track creator revenue, freelancing, affiliate income, digital products, commissions, and more in one clean place. Filo helps you see which stream is growing and which stream needs attention.">
-      <h3>Income streams</h3>
-      <p>See where your money is coming from and what’s driving your momentum.</p>
-      <div class="mini-bars"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="bento-card tall featured" data-title="Income Streams" data-body="Filo is built to recognize income across messy bank descriptions, creator platforms, freelance payouts, affiliate deposits, and brand work so your homepage can show what is actually driving the month.">
+      <div>
+        <div class="card-kicker">Messy income, cleaned up</div>
+        <h3>Know where the money came from.</h3>
+        <p>Creator and freelance income rarely arrives with neat labels. Filo turns bank wording into sources you can actually understand.</p>
+      </div>
+      <div class="cleanup-preview">
+        <div class="cleanup-row">
+          <div class="raw-transaction"><span>Bank says</span><strong>GOOGLE *ADSENSE 0426</strong></div>
+          <div class="cleanup-arrow">→</div>
+          <div class="clean-source"><span>Filo shows</span><strong>YouTube</strong><small>Ad revenue</small></div>
+        </div>
+        <div class="cleanup-row">
+          <div class="raw-transaction"><span>Bank says</span><strong>STRIPE TRANSFER 9K2</strong></div>
+          <div class="cleanup-arrow">→</div>
+          <div class="clean-source"><span>Filo shows</span><strong>Stripe</strong><small>Client payout</small></div>
+        </div>
+        <div class="cleanup-row">
+          <div class="raw-transaction"><span>Bank says</span><strong>LTK CREATOR PAY</strong></div>
+          <div class="cleanup-arrow">→</div>
+          <div class="clean-source"><span>Filo shows</span><strong>Affiliates</strong><small>Creator commission</small></div>
+        </div>
+      </div>
     </div>
 
-    <div class="bento-card" data-title="Available Now" data-body="Available Now is the number Filo is built around. It estimates what you can actually use after taxes, bills, and important obligations are accounted for.">
-      <h3>Available now</h3>
-      <p>Know what’s safe to use without doing mental math.</p>
-      <div class="tax-ring"></div>
+    <div class="bento-card" data-title="Safe to Spend" data-body="Safe to Spend estimates what you can use after income, tax reserve, bills, and your recent cushion are considered. It is designed for months where timing gets weird.">
+      <div class="card-kicker">Spend with clarity</div>
+      <h3>Safe to spend</h3>
+      <p>One number after taxes, bills, and required money are accounted for.</p>
+      <div class="safe-number">$1,761<span>available now</span></div>
     </div>
 
-    <div class="bento-card dark" data-title="Tax Safe" data-body="Filo helps you separate money that should be protected for taxes so creator income or side income does not accidentally become spending money.">
-      <h3>Tax safe</h3>
-      <p>Keep tax money visible, protected, and easier to plan around.</p>
+    <div class="bento-card" data-title="Runway" data-body="Filo looks at cash cushion and upcoming needs so people with irregular income can understand how much breathing room they have, even when this month has not paid out yet.">
+      <div class="card-kicker">Breathing room</div>
+      <h3>Runway that understands timing.</h3>
+      <p>Big bills and late payouts can make a normal month look scary. Filo keeps recent cushion in the picture.</p>
+      <div class="safe-math">
+        <div class="math-row"><span>Recent cushion<small>money carried forward</small></span><strong>$3,240</strong></div>
+        <div class="math-row"><span>Known bills<small>already planned for</small></span><strong>−$1,480</strong></div>
+        <div class="math-row"><span>Runway</span><strong>11 days</strong></div>
+      </div>
     </div>
 
-    <div class="bento-card" data-title="Goals" data-body="Set a monthly income target, track progress, and see whether you are on pace. Filo makes goals feel connected to your actual earning streams.">
-      <h3>Goals</h3>
-      <p>Build toward your best month without losing track of the details.</p>
-      <div class="goal-orbit"></div>
+    <div class="bento-card" data-title="Month Pace" data-body="Filo turns the month into a simple read: projected month-end, reliability, volatility, momentum, and primary income. It helps people understand whether the month is healthy, not just how much has landed.">
+      <div class="card-kicker">Month pace</div>
+      <h3>See how the month is really going.</h3>
+      <p>Not just totals. Filo shows pace, reliability, volatility, and what source is carrying the month.</p>
+      <div class="insight-list">
+        <div class="insight-row"><span>Projected month-end</span><strong>$10,153</strong></div>
+        <div class="insight-row"><span>Reliability</span><strong class="good">Steady</strong></div>
+        <div class="insight-row"><span>Momentum</span><strong class="good">Stable</strong></div>
+        <div class="insight-row"><span>Primary income</span><strong class="gold">39%</strong></div>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="engine-section">
   <div class="engine-inner">
-    <div class="section-label">The Filo Engine</div>
     <h2>From scattered income<br><em>to clear decisions.</em></h2>
     <p class="section-sub">Filo organizes the layers of your money so the homepage answers what matters first.</p>
 
@@ -942,28 +1451,39 @@
 <div class="section-divider"></div>
 
 <section class="section" id="about">
-  <div class="section-label">About</div>
-  <h2>Money changed.<br><em>Your tools should too.</em></h2>
+  <h2>Your income moves differently.<br><em>Filo keeps it readable.</em></h2>
 
   <div class="about-placeholder">
-    Most finance apps were designed for a world of fixed paychecks and predictable routines.<br><br>
-    But today, many people earn through side income, freelancing, creator revenue, online business, commissions, and multiple streams at once.<br><br>
-    Filo was created to help you understand what’s coming in, what’s safe to spend, and where you’re growing.<br><br>
-    We believe money tools should feel calm, modern, and built around how your life works.
+    <strong>Filo is built for creators, freelancers, entrepreneurs, and side hustlers.</strong>
+    Creator payouts, freelance work, brand deals, side income, and everyday bills all land on different schedules. Filo turns that scattered activity into a calmer homepage: what came in, what is protected, how long your money can last, and what is actually safe to spend.
+
+    <div class="about-list">
+      <div class="about-chip">
+        <span>Clarity</span>
+        <p>Messy transaction names become income sources you can understand.</p>
+      </div>
+      <div class="about-chip">
+        <span>Control</span>
+        <p>Safe-to-spend and runway help you make decisions without guessing.</p>
+      </div>
+      <div class="about-chip">
+        <span>Growth</span>
+        <p>Month pace shows whether income is steady, rising, or getting noisy.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
 <section class="waitlist-section" id="waitlist">
-  <div class="section-label">Early access</div>
   <h2>Get early access<br>to <em>Filo</em></h2>
   <p class="section-sub">Join the waitlist and help shape the money app for people building more than one stream.</p>
 
   <iframe class="tally-frame" src="https://tally.so/r/dWlvkD" scrolling="no"></iframe>
 </section>
 
-<footer class="footer">© 2026 Filo</footer>
+<footer class="footer">© Filo. 2026. All Rights Reserved.</footer>
 
 <div class="modal-backdrop" id="featureModal">
   <div class="modal-card">
@@ -986,6 +1506,21 @@
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
+  document.querySelectorAll('a[href="#waitlist"]').forEach(link => {
+    link.addEventListener("click", function(e) {
+      const waitlist = document.getElementById("waitlist");
+      if (!waitlist) return;
+
+      e.preventDefault();
+      const extraScroll = window.matchMedia("(max-width: 760px)").matches ? 150 : 210;
+      window.scrollTo({
+        top: waitlist.offsetTop + extraScroll,
+        behavior: "smooth"
+      });
+      history.replaceState(null, "", "#waitlist");
+    });
+  });
+
   function updateNavTheme() {
     const hero = document.querySelector(".hero");
     const trigger = hero.offsetHeight - 90;
@@ -1001,23 +1536,6 @@
   window.addEventListener("scroll", updateNavTheme, { passive: true });
   window.addEventListener("resize", updateNavTheme);
 
-  const modal = document.getElementById("featureModal");
-  const modalTitle = document.getElementById("modalTitle");
-  const modalBody = document.getElementById("modalBody");
-  const modalClose = document.getElementById("modalClose");
-
-  document.querySelectorAll(".bento-card").forEach(card => {
-    card.addEventListener("click", () => {
-      modalTitle.textContent = card.dataset.title;
-      modalBody.textContent = card.dataset.body;
-      modal.classList.add("open");
-    });
-  });
-
-  modalClose.addEventListener("click", () => modal.classList.remove("open"));
-  modal.addEventListener("click", e => {
-    if (e.target === modal) modal.classList.remove("open");
-  });
 </script>
 
 </body>
